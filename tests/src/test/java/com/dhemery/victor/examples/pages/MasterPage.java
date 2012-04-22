@@ -1,58 +1,53 @@
 package com.dhemery.victor.examples.pages;
 
-import static com.dhemery.victor.view.ViewExtensions.touch;
-import static com.dhemery.victor.view.ViewExtensions.visible;
-import static org.hamcrest.core.Is.is;
-
 import com.dhemery.polling.PollTimer;
-import com.dhemery.polling.PollableExpressions;
 import com.dhemery.polling.SystemClockPollTimer;
-import com.dhemery.victor.ApplicationDriver;
-import com.dhemery.victor.IgorSelector;
-import com.dhemery.victor.ViewDriver;
-import com.dhemery.victor.ViewSelector;
+import com.dhemery.victor.By;
+import com.dhemery.victor.IosView;
+import com.dhemery.victor.view.IosViewAgent;
 
 import java.util.List;
 
-public class MasterPage extends PollableExpressions {
-    private static final ViewSelector ADD_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Add']");
-    private static final ViewSelector CONFIRM_DELETION_BUTTON = new IgorSelector("UITableViewCellDeleteConfirmationControl[accessibilityLabel == 'Confirm Deletion']");
-    private static final String DELETE_BUTTON_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel=='%s']";
-    private static final ViewSelector DELETE_BUTTONS = new IgorSelector("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel BEGINSWITH 'Delete']");
-    private static final ViewSelector DONE_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Done']");
-    private static final ViewSelector EDIT_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Edit']");
-    private static final String ITEM_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell[accessibilityLabel=='%s']";
-    private static final ViewSelector ITEMS = new IgorSelector("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell");
-    private final ApplicationDriver application;
+import static org.hamcrest.core.Is.is;
 
-    public MasterPage(ApplicationDriver application) {
-        this.application = application;
+public class MasterPage extends Page {
+    private static final By ADD_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Add']");
+    private static final By CONFIRM_DELETION_BUTTON = By.igor("UITableViewCellDeleteConfirmationControl[accessibilityLabel == 'Confirm Deletion']");
+    private static final String DELETE_BUTTON_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel=='%s']";
+    private static final By DELETE_BUTTONS = By.igor("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel BEGINSWITH 'Delete']");
+    private static final By DONE_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Done']");
+    private static final By EDIT_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Edit']");
+    private static final String ITEM_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell[accessibilityLabel=='%s']";
+    private static final By ITEMS = By.igor("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell");
+
+    public MasterPage(IosViewAgent agent, PollTimer timer) {
+        super(agent, timer);
     }
 
-    private ViewDriver addButton() {
-        return application.view(ADD_BUTTON);
+    private IosView addButton() {
+        return view(ADD_BUTTON);
     }
 
     public void addItem() {
         addButton().call(touch());
     }
 
-    private ViewDriver confirmDeletionButton() {
-        return application.view(CONFIRM_DELETION_BUTTON);
+    private IosView confirmDeletionButton() {
+        return view(CONFIRM_DELETION_BUTTON);
     }
 
-    private ViewDriver deleteButtonAtRow(Integer i) {
+    private IosView deleteButtonAtRow(Integer i) {
         List<String> labels = deleteButtons().call("accessibilityLabel");
         return deleteButtonNamed(labels.get(i));
     }
 
-    private ViewDriver deleteButtonNamed(String name) {
-        ViewSelector selector = new IgorSelector(String.format(DELETE_BUTTON_TEMPLATE, name));
-        return application.view(selector);
+    private IosView deleteButtonNamed(String name) {
+        By selector = By.igor(String.format(DELETE_BUTTON_TEMPLATE, name));
+        return view(selector);
     }
 
-    private ViewDriver deleteButtons() {
-        return application.view(DELETE_BUTTONS);
+    private IosView deleteButtons() {
+        return view(DELETE_BUTTONS);
     }
 
     public void deleteItemAtRow(Integer i) {
@@ -62,12 +57,12 @@ public class MasterPage extends PollableExpressions {
         doneButton().call(touch());
     }
 
-    private ViewDriver doneButton() {
-        return application.view(DONE_BUTTON);
+    private IosView doneButton() {
+        return view(DONE_BUTTON);
     }
 
-    private ViewDriver editButton() {
-        return application.view(EDIT_BUTTON);
+    private IosView editButton() {
+        return view(EDIT_BUTTON);
     }
 
     @Override
@@ -75,18 +70,18 @@ public class MasterPage extends PollableExpressions {
         return new SystemClockPollTimer(10000);
     }
 
-    private ViewDriver itemAtRow(Integer i) {
+    private IosView itemAtRow(Integer i) {
         List<String> itemLabels = items().call("accessibilityLabel");
         return itemNamed(itemLabels.get(i));
     }
 
-    private ViewDriver itemNamed(String name) {
-        ViewSelector selector = new IgorSelector(String.format(ITEM_TEMPLATE, name));
-        return application.view(selector);
+    private IosView itemNamed(String name) {
+        By by = By.igor(String.format(ITEM_TEMPLATE, name));
+        return view(by);
     }
 
-    private ViewDriver items() {
-        return application.view(ITEMS);
+    private IosView items() {
+        return view(ITEMS);
     }
 
     public Integer numberOfItems() {

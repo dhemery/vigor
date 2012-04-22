@@ -1,6 +1,6 @@
 package com.dhemery.victor.examples.tests;
 
-import com.dhemery.victor.examples.framework.VictorTest;
+import com.dhemery.victor.examples.runner.VictorTest;
 import com.dhemery.victor.examples.pages.MasterPage;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ public class ApplicationTests extends VictorTest {
 
     @Before
 	public void setUp() {
-        master = new MasterPage(application());
+        master = new MasterPage(agent(), eventually());
 	}
 
     @Test

@@ -1,28 +1,26 @@
 package com.dhemery.victor.examples.tests;
 
-import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.ApplicationDriver.Orientation.LANDSCAPE;
-import static com.dhemery.victor.ApplicationDriver.Orientation.PORTRAIT;
-import static com.dhemery.victor.application.ApplicationExtensions.*;
-import static org.hamcrest.Matchers.equalTo;
-
-import java.io.IOException;
-
+import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosDevice;
+import com.dhemery.victor.examples.runner.VictorTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dhemery.victor.ApplicationDriver;
-import com.dhemery.victor.PhoneDriver;
-import com.dhemery.victor.examples.framework.VictorTest;
+import java.io.IOException;
 
-public class PhoneTests extends VictorTest {
-	private ApplicationDriver application;
-	private PhoneDriver phone;
+import static com.dhemery.polling.Has.has;
+import static com.dhemery.victor.IosApplication.Orientation.LANDSCAPE;
+import static com.dhemery.victor.IosApplication.Orientation.PORTRAIT;
+import static org.hamcrest.Matchers.equalTo;
+
+public class RotationTests extends VictorTest {
+	private IosApplication application;
+	private IosDevice device;
 
 	@Before
 	public void setUp() {
 		application = application();
-		phone = phone();		
+		device = device();
 	}
 
 	@Test
@@ -31,16 +29,17 @@ public class PhoneTests extends VictorTest {
 
 		waitUntil(application, has(orientation(), equalTo(PORTRAIT)));
 
-		phone.rotateLeft();
+		device.rotateLeft();
 		assertThat(application, eventually(), has(orientation(), equalTo(LANDSCAPE)));
 
-		phone.rotateRight();
+		device.rotateRight();
 		assertThat(application, eventually(), has(orientation(), equalTo(PORTRAIT)));
 
-		phone.rotateRight();
+		device.rotateRight();
 		assertThat(application, eventually(), has(orientation(), equalTo(LANDSCAPE)));
 
-		phone.rotateRight();
+		device.rotateRight();
 		assertThat(application, eventually(), has(orientation(), equalTo(PORTRAIT)));
 	}
+
 }

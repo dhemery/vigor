@@ -1,30 +1,28 @@
-package com.dhemery.victor.examples.framework;
-
-import static com.dhemery.victor.frank.Ready.ready;
-import static org.hamcrest.Matchers.is;
-
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.dhemery.victor.examples.runner;
 
 import com.dhemery.polling.MatcherPoll;
 import com.dhemery.polling.PollTimer;
 import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.properties.RequiredProperties;
-import com.dhemery.victor.ApplicationDriver;
-import com.dhemery.victor.PhoneDriver;
-import com.dhemery.victor.frank.FrankClient;
-import com.dhemery.victor.frank.drivers.FrankApplicationDriver;
-import com.dhemery.victor.frank.drivers.FrankPhoneDriver;
+import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosDevice;
+import com.dhemery.victor.frank.FrankAgent;
+import com.dhemery.victor.frank.FrankIosApplication;
+import com.dhemery.victor.simulator.SimulatedIosDevice;
 import com.dhemery.victor.simulator.Simulator;
 import com.dhemery.victor.simulator.local.LocalSimulator;
 import com.dhemery.victor.simulator.remote.RemoteSimulator;
+import com.dhemery.victor.view.IosViewAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static com.dhemery.victor.frank.Ready.ready;
+import static org.hamcrest.Matchers.is;
 
 
 public class Launcher {
 	private final Logger log = LoggerFactory.getLogger(getClass());
-	private final FrankClient frank;
+	private final FrankAgent frank;
 	private Simulator simulator;
 	private final RequiredProperties configuration;
 	private final String simulatorHost;
@@ -35,16 +33,16 @@ public class Launcher {
 		frank = frankClient();
 	}
 
-	public ApplicationDriver application() {
-		return new FrankApplicationDriver(frank);
+	public IosApplication application() {
+		return new FrankIosApplication(frank);
 	}
 
-	public FrankClient frankClient() {
+	public FrankAgent frankClient() {
 		String frankServerUrl = urlForSimulatorHostPort(configuration.get("frank.server.port"));
-		return new FrankClient(frankServerUrl);
+		return new FrankAgent(frankServerUrl);
 	}
 
-	public void launch() throws IOException {
+	public void launch() {
 		if(simulatorHost.equals("localhost")) {
 			simulator = launchLocalSimulator();
 		} else {
@@ -57,7 +55,7 @@ public class Launcher {
 			log.debug("Launching simulator");
 			simulator.launch(applicationPath, sdkVersion, false);
 		}
-		new MatcherPoll<FrankClient>(frank, timer(), is(ready())).run();
+		new MatcherPoll<FrankAgent>(frank, timer(), is(ready())).run();
 	}
 
 	private Simulator launchLocalSimulator() {
@@ -70,8 +68,8 @@ public class Launcher {
 		return new RemoteSimulator(simulatorUrl);
 	}
 
-	public PhoneDriver phone() {
-		return new FrankPhoneDriver(simulator);
+	public IosDevice device() {
+		return new SimulatedIosDevice(simulator);
 	}
 
 	public PollTimer timer() {
@@ -87,4 +85,8 @@ public class Launcher {
 	public Simulator simulator() {
 		return simulator;
 	}
+
+    public IosViewAgent agent() {
+        return frank;
+    }
 }
