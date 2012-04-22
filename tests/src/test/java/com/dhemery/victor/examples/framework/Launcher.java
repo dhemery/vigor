@@ -60,11 +60,11 @@ public class Launcher {
 		new MatcherPoll<FrankClient>(frank, timer(), is(ready())).run();
 	}
 
-	private Simulator launchLocalSimulator() throws IOException {
+	private Simulator launchLocalSimulator() {
 		return new LocalSimulator();
 	}
 
-	private Simulator launchRemoteSimulator() throws IOException {
+	private Simulator launchRemoteSimulator() {
 		String simulatorUrl = urlForSimulatorHostPort(configuration.get("simulator.server.port"));
 		log.debug("Launching simulator on remote server {}", simulatorUrl);
 		return new RemoteSimulator(simulatorUrl);

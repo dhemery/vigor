@@ -1,6 +1,5 @@
 package com.dhemery.victor.examples.pages;
 
-import static com.dhemery.victor.view.ViewExtensions.flash;
 import static com.dhemery.victor.view.ViewExtensions.touch;
 import static com.dhemery.victor.view.ViewExtensions.visible;
 import static org.hamcrest.core.Is.is;
@@ -16,15 +15,15 @@ import com.dhemery.victor.ViewSelector;
 import java.util.List;
 
 public class MasterPage extends PollableExpressions {
-    public static final ViewSelector ADD_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Add']");
-    public static final ViewSelector DONE_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Done']");
-    public static final ViewSelector EDIT_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Edit']");
-    private final ApplicationDriver application;
-    private static final ViewSelector ITEMS = new IgorSelector("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell");
-    private static final String ITEM_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell[accessibilityLabel=='%s']";
-    private static final ViewSelector DELETE_BUTTONS = new IgorSelector("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel BEGINSWITH 'Delete']");
-    private static final String DELETE_BUTTON_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel=='%s']";
+    private static final ViewSelector ADD_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Add']");
     private static final ViewSelector CONFIRM_DELETION_BUTTON = new IgorSelector("UITableViewCellDeleteConfirmationControl[accessibilityLabel == 'Confirm Deletion']");
+    private static final String DELETE_BUTTON_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel=='%s']";
+    private static final ViewSelector DELETE_BUTTONS = new IgorSelector("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel BEGINSWITH 'Delete']");
+    private static final ViewSelector DONE_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Done']");
+    private static final ViewSelector EDIT_BUTTON = new IgorSelector("UINavigationButton[accessibilityLabel=='Edit']");
+    private static final String ITEM_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell[accessibilityLabel=='%s']";
+    private static final ViewSelector ITEMS = new IgorSelector("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell");
+    private final ApplicationDriver application;
 
     public MasterPage(ApplicationDriver application) {
         this.application = application;
