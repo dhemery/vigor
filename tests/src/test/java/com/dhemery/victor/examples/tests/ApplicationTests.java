@@ -1,49 +1,46 @@
 package com.dhemery.victor.examples.tests;
 
-import static com.dhemery.victor.view.ViewExtensions.*;
-import static org.hamcrest.Matchers.is;
-
-import java.io.IOException;
-
+import com.dhemery.victor.examples.framework.VictorTest;
+import com.dhemery.victor.examples.pages.MasterPage;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dhemery.victor.ViewDriver;
-import com.dhemery.victor.examples.framework.VictorTest;
-import com.dhemery.victor.examples.fixtures.DetailDisplay;
-import com.dhemery.victor.examples.fixtures.MasterDisplay;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 public class ApplicationTests extends VictorTest {
-    private ViewDriver masterView;
-	private ViewDriver detailLabel;
-	private ViewDriver detailView;
-	private ViewDriver masterButton;
+    private MasterPage master;
 
-	@Before
+    @Before
 	public void setUp() {
-        MasterDisplay master = new MasterDisplay(application());
-        DetailDisplay detail = new DetailDisplay(application());
-		masterView = master.masterView();
-		detailLabel = master.detailLabel();
-		detailView = detail.detailView();
-		masterButton = detail.masterButton();
+        master = new MasterPage(application());
 	}
+
+    @Test
+    public void aNewlyLaunchedVigorHasNoItems() {
+        assertThat(master.numberOfItems(), is(equalTo(0)));
+    }
 
 	@Test
-	public void navigation() throws IOException {
-		when(masterView, is(visible()), flash());
-		when(detailLabel, is(visible()), flash());
-		detailLabel.call(touch());
-
-		when(detailView, eventually(), is(visible()), flash());
-		assertThat(masterButton, eventually(), is(visible()));
-		masterButton.call(flash());
-
-		masterButton.call(touch());
-
-		assertThat(masterView, eventually(), is(visible()));
-		assertThat(detailLabel, eventually(), is(visible()));
-		masterView.call(flash());
-		detailLabel.call(flash());
+	public void aNewItemAppearsInTheMasterPage() {
+        master.addItem();
+        assertThat(master.numberOfItems(), is(equalTo(1)));
 	}
+
+    // This test fails because it touches the delete button too soon,
+    // and therefore never raises the confirmation button.
+    // But even it it raised the confirmation button, touching the
+    // confirmation button has no effect.
+    @Test
+    public void aDeletedItemDoesNotAppearInTheMasterPage() {
+        master.addItem();
+        master.deleteItemAtRow(0);
+        assertThat(master.numberOfItems(), is(equalTo(0)));
+    }
+
+    @Test
+    public void aNewItemHasADetailPage() {
+        master.addItem();
+        master.visitItemAtRow(0);
+    }
 }
