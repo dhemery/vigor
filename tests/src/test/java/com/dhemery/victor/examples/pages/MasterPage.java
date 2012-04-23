@@ -29,7 +29,7 @@ public class MasterPage extends Page {
     }
 
     public void addItem() {
-        addButton().call(touch());
+        addButton().sendMessage("touch");
     }
 
     private IosView confirmDeletionButton() {
@@ -37,7 +37,7 @@ public class MasterPage extends Page {
     }
 
     private IosView deleteButtonAtRow(Integer i) {
-        List<String> labels = deleteButtons().call("accessibilityLabel");
+        List<String> labels = deleteButtons().sendMessage("accessibilityLabel");
         return deleteButtonNamed(labels.get(i));
     }
 
@@ -51,10 +51,10 @@ public class MasterPage extends Page {
     }
 
     public void deleteItemAtRow(Integer i) {
-        editButton().call(touch());
+        editButton().sendMessage("touch");
         when(deleteButtonAtRow(i), is(visible()), touch());
         when(confirmDeletionButton(), is(visible()), touch());
-        doneButton().call(touch());
+        doneButton().sendMessage("touch");
     }
 
     private IosView doneButton() {
@@ -71,7 +71,7 @@ public class MasterPage extends Page {
     }
 
     private IosView itemAtRow(Integer i) {
-        List<String> itemLabels = items().call("accessibilityLabel");
+        List<String> itemLabels = items().sendMessage("accessibilityLabel");
         return itemNamed(itemLabels.get(i));
     }
 
@@ -85,10 +85,10 @@ public class MasterPage extends Page {
     }
 
     public Integer numberOfItems() {
-        return items().call("accessibilityLabel").size();
+        return items().sendMessage("tag").size();
     }
 
     public void visitItemAtRow(Integer i) {
-        itemAtRow(i).call(touch());
+        itemAtRow(i).sendMessage("touch");
     }
 }

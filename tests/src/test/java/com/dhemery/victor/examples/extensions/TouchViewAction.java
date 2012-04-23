@@ -6,6 +6,6 @@ import com.dhemery.victor.IosView;
 public class TouchViewAction implements Action<IosView> {
     @Override
     public void executeOn(IosView view) {
-        view.call("touch");
+        view.sendMessage("touch");
     }
 }

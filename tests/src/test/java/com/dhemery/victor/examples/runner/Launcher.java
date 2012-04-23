@@ -6,8 +6,8 @@ import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.properties.RequiredProperties;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
-import com.dhemery.victor.agent.FrankAgent;
-import com.dhemery.victor.application.AgentBackedIosApplication;
+import com.dhemery.victor.application.AgentedIosApplication;
+import com.dhemery.victor.frank.FrankAgent;
 import com.dhemery.victor.simulator.SimulatedIosDevice;
 import com.dhemery.victor.simulator.Simulator;
 import com.dhemery.victor.simulator.local.LocalSimulator;
@@ -16,7 +16,7 @@ import com.dhemery.victor.view.IosViewAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.dhemery.victor.examples.extensions.FrankReadyMatcher.ready;
+import static com.dhemery.victor.examples.extensions.AgentReadyMatcher.ready;
 import static org.hamcrest.core.Is.is;
 
 public class Launcher {
@@ -33,7 +33,7 @@ public class Launcher {
 	}
 
 	public IosApplication application() {
-		return new AgentBackedIosApplication(frank);
+		return new AgentedIosApplication(frank);
 	}
 
 	public FrankAgent frankClient() {
