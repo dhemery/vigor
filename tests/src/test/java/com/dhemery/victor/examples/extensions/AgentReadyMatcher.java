@@ -22,7 +22,7 @@ public class AgentReadyMatcher extends TypeSafeMatcher<IosApplicationAgent> {
 
     @Override
     protected void describeMismatchSafely(IosApplicationAgent agent, Description mismatchDescription) {
-        mismatchDescription.appendDescriptionOf(agent)
+        mismatchDescription.appendValue(agent)
                 .appendText(" is not ready to respond to requests");
     }
 
