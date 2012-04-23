@@ -82,6 +82,7 @@
 		2D321D801543577500B05E3B /* frank_static_resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = frank_static_resources.bundle; path = lib/frank_static_resources.bundle; sourceTree = "<group>"; };
 		2D321D84154357A500B05E3B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2D321D861543583300B05E3B /* libigor-0.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libigor-0.4.0.a"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0CB /* Vigor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Vigor.entitlements; path = Vigor/Vigor.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +106,7 @@
 		2A2C550DAF5EC6628AB280A9 = {
 			isa = PBXGroup;
 			children = (
+				2D36ACA11545421700E4C0CB /* Vigor.entitlements */,
 				2D321D801543577500B05E3B /* frank_static_resources.bundle */,
 				2A2C550DAF5EC6628AB280AA /* Products */,
 				2A2C550DAF5EC6628AB280B5 /* Frameworks */,
@@ -239,6 +241,9 @@
 /* Begin PBXProject section */
 		2A2C550DAF5EC6628AB280A7 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
 			buildConfigurationList = 2A2C550DAF5EC6628AB280A8 /* Build configuration list for PBXProject "vigor" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -371,6 +376,7 @@
 		2A2C550DAF5EC6628AB280B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Vigor/Vigor.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Vigor/Vigor-Prefix.pch";
 				INFOPLIST_FILE = "Vigor/Vigor-Info.plist";
@@ -387,6 +393,7 @@
 		2A2C550DAF5EC6628AB280B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Vigor/Vigor.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Vigor/Vigor-Prefix.pch";
 				INFOPLIST_FILE = "Vigor/Vigor-Info.plist";
