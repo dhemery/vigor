@@ -7,8 +7,8 @@ import com.dhemery.victor.By;
 import com.dhemery.victor.IosView;
 import com.dhemery.victor.examples.extensions.TouchViewAction;
 import com.dhemery.victor.examples.extensions.VisibleViewMatcher;
-import com.dhemery.victor.view.AgentedIosView;
-import com.dhemery.victor.view.IosViewAgent;
+import com.dhemery.victor.frank.FrankIosView;
+import com.dhemery.victor.frank.IosViewAgent;
 import org.hamcrest.Matcher;
 
 public class Page extends PollableExpressions {
@@ -26,7 +26,7 @@ public class Page extends PollableExpressions {
     }
 
     public IosView view(By query) {
-        return new AgentedIosView(agent, query);
+        return new FrankIosView(agent, query);
     }
 
     public Action<? super IosView> touch() {

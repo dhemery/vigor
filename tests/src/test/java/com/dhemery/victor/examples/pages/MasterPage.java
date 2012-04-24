@@ -4,7 +4,7 @@ import com.dhemery.polling.PollTimer;
 import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosView;
-import com.dhemery.victor.view.IosViewAgent;
+import com.dhemery.victor.frank.IosViewAgent;
 
 import java.util.List;
 
