@@ -7,11 +7,12 @@ import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.properties.RequiredProperties;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
+import com.dhemery.victor.device.LocalSimulator;
+import com.dhemery.victor.device.SimulatedIosDevice;
 import com.dhemery.victor.examples.tests.OrientationQuery;
 import com.dhemery.victor.frank.FrankAgent;
 import com.dhemery.victor.frank.FrankIosApplication;
 import com.dhemery.victor.frank.IosViewAgent;
-import com.dhemery.victor.simulator.SimulatedIosDevice;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -24,12 +25,12 @@ public class VictorTest extends PollableExpressions {
 	private static IosDevice device;
 	private static PollTimer timer;
     private static RequiredProperties configuration;
-    private static MyLocalSimulator simulator;
+    private static LocalSimulator simulator;
 
     @BeforeClass
 	public static void startApplication() {
         configuration = new RequiredProperties("default.properties", "./my.properties");
-        simulator = new MyLocalSimulator(sdkRoot(), simulatorBinaryPath());
+        simulator = new LocalSimulator(sdkRoot(), simulatorBinaryPath());
         simulator.startWithApplication(applicationBinaryPath());
         device = new SimulatedIosDevice(simulator);
         frank = new ConfigurableFrankAgent(configuration.properties());
