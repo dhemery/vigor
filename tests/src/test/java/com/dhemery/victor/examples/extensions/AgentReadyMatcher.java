@@ -1,6 +1,6 @@
 package com.dhemery.victor.examples.extensions;
 
-import com.dhemery.victor.application.IosApplicationAgent;
+import com.dhemery.victor.frank.IosApplicationAgent;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;

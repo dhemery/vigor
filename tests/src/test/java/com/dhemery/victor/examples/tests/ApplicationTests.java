@@ -13,7 +13,7 @@ public class ApplicationTests extends VictorTest {
 
     @Before
 	public void setUp() {
-        master = new MasterPage(agent(), eventually());
+        master = new MasterPage(viewAgent(), eventually());
 	}
 
     @Test
