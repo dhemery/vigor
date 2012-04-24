@@ -33,7 +33,7 @@ public class VictorTest extends PollableExpressions {
         simulator = new LocalSimulator(sdkRoot(), simulatorBinaryPath());
         simulator.startWithApplication(applicationBinaryPath());
         device = new SimulatedIosDevice(simulator);
-        frank = new ConfigurableFrankAgent(configuration.properties());
+        frank = CreateFrankAgent.fromProperties(configuration.properties());
         timer = timer(configuration);
         waitUntil(frank, timer, is(ready()));
 		application = new FrankIosApplication(frank);
