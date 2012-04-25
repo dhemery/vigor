@@ -7,6 +7,8 @@ import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.properties.RequiredProperties;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
+import com.dhemery.victor.device.CreateIosDevice;
+import com.dhemery.victor.device.IosDeviceCapabilities;
 import com.dhemery.victor.examples.tests.OrientationQuery;
 import com.dhemery.victor.frank.CreateFrankAgent;
 import com.dhemery.victor.frank.FrankAgent;
@@ -21,7 +23,7 @@ import static org.hamcrest.core.Is.is;
 public class VictorTest extends PollableExpressions {
     private static IosApplication application;
     private static FrankAgent frank;
-    private static MySimulatedIosDevice device;
+    private static IosDevice device;
     private static PollTimer timer;
 
     @BeforeClass
