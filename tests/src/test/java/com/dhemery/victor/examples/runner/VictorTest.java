@@ -7,8 +7,6 @@ import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.properties.RequiredProperties;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
-import com.dhemery.victor.device.SimulatedIosDevice;
-import com.dhemery.victor.device.Simulator;
 import com.dhemery.victor.examples.tests.OrientationQuery;
 import com.dhemery.victor.frank.CreateFrankAgent;
 import com.dhemery.victor.frank.FrankAgent;
@@ -21,34 +19,33 @@ import static com.dhemery.victor.examples.extensions.AgentReadyMatcher.ready;
 import static org.hamcrest.core.Is.is;
 
 public class VictorTest extends PollableExpressions {
-	private static IosApplication application;
+    private static IosApplication application;
     private static FrankAgent frank;
-	private static IosDevice device;
-	private static PollTimer timer;
-    private static Simulator simulator;
+    private static MySimulatedIosDevice device;
+    private static PollTimer timer;
 
     @BeforeClass
-	public static void startApplication() {
+    public static void startApplicationInDevice() {
         RequiredProperties configuration = new RequiredProperties("default.properties", "my.properties");
-        simulator = CreateSimulator.fromProperties(configuration.properties());
-        simulator.startWithApplication(configuration.get("victor.application.binary.path"));
-        device = new SimulatedIosDevice(simulator);
+        IosDeviceCapabilities capabilities = new IosDeviceCapabilities(configuration.properties());
+        device = CreateIosDevice.withCapabilities(capabilities);
+        device.start();
         frank = CreateFrankAgent.fromProperties(configuration.properties());
         timer = timer(configuration);
         waitUntil(frank, timer, is(ready()));
-		application = new FrankIosApplication(frank);
-	}
+        application = new FrankIosApplication(frank);
+    }
 
     @AfterClass
-	public static void stopApplication() {
-        simulator.stop();
-	}
+    public static void stopDevice() {
+        device.stop();
+    }
 
     public IosViewAgent viewAgent() { return frank; }
-	public IosApplication application() { return application; }
-	public IosDevice device() { return device; }
+    public IosApplication application() { return application; }
+    public IosDevice device() { return device; }
 
-	@Override
+    @Override
     public PollTimer eventually() {
         return timer;
     }
