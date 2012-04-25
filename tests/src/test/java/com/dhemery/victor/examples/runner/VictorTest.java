@@ -9,7 +9,7 @@ import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.device.CreateIosDevice;
 import com.dhemery.victor.device.IosDeviceCapabilities;
-import com.dhemery.victor.examples.tests.OrientationQuery;
+import com.dhemery.victor.examples.extensions.ApplicationOrientationQuery;
 import com.dhemery.victor.frank.CreateFrankAgent;
 import com.dhemery.victor.frank.FrankAgent;
 import com.dhemery.victor.frank.FrankIosApplication;
@@ -53,7 +53,7 @@ public class VictorTest extends PollableExpressions {
     }
 
     protected Query<IosApplication, IosApplication.Orientation> orientation() {
-        return new OrientationQuery();
+        return new ApplicationOrientationQuery();
     }
 
     private static PollTimer timer(RequiredProperties configuration) {
