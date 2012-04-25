@@ -1,10 +1,9 @@
 package com.dhemery.victor.examples.pages;
 
 import com.dhemery.polling.PollTimer;
-import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.victor.By;
+import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosView;
-import com.dhemery.victor.frank.IosViewAgent;
 
 import java.util.List;
 
@@ -20,8 +19,8 @@ public class MasterPage extends Page {
     private static final String ITEM_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell[accessibilityLabel=='%s']";
     private static final By ITEMS = By.igor("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell");
 
-    public MasterPage(IosViewAgent agent, PollTimer timer) {
-        super(agent, timer);
+    public MasterPage(IosApplication application, PollTimer timer) {
+        super(application, timer);
     }
 
     private IosView addButton() {
@@ -63,11 +62,6 @@ public class MasterPage extends Page {
 
     private IosView editButton() {
         return view(EDIT_BUTTON);
-    }
-
-    @Override
-    public PollTimer eventually() {
-        return new SystemClockPollTimer(10000);
     }
 
     private IosView itemAtRow(Integer i) {

@@ -14,15 +14,6 @@ import static com.dhemery.victor.IosApplication.Orientation.PORTRAIT;
 import static org.hamcrest.Matchers.equalTo;
 
 public class RotationTests extends VictorTest {
-	private IosApplication application;
-	private IosDevice device;
-
-	@Before
-	public void setUp() {
-		application = application();
-		device = device();
-	}
-
 	@Test
 	public void orientationTests() throws InterruptedException, IOException {
 		assertThat(application, has(orientation(), equalTo(PORTRAIT)));

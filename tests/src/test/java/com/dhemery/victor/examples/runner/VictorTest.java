@@ -13,27 +13,27 @@ import com.dhemery.victor.examples.extensions.ApplicationOrientationQuery;
 import com.dhemery.victor.frank.CreateFrankAgent;
 import com.dhemery.victor.frank.FrankAgent;
 import com.dhemery.victor.frank.FrankIosApplication;
-import com.dhemery.victor.frank.IosViewAgent;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import static com.dhemery.victor.examples.extensions.AgentReadyMatcher.ready;
+import java.util.Properties;
+
+import static com.dhemery.victor.examples.extensions.FrankAgentReadyMatcher.ready;
 import static org.hamcrest.core.Is.is;
 
 public class VictorTest extends PollableExpressions {
-    private static IosApplication application;
-    private static FrankAgent frank;
-    private static IosDevice device;
-    private static PollTimer timer;
+    public static IosApplication application;
+    public static IosDevice device;
+    public static PollTimer timer;
 
     @BeforeClass
     public static void startApplicationInDevice() {
-        RequiredProperties configuration = new RequiredProperties("default.properties", "my.properties");
-        IosDeviceCapabilities capabilities = new IosDeviceCapabilities(configuration.properties());
+        Properties properties = new RequiredProperties("default.properties", "my.properties").properties();
+        IosDeviceCapabilities capabilities = new IosDeviceCapabilities(properties);
         device = CreateIosDevice.withCapabilities(capabilities);
         device.start();
-        frank = CreateFrankAgent.fromProperties(configuration.properties());
-        timer = timer(configuration);
+        timer = createTimer(properties);
+        FrankAgent frank = CreateFrankAgent.fromProperties(properties);
         waitUntil(frank, timer, is(ready()));
         application = new FrankIosApplication(frank);
     }
@@ -43,22 +43,16 @@ public class VictorTest extends PollableExpressions {
         device.stop();
     }
 
-    public IosViewAgent viewAgent() { return frank; }
-    public IosApplication application() { return application; }
-    public IosDevice device() { return device; }
-
     @Override
-    public PollTimer eventually() {
-        return timer;
-    }
+    public PollTimer eventually() { return timer; }
 
     protected Query<IosApplication, IosApplication.Orientation> orientation() {
         return new ApplicationOrientationQuery();
     }
 
-    private static PollTimer timer(RequiredProperties configuration) {
-        Integer timeout = configuration.getInteger("polling.timeout");
-        Integer pollingInterval = configuration.getInteger("polling.interval");
+    private static PollTimer createTimer(Properties properties) {
+        Integer timeout = Integer.parseInt(properties.getProperty("polling.timeout"));
+        Integer pollingInterval = Integer.parseInt(properties.getProperty("polling.interval"));
         return new SystemClockPollTimer(timeout, pollingInterval);
     }
 }
