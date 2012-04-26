@@ -21,7 +21,7 @@ public class Page extends PollableExpressions {
 
     @Override
     public PollTimer eventually() {
-       return timer;
+        return timer;
     }
 
     public IosView view(By query) {

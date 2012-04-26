@@ -11,7 +11,7 @@ public class VisibleViewMatcher extends TypeSafeMatcher<IosView> {
     @Override
     protected boolean matchesSafely(IosView view) {
         List<String> results = view.sendMessage("isHidden");
-        if(results.size() != 1) return false;
+        if (results.size() != 1) return false;
         return !Boolean.parseBoolean(results.get(0));
     }
 

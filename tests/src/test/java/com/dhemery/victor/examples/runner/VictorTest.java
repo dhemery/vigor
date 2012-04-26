@@ -24,7 +24,7 @@ import static com.dhemery.victor.examples.extensions.FrankAgentReadyMatcher.read
 import static org.hamcrest.core.Is.is;
 
 public class VictorTest extends PollableExpressions {
-    public static final String[] VIGOR_PROPERTIES_FILES = { "default.properties", "my.properties" };
+    public static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
     public static IosApplication application;
     public static IosDevice device;
     public static PollTimer timer;
@@ -32,7 +32,7 @@ public class VictorTest extends PollableExpressions {
     @BeforeClass
     public static void startApplicationInDevice() {
         Properties properties = loadProperties();
-        IosDeviceConfiguration configuration = new IosDeviceConfiguration((Map)properties);
+        IosDeviceConfiguration configuration = new IosDeviceConfiguration((Map) properties);
         FrankAgent frank = CreateFrankAgent.fromProperties(properties);
         application = new FrankIosApplication(frank);
         timer = createTimer(properties);
@@ -43,11 +43,13 @@ public class VictorTest extends PollableExpressions {
 
     @AfterClass
     public static void stopDevice() {
-        if(device != null) device.stop();
+        if (device != null) device.stop();
     }
 
     @Override
-    public PollTimer eventually() { return timer; }
+    public PollTimer eventually() {
+        return timer;
+    }
 
     protected Query<IosApplication, IosApplication.Orientation> orientation() {
         return new ApplicationOrientationQuery();
@@ -55,7 +57,7 @@ public class VictorTest extends PollableExpressions {
 
     private static Properties loadProperties() {
         Properties properties = new Properties();
-        for(String name : VIGOR_PROPERTIES_FILES ) {
+        for (String name : VIGOR_PROPERTIES_FILES) {
             try {
                 properties.load(new FileInputStream(name));
             } catch (IOException cause) {
