@@ -24,7 +24,7 @@ import static com.dhemery.victor.examples.extensions.FrankAgentReadyMatcher.read
 import static org.hamcrest.core.Is.is;
 
 public class VictorTest extends PollableExpressions {
-    public static final String VIGOR_PROPERTIES_FILE = "vigor.properties";
+    public static final String[] VIGOR_PROPERTIES_FILES = { "default.properties", "my.properties" };
     public static IosApplication application;
     public static IosDevice device;
     public static PollTimer timer;
@@ -36,7 +36,7 @@ public class VictorTest extends PollableExpressions {
         FrankAgent frank = CreateFrankAgent.fromProperties(properties);
         application = new FrankIosApplication(frank);
         timer = createTimer(properties);
-        device = CreateIosDevice.withCapabilities(configuration);
+        device = CreateIosDevice.withConfiguration(configuration);
         device.start();
         waitUntil(frank, timer, is(ready()));
     }
@@ -55,10 +55,12 @@ public class VictorTest extends PollableExpressions {
 
     private static Properties loadProperties() {
         Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream(VIGOR_PROPERTIES_FILE));
-        } catch (IOException cause) {
-            throw new RuntimeException("Unable to load properties from file " + VIGOR_PROPERTIES_FILE, cause);
+        for(String name : VIGOR_PROPERTIES_FILES ) {
+            try {
+                properties.load(new FileInputStream(name));
+            } catch (IOException cause) {
+                throw new RuntimeException("Unable to load properties from file " + name, cause);
+            }
         }
         return properties;
     }
