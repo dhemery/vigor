@@ -7,7 +7,7 @@ import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.device.CreateIosDevice;
-import com.dhemery.victor.device.IosDeviceCapabilities;
+import com.dhemery.victor.device.IosDeviceConfiguration;
 import com.dhemery.victor.examples.extensions.ApplicationOrientationQuery;
 import com.dhemery.victor.frank.CreateFrankAgent;
 import com.dhemery.victor.frank.FrankAgent;
@@ -17,6 +17,7 @@ import org.junit.BeforeClass;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 
 import static com.dhemery.victor.examples.extensions.FrankAgentReadyMatcher.ready;
@@ -31,11 +32,11 @@ public class VictorTest extends PollableExpressions {
     @BeforeClass
     public static void startApplicationInDevice() {
         Properties properties = loadProperties();
-        IosDeviceCapabilities capabilities = new IosDeviceCapabilities(properties);
+        IosDeviceConfiguration configuration = new IosDeviceConfiguration((Map)properties);
         FrankAgent frank = CreateFrankAgent.fromProperties(properties);
         application = new FrankIosApplication(frank);
         timer = createTimer(properties);
-        device = CreateIosDevice.withCapabilities(capabilities);
+        device = CreateIosDevice.withCapabilities(configuration);
         device.start();
         waitUntil(frank, timer, is(ready()));
     }
