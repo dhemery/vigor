@@ -4,7 +4,6 @@ import com.dhemery.polling.PollTimer;
 import com.dhemery.polling.PollableExpressions;
 import com.dhemery.polling.Query;
 import com.dhemery.polling.SystemClockPollTimer;
-import com.dhemery.properties.RequiredProperties;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.device.CreateIosDevice;
@@ -16,31 +15,34 @@ import com.dhemery.victor.frank.FrankIosApplication;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 import static com.dhemery.victor.examples.extensions.FrankAgentReadyMatcher.ready;
 import static org.hamcrest.core.Is.is;
 
 public class VictorTest extends PollableExpressions {
+    public static final String VIGOR_PROPERTIES_FILE = "vigor.properties";
     public static IosApplication application;
     public static IosDevice device;
     public static PollTimer timer;
 
     @BeforeClass
     public static void startApplicationInDevice() {
-        Properties properties = new RequiredProperties("default.properties", "my.properties").properties();
+        Properties properties = loadProperties();
         IosDeviceCapabilities capabilities = new IosDeviceCapabilities(properties);
+        FrankAgent frank = CreateFrankAgent.fromProperties(properties);
+        application = new FrankIosApplication(frank);
+        timer = createTimer(properties);
         device = CreateIosDevice.withCapabilities(capabilities);
         device.start();
-        timer = createTimer(properties);
-        FrankAgent frank = CreateFrankAgent.fromProperties(properties);
         waitUntil(frank, timer, is(ready()));
-        application = new FrankIosApplication(frank);
     }
 
     @AfterClass
     public static void stopDevice() {
-        device.stop();
+        if(device != null) device.stop();
     }
 
     @Override
@@ -48,6 +50,16 @@ public class VictorTest extends PollableExpressions {
 
     protected Query<IosApplication, IosApplication.Orientation> orientation() {
         return new ApplicationOrientationQuery();
+    }
+
+    private static Properties loadProperties() {
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileInputStream(VIGOR_PROPERTIES_FILE));
+        } catch (IOException cause) {
+            throw new RuntimeException("Unable to load properties from file " + VIGOR_PROPERTIES_FILE, cause);
+        }
+        return properties;
     }
 
     private static PollTimer createTimer(Properties properties) {
