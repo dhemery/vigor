@@ -16,10 +16,7 @@ import com.dhemery.victor.frank.FrankIosApplication;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Map;
-import java.util.Properties;
 
 import static com.dhemery.victor.examples.extensions.FrankAgentReadyMatcher.ready;
 import static org.hamcrest.core.Is.is;
@@ -32,7 +29,7 @@ public class VictorTest extends PollableExpressions {
 
     @BeforeClass
     public static void startApplicationInDevice() {
-        Map<String,String> properties = ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap();
+        Map<String, String> properties = ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap();
         FrankAgent frank = CreateFrankAgent.withConfiguration(properties);
         application = new FrankIosApplication(frank);
         timer = createTimer(properties);
@@ -56,7 +53,7 @@ public class VictorTest extends PollableExpressions {
         return new ApplicationOrientationQuery();
     }
 
-    private static PollTimer createTimer(Map<String,String> properties) {
+    private static PollTimer createTimer(Map<String, String> properties) {
         Integer timeout = Integer.parseInt(properties.get("polling.timeout"));
         Integer pollingInterval = Integer.parseInt(properties.get("polling.interval"));
         return new SystemClockPollTimer(timeout, pollingInterval);
