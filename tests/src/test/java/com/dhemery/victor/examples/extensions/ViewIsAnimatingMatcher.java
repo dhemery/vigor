@@ -37,7 +37,7 @@ public class ViewIsAnimatingMatcher extends TypeSafeMatcher<IosView> {
         description.appendText("animating");
     }
 
-    public static Matcher<? super IosView> animating() {
+    public static Matcher<IosView> animating() {
         return new ViewIsAnimatingMatcher();
     }
 }

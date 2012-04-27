@@ -9,7 +9,7 @@ public class TapViewAction implements Action<IosView> {
         view.sendMessage("tap");
     }
 
-    public static Action<? super IosView> tap() {
+    public static Action<IosView> tap() {
         return new TapViewAction();
     }
 }

@@ -28,7 +28,7 @@ public class ViewListIsEmptyMatcher extends TypeSafeMatcher<IosView> {
         description.appendText("empty");
     }
 
-    public static Matcher<? super IosView> empty() {
+    public static Matcher<IosView> empty() {
         return new ViewListIsEmptyMatcher();
     }
 }

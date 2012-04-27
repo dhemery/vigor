@@ -27,7 +27,7 @@ public class ViewIsTappableMatcher extends TypeSafeMatcher<IosView> {
         description.appendText("tappable");
     }
 
-    public static Matcher<? super IosView> tappable() {
+    public static Matcher<IosView> tappable() {
         return new ViewIsTappableMatcher();
     }
 }

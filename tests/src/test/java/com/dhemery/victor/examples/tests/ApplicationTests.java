@@ -1,7 +1,9 @@
 package com.dhemery.victor.examples.tests;
 
+import com.dhemery.victor.IosView;
 import com.dhemery.victor.examples.pages.MasterPage;
 import com.dhemery.victor.examples.runner.VictorTest;
+import com.dhemery.victor.frank.FrankIosView;
 import org.junit.Before;
 import org.junit.Test;
 

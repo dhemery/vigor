@@ -14,7 +14,7 @@ public class ViewListSizeQuery extends Query<IosView, Integer> {
         return view.sendMessage("tag").size();
     }
 
-    public static Query<? super IosView, Integer> size() {
+    public static Query<IosView, Integer> size() {
         return new ViewListSizeQuery();
     }
 }

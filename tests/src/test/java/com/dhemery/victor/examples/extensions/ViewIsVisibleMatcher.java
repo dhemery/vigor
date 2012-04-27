@@ -35,7 +35,7 @@ public class ViewIsVisibleMatcher extends TypeSafeMatcher<IosView> {
         mismatchDescription.appendText(reason);
     }
 
-    public static Matcher<? super IosView> visible() {
+    public static Matcher<IosView> visible() {
         return new ViewIsVisibleMatcher();
     }
 }
