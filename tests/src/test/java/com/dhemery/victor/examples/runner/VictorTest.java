@@ -4,6 +4,7 @@ import com.dhemery.polling.PollTimer;
 import com.dhemery.polling.PollableExpressions;
 import com.dhemery.polling.Query;
 import com.dhemery.polling.SystemClockPollTimer;
+import com.dhemery.properties.ReadProperties;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.device.CreateIosDevice;
@@ -31,12 +32,12 @@ public class VictorTest extends PollableExpressions {
 
     @BeforeClass
     public static void startApplicationInDevice() {
-        Properties properties = loadProperties();
-        IosDeviceConfiguration configuration = new IosDeviceConfiguration((Map) properties);
-        FrankAgent frank = CreateFrankAgent.fromProperties(properties);
+        Map<String,String> properties = ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap();
+        FrankAgent frank = CreateFrankAgent.withConfiguration(properties);
         application = new FrankIosApplication(frank);
         timer = createTimer(properties);
-        device = CreateIosDevice.withConfiguration(configuration);
+        IosDeviceConfiguration deviceConfiguration = new IosDeviceConfiguration(properties);
+        device = CreateIosDevice.withConfiguration(deviceConfiguration);
         device.start();
         waitUntil(frank, timer, is(ready()));
     }
@@ -55,21 +56,9 @@ public class VictorTest extends PollableExpressions {
         return new ApplicationOrientationQuery();
     }
 
-    private static Properties loadProperties() {
-        Properties properties = new Properties();
-        for (String name : VIGOR_PROPERTIES_FILES) {
-            try {
-                properties.load(new FileInputStream(name));
-            } catch (IOException cause) {
-                throw new RuntimeException("Unable to load properties from file " + name, cause);
-            }
-        }
-        return properties;
-    }
-
-    private static PollTimer createTimer(Properties properties) {
-        Integer timeout = Integer.parseInt(properties.getProperty("polling.timeout"));
-        Integer pollingInterval = Integer.parseInt(properties.getProperty("polling.interval"));
+    private static PollTimer createTimer(Map<String,String> properties) {
+        Integer timeout = Integer.parseInt(properties.get("polling.timeout"));
+        Integer pollingInterval = Integer.parseInt(properties.get("polling.interval"));
         return new SystemClockPollTimer(timeout, pollingInterval);
     }
 }
