@@ -1,16 +1,15 @@
 package com.dhemery.victor.examples.pages;
 
-import com.dhemery.polling.Action;
 import com.dhemery.polling.PollTimer;
 import com.dhemery.polling.PollableExpressions;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosView;
-import com.dhemery.victor.examples.extensions.TouchViewAction;
-import com.dhemery.victor.examples.extensions.VisibleViewMatcher;
-import org.hamcrest.Matcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Page extends PollableExpressions {
+    protected final Logger log = LoggerFactory.getLogger(getClass());
     private final IosApplication application;
     private final PollTimer timer;
 
@@ -26,13 +25,5 @@ public class Page extends PollableExpressions {
 
     public IosView view(By query) {
         return application.view(query);
-    }
-
-    public Action<? super IosView> touch() {
-        return new TouchViewAction();
-    }
-
-    public Matcher<? super IosView> visible() {
-        return new VisibleViewMatcher();
     }
 }

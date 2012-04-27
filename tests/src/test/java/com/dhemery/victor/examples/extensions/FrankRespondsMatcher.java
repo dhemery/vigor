@@ -5,10 +5,10 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-public class FrankAgentReadyMatcher extends TypeSafeMatcher<FrankAgent> {
+public class FrankRespondsMatcher extends TypeSafeMatcher<FrankAgent> {
     @Override
     public void describeTo(Description description) {
-        description.appendText("ready to respond to requests");
+        description.appendText("responds to requests");
     }
 
     @Override
@@ -22,11 +22,11 @@ public class FrankAgentReadyMatcher extends TypeSafeMatcher<FrankAgent> {
 
     @Override
     protected void describeMismatchSafely(FrankAgent frank, Description mismatchDescription) {
-        mismatchDescription.appendValue(frank)
-                .appendText(" is not ready to respond to requests");
+        super.describeMismatch(frank, mismatchDescription);
+        mismatchDescription.appendText(" does not respond to requests");
     }
 
-    public static Matcher<FrankAgent> ready() {
-        return new FrankAgentReadyMatcher();
+    public static Matcher<FrankAgent> respondsToRequests() {
+        return new FrankRespondsMatcher();
     }
 }

@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 
 import java.util.Map;
 
-import static com.dhemery.victor.examples.extensions.FrankAgentReadyMatcher.ready;
+import static com.dhemery.victor.examples.extensions.FrankRespondsMatcher.respondsToRequests;
 import static org.hamcrest.core.Is.is;
 
 public class VictorTest extends PollableExpressions {
@@ -36,7 +36,7 @@ public class VictorTest extends PollableExpressions {
         IosDeviceConfiguration deviceConfiguration = new IosDeviceConfiguration(properties);
         device = CreateIosDevice.withConfiguration(deviceConfiguration);
         device.start();
-        waitUntil(frank, timer, is(ready()));
+        waitUntil(frank, timer, respondsToRequests());
     }
 
     @AfterClass

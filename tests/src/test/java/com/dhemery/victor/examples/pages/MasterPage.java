@@ -4,20 +4,30 @@ import com.dhemery.polling.PollTimer;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosView;
+import org.hamcrest.CoreMatchers;
 
 import java.util.List;
 
+import static com.dhemery.polling.Has.has;
+import static com.dhemery.victor.examples.extensions.ViewIsAnimatingMatcher.animating;
+import static com.dhemery.victor.examples.extensions.ViewListIsEmptyMatcher.empty;
+import static com.dhemery.victor.examples.extensions.TapViewAction.tap;
+import static com.dhemery.victor.examples.extensions.ViewIsTappableMatcher.tappable;
+import static com.dhemery.victor.examples.extensions.ViewIsVisibleMatcher.visible;
+import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 
 public class MasterPage extends Page {
     private static final By ADD_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Add']");
     private static final By CONFIRM_DELETION_BUTTON = By.igor("UITableViewCellDeleteConfirmationControl[accessibilityLabel == 'Confirm Deletion']");
-    private static final String DELETE_BUTTON_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel=='%s']";
+    private static final String DELETE_BUTTON_WITH_ACCESSIBILITY_LABEL = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel=='%s']";
     private static final By DELETE_BUTTONS = By.igor("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel BEGINSWITH 'Delete']");
     private static final By DONE_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Done']");
     private static final By EDIT_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Edit']");
-    private static final String ITEM_TEMPLATE = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell[accessibilityLabel=='%s']";
-    private static final By ITEMS = By.igor("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell");
+    private static final By ITEMS = By.igor("UITableView[accessibilityLabel=='Empty list'] UITableViewCell UILabel");
+    private static final String ITEM_WITH_ACCESSIBILITY_LABEL = ITEMS.selector + "[accessibilityLabel=='%s']";
 
     public MasterPage(IosApplication application, PollTimer timer) {
         super(application, timer);
@@ -28,7 +38,7 @@ public class MasterPage extends Page {
     }
 
     public void addItem() {
-        addButton().sendMessage("touch");
+        addButton().sendMessage("tap");
     }
 
     private IosView confirmDeletionButton() {
@@ -36,12 +46,13 @@ public class MasterPage extends Page {
     }
 
     private IosView deleteButtonAtRow(Integer i) {
+        waitUntil(deleteButtons(), has(size(), greaterThan(i)));
         List<String> labels = deleteButtons().sendMessage("accessibilityLabel");
         return deleteButtonNamed(labels.get(i));
     }
 
     private IosView deleteButtonNamed(String name) {
-        By selector = By.igor(String.format(DELETE_BUTTON_TEMPLATE, name));
+        By selector = By.igor(String.format(DELETE_BUTTON_WITH_ACCESSIBILITY_LABEL, name));
         return view(selector);
     }
 
@@ -50,10 +61,11 @@ public class MasterPage extends Page {
     }
 
     public void deleteItemAtRow(Integer i) {
-        editButton().sendMessage("touch");
-        when(deleteButtonAtRow(i), is(visible()), touch());
-        when(confirmDeletionButton(), is(visible()), touch());
-        doneButton().sendMessage("touch");
+        editButton().sendMessage("tap");
+        when(itemAtRow(i), is(not(animating())), tap());
+        when(deleteButtonAtRow(i), is(tappable()), tap());
+        when(confirmDeletionButton(), is(tappable()), tap());
+        doneButton().sendMessage("tap");
     }
 
     private IosView doneButton() {
@@ -65,24 +77,21 @@ public class MasterPage extends Page {
     }
 
     private IosView itemAtRow(Integer i) {
+        waitUntil(items(), has(size(), greaterThan(i)));
         List<String> itemLabels = items().sendMessage("accessibilityLabel");
-        return itemNamed(itemLabels.get(i));
+        String name = itemLabels.get(i);
+        return itemNamed(name);
     }
 
     private IosView itemNamed(String name) {
-        By by = By.igor(String.format(ITEM_TEMPLATE, name));
-        return view(by);
+        return view(By.igor(String.format(ITEM_WITH_ACCESSIBILITY_LABEL, name)));
     }
 
-    private IosView items() {
+    public IosView items() {
         return view(ITEMS);
     }
 
-    public Integer numberOfItems() {
-        return items().sendMessage("tag").size();
-    }
-
     public void visitItemAtRow(Integer i) {
-        itemAtRow(i).sendMessage("touch");
+        itemAtRow(i).sendMessage("tap");
     }
 }

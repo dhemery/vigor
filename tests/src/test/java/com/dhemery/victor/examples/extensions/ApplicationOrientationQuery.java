@@ -14,4 +14,8 @@ public class ApplicationOrientationQuery extends Query<IosApplication, Orientati
     public Orientation query(IosApplication application) {
         return application.orientation();
     }
+
+    public static Query<? super IosApplication, Orientation> orienation() {
+        return new ApplicationOrientationQuery();
+    }
 }
