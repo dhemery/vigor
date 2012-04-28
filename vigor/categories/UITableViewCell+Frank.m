@@ -12,12 +12,11 @@
 
 - (BOOL)confirmDeletion {
     if (![self hasDeleteConformationControl]) {
-        NSLog(@"No confirmation button");
         return NO;
     }
     UITableView *tableView = (UITableView *)[self superview];
     id <UITableViewDataSource> dataSource = [tableView dataSource];
-    NSIndexPath *indexPath = [tableView indexPathForCell:(UITableViewCell *) self];
+    NSIndexPath *indexPath = [tableView indexPathForCell:self];
     [dataSource tableView:tableView
        commitEditingStyle:UITableViewCellEditingStyleDelete
         forRowAtIndexPath:indexPath];

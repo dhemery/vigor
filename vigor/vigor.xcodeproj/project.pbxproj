@@ -398,10 +398,7 @@
 					"\"${PROJECT_DIR}/lib/** \"${PROJECT_DIR}/lib/**",
 					"\"$(SRCROOT)/lib\"",
 				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -418,10 +415,7 @@
 					"\"${PROJECT_DIR}/lib/** \"${PROJECT_DIR}/lib/**",
 					"\"$(SRCROOT)/lib\"",
 				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
