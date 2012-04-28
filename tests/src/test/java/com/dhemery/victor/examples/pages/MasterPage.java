@@ -1,24 +1,22 @@
 package com.dhemery.victor.examples.pages;
 
+import com.dhemery.polling.Action;
 import com.dhemery.polling.PollTimer;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosView;
-import org.hamcrest.Matchers;
 
 import java.util.List;
 
 import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
+import static com.dhemery.victor.examples.extensions.TableCellConfirmDeletionAction.confirmDeletionOf;
 import static com.dhemery.victor.examples.extensions.ViewAnimatingMatcher.animating;
-import static com.dhemery.victor.examples.extensions.ViewTappableMatcher.tappable;
-import static com.dhemery.victor.examples.extensions.ViewVisibleMatcher.visible;
 import static com.dhemery.victor.examples.extensions.ViewListEmptyMatcher.empty;
 import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
-import static com.dhemery.victor.examples.extensions.TableCellConfirmDeletionAction.confirmDeletionOf;
-import static org.hamcrest.CoreMatchers.allOf;
+import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
+import static com.dhemery.victor.examples.extensions.ViewVisibleMatcher.visible;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 
 public class MasterPage extends Page {
@@ -26,10 +24,10 @@ public class MasterPage extends Page {
     private static final By DONE_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Done']");
     private static final By EDIT_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Edit']");
 
-    private static final String DELETE_BUTTON_FOR_ITEM = "(%s) UITableViewCellEditControl";
-    private static final By ITEM = By.igor("UITableViewCell*");
-    private static final By ITEM_LABEL = By.igor(ITEM.selector + " UILabel");
-    private static final String ITEM_WITH_LABEL = "(" + ITEM_LABEL.selector +"[accessibilityLabel=='%s'])";
+    private static final By CELL = By.igor("UITableViewCell*");
+    private static final String DELETE_BUTTON_FOR_CELL = "(%s) UITableViewCellEditControl";
+    private static final By CELL_LABEL = By.igor(CELL.selector + "˚ UILabel");
+    private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.selector + "[accessibilityLabel=='%s'])";
 
     public MasterPage(IosApplication application, PollTimer timer) {
         super(application, timer);
@@ -39,28 +37,41 @@ public class MasterPage extends Page {
         return view(ADD_BUTTON);
     }
 
-    public void addItem() {
+    public void addCell() {
         addButton().sendMessage("tap");
     }
 
-    public IosView deleteButtonAtRow(Integer i) {
-
-        String itemBy = String.format(ITEM_WITH_LABEL, itemLabelAtRow(i));
-        String buttonBy = String.format(DELETE_BUTTON_FOR_ITEM, itemBy);
-        return view(By.igor(buttonBy));
+    public void deleteAllCells() {
+        while (the(items(), is(not(empty())))) {
+            deleteItem(0);
+        }
     }
 
-    public void deleteItemAtRow(Integer i) {
-        IosView item = itemAtRow(i);
-        tap(editButton());
+    public Action<IosView> delete() {
+        return new Action<IosView>() {
+            @Override
+            public void executeOn(IosView item) {
+                waitUntil(item, is(not(animating())));
+                tap(deleteButton(item));
+                confirmDeletionOf(item);
+                waitUntil(item, is(not(visible())));
+            }
+        };
+    }
 
-        // The rows animate while they display the delete buttons.
-        // We can't tap while it's animating.
-        waitUntil(item, is(not(animating())));
-        when(deleteButtonAtRow(i), is(tappable()), tap());
-        confirmDeletionOf(item);
-        waitUntil(item, is(not(visible())));
+    public void delete(IosView item) {
+        delete().executeOn(item);
+    }
+
+    public void deleteItem(Integer i) {
+        tap(editButton());
+        delete(item(i));
         tap(doneButton());
+    }
+
+    private IosView deleteButton(IosView cell) {
+        String selector = String.format(DELETE_BUTTON_FOR_CELL, cell.query().selector);
+        return view(By.igor(selector));
     }
 
     public IosView doneButton() {
@@ -70,36 +81,28 @@ public class MasterPage extends Page {
     public IosView editButton() {
         return view(EDIT_BUTTON);
     }
-
-    public IosView itemAtRow(Integer i) {
-        return itemWithLabel(itemLabelAtRow(i));
+    public IosView item(Integer i) {
+        return itemWithLabel(itemLabel(i));
     }
 
-    private String itemLabelAtRow(Integer i) {
+    private String itemLabel(Integer i) {
         waitUntil(items(), has(size(), greaterThan(i)));
         return itemLabels().get(i);
     }
 
     private List<String> itemLabels() {
-        return view(ITEM_LABEL).sendMessage("accessibilityLabel");
+        return view(CELL_LABEL).sendMessage("accessibilityLabel");
     }
 
     private IosView itemWithLabel(String label) {
-        return view(By.igor(String.format(ITEM_WITH_LABEL, label)));
+        return view(By.igor(String.format(CELL_WITH_LABEL, label)));
     }
 
     public IosView items() {
-        return view(ITEM);
+        return view(CELL);
     }
 
-    public void visitItemAtRow(Integer i) {
-        itemAtRow(i).sendMessage("tap");
-    }
-
-    public void deleteAllItems() {
-        while(the(items(), Matchers.is(Matchers.not(empty())))) {
-            deleteItemAtRow(0);
-        }
-
+    public void visitCell(Integer i) {
+        item(i).sendMessage("tap");
     }
 }

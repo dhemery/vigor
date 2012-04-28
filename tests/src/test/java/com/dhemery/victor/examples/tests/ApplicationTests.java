@@ -24,7 +24,7 @@ public class ApplicationTests extends VictorTest {
 
     @After
     public void removeAllItems() {
-        master.deleteAllItems();
+        master.deleteAllCells();
     }
 
     @Test
@@ -34,20 +34,20 @@ public class ApplicationTests extends VictorTest {
 
     @Test
     public void aNewItemAppearsInTheMasterPage() {
-        master.addItem();
+        master.addCell();
         assertThat(master.items(), has(size(), equalTo(1)));
     }
 
     @Test
     public void aDeletedItemDoesNotAppearInTheMasterPage() {
-        master.addItem();
-        master.deleteItemAtRow(0);
+        master.addCell();
+        master.deleteItem(0);
         assertThat(master.items(), is(empty()));
     }
 
     @Test
     public void aNewItemHasADetailPage() {
-        master.addItem();
-        master.visitItemAtRow(0);
+        master.addCell();
+        master.visitCell(0);
     }
 }
