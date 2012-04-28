@@ -7,7 +7,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 import java.util.List;
 
-public class ViewIsTappableMatcher extends TypeSafeMatcher<IosView> {
+public class ViewTappableMatcher extends TypeSafeMatcher<IosView> {
 
     @Override
     protected boolean matchesSafely(IosView view) {
@@ -28,6 +28,6 @@ public class ViewIsTappableMatcher extends TypeSafeMatcher<IosView> {
     }
 
     public static Matcher<IosView> tappable() {
-        return new ViewIsTappableMatcher();
+        return new ViewTappableMatcher();
     }
 }

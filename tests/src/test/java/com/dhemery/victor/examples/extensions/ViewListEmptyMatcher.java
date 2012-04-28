@@ -7,7 +7,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 import java.util.List;
 
-public class ViewListIsEmptyMatcher extends TypeSafeMatcher<IosView> {
+public class ViewListEmptyMatcher extends TypeSafeMatcher<IosView> {
     private int lastSize;
 
     @Override
@@ -29,6 +29,6 @@ public class ViewListIsEmptyMatcher extends TypeSafeMatcher<IosView> {
     }
 
     public static Matcher<IosView> empty() {
-        return new ViewListIsEmptyMatcher();
+        return new ViewListEmptyMatcher();
     }
 }

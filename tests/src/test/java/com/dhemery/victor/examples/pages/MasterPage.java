@@ -4,30 +4,32 @@ import com.dhemery.polling.PollTimer;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosView;
-import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matchers;
 
 import java.util.List;
 
 import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.examples.extensions.ViewIsAnimatingMatcher.animating;
-import static com.dhemery.victor.examples.extensions.ViewListIsEmptyMatcher.empty;
-import static com.dhemery.victor.examples.extensions.TapViewAction.tap;
-import static com.dhemery.victor.examples.extensions.ViewIsTappableMatcher.tappable;
-import static com.dhemery.victor.examples.extensions.ViewIsVisibleMatcher.visible;
+import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
+import static com.dhemery.victor.examples.extensions.ViewAnimatingMatcher.animating;
+import static com.dhemery.victor.examples.extensions.ViewTappableMatcher.tappable;
+import static com.dhemery.victor.examples.extensions.ViewVisibleMatcher.visible;
+import static com.dhemery.victor.examples.extensions.ViewListEmptyMatcher.empty;
 import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
+import static com.dhemery.victor.examples.extensions.TableCellConfirmDeletionAction.confirmDeletionOf;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
 
 public class MasterPage extends Page {
     private static final By ADD_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Add']");
-    private static final By CONFIRM_DELETION_BUTTON = By.igor("UITableViewCellDeleteConfirmationControl[accessibilityLabel == 'Confirm Deletion']");
-    private static final String DELETE_BUTTON_WITH_ACCESSIBILITY_LABEL = "UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel=='%s']";
-    private static final By DELETE_BUTTONS = By.igor("UITableView[accessibilityLabel=='Empty list'] > UITableViewCell > UITableViewCellEditControl[accessibilityLabel BEGINSWITH 'Delete']");
     private static final By DONE_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Done']");
     private static final By EDIT_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Edit']");
-    private static final By ITEMS = By.igor("UITableView[accessibilityLabel=='Empty list'] UITableViewCell UILabel");
-    private static final String ITEM_WITH_ACCESSIBILITY_LABEL = ITEMS.selector + "[accessibilityLabel=='%s']";
+
+    private static final String DELETE_BUTTON_FOR_ITEM = "(%s) UITableViewCellEditControl";
+    private static final By ITEM = By.igor("UITableViewCell*");
+    private static final By ITEM_LABEL = By.igor(ITEM + " UILabel");
+    private static final String ITEM_WITH_LABEL = "(" + ITEM_LABEL +"[accessibilityLabel=='%s'])";
 
     public MasterPage(IosApplication application, PollTimer timer) {
         super(application, timer);
@@ -41,57 +43,63 @@ public class MasterPage extends Page {
         addButton().sendMessage("tap");
     }
 
-    private IosView confirmDeletionButton() {
-        return view(CONFIRM_DELETION_BUTTON);
-    }
+    public IosView deleteButtonAtRow(Integer i) {
 
-    private IosView deleteButtonAtRow(Integer i) {
-        waitUntil(deleteButtons(), has(size(), greaterThan(i)));
-        List<String> labels = deleteButtons().sendMessage("accessibilityLabel");
-        return deleteButtonNamed(labels.get(i));
-    }
-
-    private IosView deleteButtonNamed(String name) {
-        By selector = By.igor(String.format(DELETE_BUTTON_WITH_ACCESSIBILITY_LABEL, name));
-        return view(selector);
-    }
-
-    private IosView deleteButtons() {
-        return view(DELETE_BUTTONS);
+        String itemBy = String.format(ITEM_WITH_LABEL, itemLabelAtRow(i));
+        String buttonBy = String.format(DELETE_BUTTON_FOR_ITEM, itemBy);
+        return view(By.igor(buttonBy));
     }
 
     public void deleteItemAtRow(Integer i) {
-        editButton().sendMessage("tap");
-        when(itemAtRow(i), is(not(animating())), tap());
+        IosView item = itemAtRow(i);
+        tap(editButton());
+
+        // The rows animate while they display the delete buttons.
+        // We can't tap while it's animating.
+        waitUntil(item, is(not(animating())));
         when(deleteButtonAtRow(i), is(tappable()), tap());
-        when(confirmDeletionButton(), is(tappable()), tap());
-        doneButton().sendMessage("tap");
+        confirmDeletionOf(item);
+        waitUntil(item, is(not(visible())));
+        tap(doneButton());
     }
 
-    private IosView doneButton() {
+    public IosView doneButton() {
         return view(DONE_BUTTON);
     }
 
-    private IosView editButton() {
+    public IosView editButton() {
         return view(EDIT_BUTTON);
     }
 
-    private IosView itemAtRow(Integer i) {
-        waitUntil(items(), has(size(), greaterThan(i)));
-        List<String> itemLabels = items().sendMessage("accessibilityLabel");
-        String name = itemLabels.get(i);
-        return itemNamed(name);
+    public IosView itemAtRow(Integer i) {
+        return itemWithLabel(itemLabelAtRow(i));
     }
 
-    private IosView itemNamed(String name) {
-        return view(By.igor(String.format(ITEM_WITH_ACCESSIBILITY_LABEL, name)));
+    private String itemLabelAtRow(Integer i) {
+        waitUntil(items(), has(size(), greaterThan(i)));
+        return itemLabels().get(i);
+    }
+
+    private List<String> itemLabels() {
+        return view(ITEM_LABEL).sendMessage("accessibilityLabel");
+    }
+
+    private IosView itemWithLabel(String label) {
+        return view(By.igor(String.format(ITEM_WITH_LABEL, label)));
     }
 
     public IosView items() {
-        return view(ITEMS);
+        return view(ITEM);
     }
 
     public void visitItemAtRow(Integer i) {
         itemAtRow(i).sendMessage("tap");
+    }
+
+    public void deleteAllItems() {
+        while(the(items(), Matchers.is(Matchers.not(empty())))) {
+            deleteItemAtRow(0);
+        }
+
     }
 }

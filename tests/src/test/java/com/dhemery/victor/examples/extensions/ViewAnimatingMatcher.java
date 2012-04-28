@@ -4,11 +4,10 @@ import com.dhemery.victor.IosView;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class ViewIsAnimatingMatcher extends TypeSafeMatcher<IosView> {
+public class ViewAnimatingMatcher extends TypeSafeMatcher<IosView> {
     private String reason;
 
     @Override
@@ -38,6 +37,6 @@ public class ViewIsAnimatingMatcher extends TypeSafeMatcher<IosView> {
     }
 
     public static Matcher<IosView> animating() {
-        return new ViewIsAnimatingMatcher();
+        return new ViewAnimatingMatcher();
     }
 }

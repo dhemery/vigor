@@ -7,7 +7,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 import java.util.List;
 
-public class ViewIsVisibleMatcher extends TypeSafeMatcher<IosView> {
+public class ViewVisibleMatcher extends TypeSafeMatcher<IosView> {
     private String reason;
 
     @Override
@@ -36,6 +36,6 @@ public class ViewIsVisibleMatcher extends TypeSafeMatcher<IosView> {
     }
 
     public static Matcher<IosView> visible() {
-        return new ViewIsVisibleMatcher();
+        return new ViewVisibleMatcher();
     }
 }
