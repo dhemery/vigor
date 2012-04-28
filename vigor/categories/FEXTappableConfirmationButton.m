@@ -1,6 +1,6 @@
 #import <ObjC/runtime.h>
 
-void tapConfirmationButton(id self, SEL _cmd) {
+void FEX_tapConfirmDeletionButton(id self, SEL _cmd) {
     UIView *this = (UIView *)self;
     UITableViewCell *cell = (UITableViewCell *)[this superview];
     UITableView *tableView = (UITableView *)[cell superview];
@@ -21,7 +21,7 @@ void tapConfirmationButton(id self, SEL _cmd) {
     SEL tapSelector = NSSelectorFromString(@"tap");
     char *const voidNoArgsType = "v@:";
 
-    class_replaceMethod(confirmationButtonClass, tapSelector, (IMP)tapConfirmationButton, voidNoArgsType);
+    class_replaceMethod(confirmationButtonClass, tapSelector, (IMP) FEX_tapConfirmDeletionButton, voidNoArgsType);
 }
 
 + (void)load {
