@@ -28,8 +28,8 @@ public class MasterPage extends Page {
 
     private static final String DELETE_BUTTON_FOR_ITEM = "(%s) UITableViewCellEditControl";
     private static final By ITEM = By.igor("UITableViewCell*");
-    private static final By ITEM_LABEL = By.igor(ITEM + " UILabel");
-    private static final String ITEM_WITH_LABEL = "(" + ITEM_LABEL +"[accessibilityLabel=='%s'])";
+    private static final By ITEM_LABEL = By.igor(ITEM.selector + " UILabel");
+    private static final String ITEM_WITH_LABEL = "(" + ITEM_LABEL.selector +"[accessibilityLabel=='%s'])";
 
     public MasterPage(IosApplication application, PollTimer timer) {
         super(application, timer);
