@@ -3,9 +3,6 @@
 @implementation UITableViewCell (Frank)
 
 - (BOOL)FEX_confirmDeletion {
-    if (![self showingDeleteConfirmation]) {
-        return NO;
-    }
     UITableView *tableView = (UITableView *)[self superview];
     id <UITableViewDataSource> dataSource = [tableView dataSource];
     NSIndexPath *indexPath = [tableView indexPathForCell:self];
