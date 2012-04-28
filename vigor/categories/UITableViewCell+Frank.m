@@ -2,7 +2,7 @@
 
 @implementation UITableViewCell (Frank)
 
-- (BOOL)isShowingDeleteConformationButton {
+- (BOOL)FEX_isShowingDeleteConformationButton {
     Class deleteConformationControlClass = NSClassFromString(@"UITableViewCellDeleteConfirmationControl");
     for (UIView *subview in [self subviews]) {
         if ([subview isKindOfClass:deleteConformationControlClass]) return YES;
@@ -10,8 +10,8 @@
     return NO;
 }
 
-- (BOOL)confirmDeletion {
-    if (![self isShowingDeleteConformationButton]) {
+- (BOOL)FEX_confirmDeletion {
+    if (![self FEX_isShowingDeleteConformationButton]) {
         return NO;
     }
     UITableView *tableView = (UITableView *)[self superview];

@@ -1,3 +1,3 @@
 @interface UITableViewCell (Frank)
-- (BOOL)confirmDeletion;
+- (BOOL)FEX_confirmDeletion;
 @end

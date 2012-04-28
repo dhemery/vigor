@@ -6,7 +6,7 @@ import com.dhemery.victor.IosView;
 public class TableCellConfirmDeletionAction implements Action<IosView> {
     @Override
     public void executeOn(IosView cell) {
-        cell.sendMessage("confirmDeletion");
+        cell.sendMessage("FEX_confirmDeletion");
     }
 
     public static Action<IosView> confirmDeletion() {
