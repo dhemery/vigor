@@ -24,9 +24,11 @@ public class MasterPage extends Page {
     private static final By DONE_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Done']");
     private static final By EDIT_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Edit']");
 
+    private static final String CONFIRM_DELETION_BUTTON_FOR_CELL = "(%s) UITableViewCellDeleteConfirmationControl";
+
     private static final By CELL = By.igor("UITableViewCell*");
     private static final String DELETE_BUTTON_FOR_CELL = "(%s) UITableViewCellEditControl";
-    private static final By CELL_LABEL = By.igor(CELL.selector + "˚ UILabel");
+    private static final By CELL_LABEL = By.igor(CELL.selector + " UILabel");
     private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.selector + "[accessibilityLabel=='%s'])";
 
     public MasterPage(IosApplication application, PollTimer timer) {
@@ -53,7 +55,7 @@ public class MasterPage extends Page {
             public void executeOn(IosView item) {
                 waitUntil(item, is(not(animating())));
                 tap(deleteButton(item));
-                confirmDeletionOf(item);
+                tap(confirmDeletionButton(item));
                 waitUntil(item, is(not(visible())));
             }
         };
@@ -67,6 +69,11 @@ public class MasterPage extends Page {
         tap(editButton());
         delete(item(i));
         tap(doneButton());
+    }
+
+    private IosView confirmDeletionButton(IosView cell) {
+        String selector = String.format(CONFIRM_DELETION_BUTTON_FOR_CELL, cell.query().selector);
+        return view(By.igor(selector));
     }
 
     private IosView deleteButton(IosView cell) {

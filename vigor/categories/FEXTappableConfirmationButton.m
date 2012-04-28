@@ -1,8 +1,5 @@
 #import <ObjC/runtime.h>
 
-@interface FEXTappableConfirmationButton : NSObject
-@end
-
 void tapConfirmationButton(id self, SEL _cmd) {
     UIView *this = (UIView *)self;
     UITableViewCell *cell = (UITableViewCell *)[this superview];
@@ -14,14 +11,17 @@ void tapConfirmationButton(id self, SEL _cmd) {
         forRowAtIndexPath:indexPath];
 }
 
+@interface FEXTappableConfirmationButton : NSObject
+@end
+
 @implementation FEXTappableConfirmationButton
 
 + (void)applicationDidBecomeActive:(NSNotification *)notification {
     Class confirmationButtonClass = NSClassFromString(@"UITableViewCellDeleteConfirmationControl");
     SEL tapSelector = NSSelectorFromString(@"tap");
+    char *const voidNoArgsType = "v@:";
 
-    class_replaceMethod(confirmationButtonClass, tapSelector, (IMP)tapConfirmationButton, "v@:");
-    NSLog(@"Added a tap method to UITableViewCellDeleteConfirmationControl.");
+    class_replaceMethod(confirmationButtonClass, tapSelector, (IMP)tapConfirmationButton, voidNoArgsType);
 }
 
 + (void)load {

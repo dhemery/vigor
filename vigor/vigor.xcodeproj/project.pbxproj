@@ -22,7 +22,6 @@
 		2D321D831543579B00B05E3B /* libShelley.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28113 /* libShelley.a */; };
 		2D321D85154357A500B05E3B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D321D84154357A500B05E3B /* CFNetwork.framework */; };
 		2D321D871543583300B05E3B /* libigor-0.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D321D861543583300B05E3B /* libigor-0.4.0.a */; };
-		2D36ACA11545421700E4C0CD /* UITableViewCell+Frank.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0CC /* UITableViewCell+Frank.m */; };
 		2D36ACA11545421700E4C0D1 /* FEXTappableConfirmationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D0 /* FEXTappableConfirmationButton.m */; };
 /* End PBXBuildFile section */
 
@@ -78,8 +77,6 @@
 		2D321D84154357A500B05E3B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2D321D861543583300B05E3B /* libigor-0.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libigor-0.4.0.a"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0CB /* Vigor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Vigor.entitlements; path = Vigor/Vigor.entitlements; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0CC /* UITableViewCell+Frank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Frank.m"; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0CE /* UITableViewCell+Frank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Frank.h"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0D0 /* FEXTappableConfirmationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEXTappableConfirmationButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,8 +216,6 @@
 			isa = PBXGroup;
 			children = (
 				2D36ACA11545421700E4C0D0 /* FEXTappableConfirmationButton.m */,
-				2D36ACA11545421700E4C0CC /* UITableViewCell+Frank.m */,
-				2D36ACA11545421700E4C0CE /* UITableViewCell+Frank.h */,
 			);
 			path = categories;
 			sourceTree = "<group>";
@@ -293,7 +288,6 @@
 				2A2C550DAF5EC6628AB280C7 /* AppDelegate.m in Sources */,
 				2A2C550DAF5EC6628AB280D0 /* MasterViewController.m in Sources */,
 				2A2C550DAF5EC6628AB280D3 /* DetailViewController.m in Sources */,
-				2D36ACA11545421700E4C0CD /* UITableViewCell+Frank.m in Sources */,
 				2D36ACA11545421700E4C0D1 /* FEXTappableConfirmationButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
