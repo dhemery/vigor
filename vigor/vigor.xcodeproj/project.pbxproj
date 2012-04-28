@@ -17,13 +17,6 @@
 		2A2C550DAF5EC6628AB280CD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB280CC /* MainStoryboard_iPad.storyboard */; };
 		2A2C550DAF5EC6628AB280D0 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB280CF /* MasterViewController.m */; };
 		2A2C550DAF5EC6628AB280D3 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB280D2 /* DetailViewController.m */; };
-		2A2C550DAF5EC6628AB280FE /* jquery-ui.min.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB280FD /* jquery-ui.min.js */; };
-		2A2C550DAF5EC6628AB28100 /* jquery.min.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB280FF /* jquery.min.js */; };
-		2A2C550DAF5EC6628AB28104 /* jquery.treeview.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28103 /* jquery.treeview.js */; };
-		2A2C550DAF5EC6628AB28106 /* json2.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28105 /* json2.js */; };
-		2A2C550DAF5EC6628AB28108 /* raphael-min.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28107 /* raphael-min.js */; };
-		2A2C550DAF5EC6628AB2810C /* symbiote.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB2810B /* symbiote.js */; };
-		2A2C550DAF5EC6628AB2810E /* underscore.js in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB2810D /* underscore.js */; };
 		2D321D811543577500B05E3B /* frank_static_resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D321D801543577500B05E3B /* frank_static_resources.bundle */; };
 		2D321D821543579B00B05E3B /* libFrank.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28111 /* libFrank.a */; };
 		2D321D831543579B00B05E3B /* libShelley.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28113 /* libShelley.a */; };
@@ -297,13 +290,6 @@
 				2A2C550DAF5EC6628AB280C7 /* AppDelegate.m in Sources */,
 				2A2C550DAF5EC6628AB280D0 /* MasterViewController.m in Sources */,
 				2A2C550DAF5EC6628AB280D3 /* DetailViewController.m in Sources */,
-				2A2C550DAF5EC6628AB280FE /* jquery-ui.min.js in Sources */,
-				2A2C550DAF5EC6628AB28100 /* jquery.min.js in Sources */,
-				2A2C550DAF5EC6628AB28104 /* jquery.treeview.js in Sources */,
-				2A2C550DAF5EC6628AB28106 /* json2.js in Sources */,
-				2A2C550DAF5EC6628AB28108 /* raphael-min.js in Sources */,
-				2A2C550DAF5EC6628AB2810C /* symbiote.js in Sources */,
-				2A2C550DAF5EC6628AB2810E /* underscore.js in Sources */,
 				2D36ACA11545421700E4C0CD /* UITableViewCell+Frank.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,10 +380,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Vigor/Vigor-Prefix.pch";
 				INFOPLIST_FILE = "Vigor/Vigor-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"\"${PROJECT_DIR}/lib/** \"${PROJECT_DIR}/lib/**",
-					"\"$(SRCROOT)/lib\"",
-				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/lib\"";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -411,10 +394,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Vigor/Vigor-Prefix.pch";
 				INFOPLIST_FILE = "Vigor/Vigor-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"\"${PROJECT_DIR}/lib/** \"${PROJECT_DIR}/lib/**",
-					"\"$(SRCROOT)/lib\"",
-				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/lib\"";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
