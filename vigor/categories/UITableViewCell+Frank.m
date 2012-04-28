@@ -2,16 +2,8 @@
 
 @implementation UITableViewCell (Frank)
 
-- (BOOL)FEX_isShowingDeleteConformationButton {
-    Class deleteConformationControlClass = NSClassFromString(@"UITableViewCellDeleteConfirmationControl");
-    for (UIView *subview in [self subviews]) {
-        if ([subview isKindOfClass:deleteConformationControlClass]) return YES;
-    }
-    return NO;
-}
-
 - (BOOL)FEX_confirmDeletion {
-    if (![self FEX_isShowingDeleteConformationButton]) {
+    if (![self showingDeleteConfirmation]) {
         return NO;
     }
     UITableView *tableView = (UITableView *)[self superview];
