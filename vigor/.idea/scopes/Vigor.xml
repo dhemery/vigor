@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Vigor" pattern="file:categories//*" />
+</component>
