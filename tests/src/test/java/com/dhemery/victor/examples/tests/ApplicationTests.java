@@ -1,10 +1,19 @@
 package com.dhemery.victor.examples.tests;
 
+import com.dhemery.properties.ReadProperties;
+import com.dhemery.victor.device.CreateIosDevice;
+import com.dhemery.victor.device.IosDeviceConfiguration;
+import com.dhemery.victor.device.IosDeviceConfigurationProperties;
 import com.dhemery.victor.examples.pages.MasterPage;
 import com.dhemery.victor.examples.runner.VictorTest;
+import com.dhemery.victor.xcode.Xcode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.util.Map;
+import java.util.Scanner;
 
 import static com.dhemery.polling.Has.has;
 import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
@@ -25,6 +34,22 @@ public class ApplicationTests extends VictorTest {
     @After
     public void removeAllItems() {
         master.deleteAllCells();
+    }
+
+    public String getSdkVersion() {
+        Map<String,String> properties = ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap();
+        String sdkRoot = properties.get(IosDeviceConfigurationProperties.SDK_ROOT);
+        if (sdkRoot == null) sdkRoot = new Xcode().newestSdkRoot();
+        System.out.println("SDK root: " + sdkRoot);
+        String filename = new File(sdkRoot).getName();
+        System.out.println("SDK file: " + filename);
+        Scanner sdkNameScanner = new Scanner(filename);
+        return sdkNameScanner.findInLine("\\d\\.\\d");
+    }
+
+    @Test
+    public void stuffs() {
+        System.out.println("SDK version: " + getSdkVersion());
     }
 
     @Test

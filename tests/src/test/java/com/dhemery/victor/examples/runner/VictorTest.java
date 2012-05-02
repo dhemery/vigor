@@ -35,13 +35,13 @@ public class VictorTest extends PollableExpressions {
         timer = createTimer(properties);
         IosDeviceConfiguration deviceConfiguration = new IosDeviceConfiguration(properties);
         device = CreateIosDevice.withConfiguration(deviceConfiguration);
-        device.start();
+//        device.start();
         waitUntil(frank, timer, respondsToRequests());
     }
 
     @AfterClass
     public static void stopDevice() {
-        if (device != null) device.stop();
+//        if (device != null) device.stop();
     }
 
     @Override
