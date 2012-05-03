@@ -11,10 +11,10 @@ void FEX_tapConfirmDeletionButton(id self, SEL _cmd) {
         forRowAtIndexPath:indexPath];
 }
 
-@interface FEXTappableConfirmationButton : NSObject
+@interface DFXTappableConfirmationButton : NSObject
 @end
 
-@implementation FEXTappableConfirmationButton
+@implementation DFXTappableConfirmationButton
 
 + (void)applicationDidBecomeActive:(NSNotification *)notification {
     Class confirmationButtonClass = NSClassFromString(@"UITableViewCellDeleteConfirmationControl");

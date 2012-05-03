@@ -21,11 +21,11 @@
 		2D321D831543579B00B05E3B /* libShelley.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28113 /* libShelley.a */; };
 		2D321D85154357A500B05E3B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D321D84154357A500B05E3B /* CFNetwork.framework */; };
 		2D321D871543583300B05E3B /* libigor-0.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D321D861543583300B05E3B /* libigor-0.4.0.a */; };
-		2D36ACA11545421700E4C0D1 /* FEXTappableConfirmationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D0 /* FEXTappableConfirmationButton.m */; };
-		2D36ACA11545421700E4C0D6 /* NSIndexPath+FEX_JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D5 /* NSIndexPath+FEX_JSON.m */; };
-		2D36ACA11545421700E4C0D9 /* UITableView+FrankExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D8 /* UITableView+FrankExtensions.m */; };
+		2D36ACA11545421700E4C0D1 /* DFXTappableConfirmationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D0 /* DFXTappableConfirmationButton.m */; };
+		2D36ACA11545421700E4C0D6 /* NSIndexPath+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D5 /* NSIndexPath+DFX.m */; };
+		2D36ACA11545421700E4C0D9 /* UITableView+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D8 /* UITableView+DFX.m */; };
 		2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0DB /* libFrank.a */; };
-		2D36ACA11545421700E4C0DE /* AppDelegate+FEXKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0DD /* AppDelegate+FEXKeyboard.m */; };
+		2D36ACA11545421700E4C0E2 /* DFXKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,14 +79,14 @@
 		2D321D84154357A500B05E3B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2D321D861543583300B05E3B /* libigor-0.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libigor-0.4.0.a"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0CB /* Vigor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Vigor.entitlements; path = Vigor/Vigor.entitlements; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0D0 /* FEXTappableConfirmationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FEXTappableConfirmationButton.m; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0D5 /* NSIndexPath+FEX_JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+FEX_JSON.m"; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0D7 /* NSIndexPath+FEX_JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+FEX_JSON.h"; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0D8 /* UITableView+FrankExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FrankExtensions.m"; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0DA /* UITableView+FrankExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FrankExtensions.h"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0D0 /* DFXTappableConfirmationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFXTappableConfirmationButton.m; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0D5 /* NSIndexPath+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+DFX.m"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0D7 /* NSIndexPath+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+DFX.h"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0D8 /* UITableView+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+DFX.m"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0DA /* UITableView+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DFX.h"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0DB /* libFrank.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFrank.a; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0DD /* AppDelegate+FEXKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+FEXKeyboard.m"; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0DF /* AppDelegate+FEXKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+FEXKeyboard.h"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0E0 /* DFXKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFXKeyboard.h; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFXKeyboard.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,13 +224,13 @@
 		2D36ACA11545421700E4C0CF /* categories */ = {
 			isa = PBXGroup;
 			children = (
-				2D36ACA11545421700E4C0DF /* AppDelegate+FEXKeyboard.h */,
-				2D36ACA11545421700E4C0DD /* AppDelegate+FEXKeyboard.m */,
-				2D36ACA11545421700E4C0DA /* UITableView+FrankExtensions.h */,
-				2D36ACA11545421700E4C0D8 /* UITableView+FrankExtensions.m */,
-				2D36ACA11545421700E4C0D7 /* NSIndexPath+FEX_JSON.h */,
-				2D36ACA11545421700E4C0D5 /* NSIndexPath+FEX_JSON.m */,
-				2D36ACA11545421700E4C0D0 /* FEXTappableConfirmationButton.m */,
+				2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */,
+				2D36ACA11545421700E4C0E0 /* DFXKeyboard.h */,
+				2D36ACA11545421700E4C0DA /* UITableView+DFX.h */,
+				2D36ACA11545421700E4C0D8 /* UITableView+DFX.m */,
+				2D36ACA11545421700E4C0D7 /* NSIndexPath+DFX.h */,
+				2D36ACA11545421700E4C0D5 /* NSIndexPath+DFX.m */,
+				2D36ACA11545421700E4C0D0 /* DFXTappableConfirmationButton.m */,
 			);
 			path = categories;
 			sourceTree = "<group>";
@@ -303,10 +303,10 @@
 				2A2C550DAF5EC6628AB280C7 /* AppDelegate.m in Sources */,
 				2A2C550DAF5EC6628AB280D0 /* MasterViewController.m in Sources */,
 				2A2C550DAF5EC6628AB280D3 /* DetailViewController.m in Sources */,
-				2D36ACA11545421700E4C0D1 /* FEXTappableConfirmationButton.m in Sources */,
-				2D36ACA11545421700E4C0D6 /* NSIndexPath+FEX_JSON.m in Sources */,
-				2D36ACA11545421700E4C0D9 /* UITableView+FrankExtensions.m in Sources */,
-				2D36ACA11545421700E4C0DE /* AppDelegate+FEXKeyboard.m in Sources */,
+				2D36ACA11545421700E4C0D1 /* DFXTappableConfirmationButton.m in Sources */,
+				2D36ACA11545421700E4C0D6 /* NSIndexPath+DFX.m in Sources */,
+				2D36ACA11545421700E4C0D9 /* UITableView+DFX.m in Sources */,
+				2D36ACA11545421700E4C0E2 /* DFXKeyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

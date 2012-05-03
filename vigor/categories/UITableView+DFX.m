@@ -1,6 +1,6 @@
-#import "UITableView+FrankExtensions.h"
+#import "UITableView+DFX.h"
 
-@implementation UITableView (FrankExtensions)
+@implementation UITableView (DFX)
 - (NSArray *)FEX_indexPathsForVisibleRows {
     NSArray *rawPaths = [self indexPathsForVisibleRows];
     NSMutableArray *paths = [NSMutableArray array];

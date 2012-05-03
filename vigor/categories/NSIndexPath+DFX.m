@@ -1,6 +1,6 @@
-#import "NSIndexPath+FEX_JSON.h"
+#import "NSIndexPath+DFX.h"
 
-@implementation NSIndexPath (FEX_JSON)
+@implementation NSIndexPath (DFX)
 
 - (id)proxyForJson {
     return [NSDictionary dictionaryWithObjectsAndKeys:

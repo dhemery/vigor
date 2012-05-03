@@ -1,4 +1,4 @@
-@interface UITableView (FrankExtensions)
+@interface UITableView (DFX)
 
 - (NSArray *)FEX_indexPathsForVisibleRows;
 
