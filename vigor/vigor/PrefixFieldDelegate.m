@@ -18,7 +18,7 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSLog(@"%@ %d:%d \"%@\"", NSStringFromSelector(_cmd), range.location, range.length, string);
+    NSLog(@"%@%d,%d,\"%@\"", NSStringFromSelector(_cmd), range.location, range.length, string);
     self.prefix = [self.prefix stringByReplacingCharactersInRange:range withString:string];
     return YES;
 }

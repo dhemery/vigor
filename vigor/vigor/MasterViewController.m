@@ -47,6 +47,7 @@
 
     self.prefixField.placeholder = @"prefix";
     self.prefixField.accessibilityIdentifier = @"prefix";
+    self.prefixField.clearButtonMode = UITextFieldViewModeWhileEditing;
 
     self.prefixDelegate = [PrefixFieldDelegate new];
     self.prefixField.delegate = self.prefixDelegate;

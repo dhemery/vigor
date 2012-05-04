@@ -12,4 +12,6 @@
 
 - (BOOL)DFX_setText:(NSString *)text;
 
+- (BOOL)DFX_return;
+
 @end

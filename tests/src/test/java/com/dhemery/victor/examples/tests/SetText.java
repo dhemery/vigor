@@ -20,5 +20,6 @@ public class SetText extends VictorTest {
         field1.sendMessage("DFX_insertText:atLocation:", ",", 5);
         field1.sendMessage("DFX_insertText:atLocation:", ",", 24);
         field1.sendMessage("DFX_appendText:", ".");
+        field1.sendMessage("DFX_return");
     }
 }
