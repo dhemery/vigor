@@ -27,6 +27,7 @@
 		2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0DB /* libFrank.a */; };
 		2D36ACA11545421700E4C0E2 /* DFXKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */; };
 		2D36ACA11545421700E4C0E5 /* UITextField+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */; };
+		2D36ACA11545421700E4C0E7 /* PrefixFieldDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E6 /* PrefixFieldDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,8 @@
 		2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFXKeyboard.m; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+DFX.h"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+DFX.m"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0E6 /* PrefixFieldDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefixFieldDelegate.m; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0E8 /* PrefixFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixFieldDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +148,8 @@
 		2A2C550DAF5EC6628AB280BC /* vigor */ = {
 			isa = PBXGroup;
 			children = (
+				2D36ACA11545421700E4C0E8 /* PrefixFieldDelegate.h */,
+				2D36ACA11545421700E4C0E6 /* PrefixFieldDelegate.m */,
 				2A2C550DAF5EC6628AB280D2 /* DetailViewController.m */,
 				2A2C550DAF5EC6628AB280D1 /* DetailViewController.h */,
 				2A2C550DAF5EC6628AB280CF /* MasterViewController.m */,
@@ -313,6 +318,7 @@
 				2D36ACA11545421700E4C0D9 /* UITableView+DFX.m in Sources */,
 				2D36ACA11545421700E4C0E2 /* DFXKeyboard.m in Sources */,
 				2D36ACA11545421700E4C0E5 /* UITextField+DFX.m in Sources */,
+				2D36ACA11545421700E4C0E7 /* PrefixFieldDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

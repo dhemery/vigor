@@ -22,7 +22,7 @@ public class FlashKeyboard extends VictorTest {
     public static final int RETURN_KEY = 272;
     @Test
     public void flashKeyboard() throws InterruptedException {
-        By textField1 = By.igor("[accessibilityHint == 'field1']");
+        By textField1 = By.igor("#prefix");
         when(application.view(textField1), is(visible()), tap());
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_P,27);
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_R,27);
@@ -36,10 +36,6 @@ public class FlashKeyboard extends VictorTest {
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_T,27);
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_Y,27);
         application.sendMessage("DFX_touchKeyboardAtx:y:",RETURN_KEY,189);
-        By textField2 = By.igor("[accessibilityHint == 'field2']");
-        when(application.view(textField2), is(visible()), tap());
-
-//        application.sendMessage("DFX_dumpKeyboard");
     }
 }
 

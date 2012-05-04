@@ -28,6 +28,12 @@ public class RotationTests extends VictorTest {
 
         device.rotateRight();
         assertThat(application, eventually(), has(orientation(), equalTo(PORTRAIT)));
+
+        device.rotateRight();
+        assertThat(application, eventually(), has(orientation(), equalTo(LANDSCAPE)));
+
+        device.rotateRight();
+        assertThat(application, eventually(), has(orientation(), equalTo(PORTRAIT)));
     }
 
 }

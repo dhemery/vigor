@@ -13,7 +13,7 @@ public class SetText extends VictorTest {
 
     @Test
     public void setText() {
-        IosView field1 = application.view(By.igor("[accessibilityHint == 'field1']"));
+        IosView field1 = application.view(By.igor("#prefix"));
         when(field1, is(visible()), tap());
         field1.sendMessage("DFX_setText:", "Hello Dolly");
         field1.sendMessage("DFX_appendText:", ". Well hello Dolly");

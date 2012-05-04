@@ -6,9 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
+#import "PrefixFieldDelegate.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -17,8 +19,10 @@
 
 @implementation MasterViewController
 
+@synthesize prefixField = _prefixField;
 @synthesize detailViewController = _detailViewController;
-
+@synthesize nextCellNumber = _nextCellNumber;
+@synthesize prefixDelegate = _prefixDelegate;
 
 - (void)awakeFromNib
 {
@@ -32,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.nextCellNumber = 0;
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
@@ -39,10 +44,18 @@
     self.navigationItem.rightBarButtonItem = addButton;
 
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    self.prefixField.placeholder = @"prefix";
+    self.prefixField.accessibilityIdentifier = @"prefix";
+
+    self.prefixDelegate = [PrefixFieldDelegate new];
+    self.prefixField.delegate = self.prefixDelegate;
 }
 
 - (void)viewDidUnload
 {
+    [self setPrefixField:nil];
+    [self setPrefixField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -61,7 +74,7 @@
     if (!_objects) {
         _objects = [[NSMutableArray alloc] init];
     }
-    [_objects insertObject:[NSDate date] atIndex:0];
+    [_objects insertObject:[self newRow] atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -137,6 +150,12 @@
         NSDate *object = [_objects objectAtIndex:indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
+}
+
+- (id)newRow {
+    NSString *nextCellName = [NSString stringWithFormat:@"%@%d", self.prefixDelegate.prefix, self.nextCellNumber++];
+    NSLog(@"Next cell name: %@", nextCellName);
+    return nextCellName;
 }
 
 @end
