@@ -26,6 +26,7 @@
 		2D36ACA11545421700E4C0D9 /* UITableView+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D8 /* UITableView+DFX.m */; };
 		2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0DB /* libFrank.a */; };
 		2D36ACA11545421700E4C0E2 /* DFXKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */; };
+		2D36ACA11545421700E4C0E5 /* UITextField+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,8 @@
 		2D36ACA11545421700E4C0DB /* libFrank.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFrank.a; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E0 /* DFXKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFXKeyboard.h; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFXKeyboard.m; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+DFX.h"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+DFX.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +227,8 @@
 		2D36ACA11545421700E4C0CF /* categories */ = {
 			isa = PBXGroup;
 			children = (
+				2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */,
+				2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */,
 				2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */,
 				2D36ACA11545421700E4C0E0 /* DFXKeyboard.h */,
 				2D36ACA11545421700E4C0DA /* UITableView+DFX.h */,
@@ -307,6 +312,7 @@
 				2D36ACA11545421700E4C0D6 /* NSIndexPath+DFX.m in Sources */,
 				2D36ACA11545421700E4C0D9 /* UITableView+DFX.m in Sources */,
 				2D36ACA11545421700E4C0E2 /* DFXKeyboard.m in Sources */,
+				2D36ACA11545421700E4C0E5 /* UITextField+DFX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
