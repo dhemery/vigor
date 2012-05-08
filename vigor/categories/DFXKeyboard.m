@@ -1,46 +1,34 @@
 #import <ObjC/runtime.h>
 #import "DFXKeyboard.h"
 
-@interface UIView(DFXKeyboard)
-- (void)touchx:(NSNumber *)x y:(NSNumber *)y;
-@end
-
 @interface UIKBTree : NSObject
-@property id subtrees;
+@property id subtrees; // Declared in an Apple private framework.
 @end
 
-@interface Igor : NSObject
-+ (Igor*)igor;
-- (NSArray *)findViewsThatMatchQuery:(NSString *)query inTree:(UIView *)tree;
-@end
-
-@interface UIView(WDFX)
+@interface UIView (DFXKeyboard)
+// These methods are implemented in KIF.
 - (void)flash;
+
 - (void)touchx:(NSNumber *)x y:(NSNumber *)y;
+
+- (NSArray *)subviewsWithClassNamePrefix:(NSString *)prefix;
 @end
 
-// The C implementation of the method. We will attach this to the app delegate.
+@interface UIApplication (DFXKeyboard)
+// Implemented in KIF.
+- (UIWindow *)keyboardWindow;
+@end
+
+void DFX_printKeyboard(id self, SEL _cmd) {
+    [DFXKeyboard printKeyboard];
+}
+
 void DFX_touchKeyboardAtPoint(id self, SEL _cmd, int x, int y) {
-    [[DFXKeyboard new] touchx:[NSNumber numberWithInt:x] y:[NSNumber numberWithInt:y]];
+    [DFXKeyboard touchx:x y:y];
 }
 
 @implementation DFXKeyboard
 
-+ (Class)getApplicationDelegateClass {
-    UIApplication *application = [UIApplication sharedApplication];
-    id <UIApplicationDelegate> delegate = [application delegate];
-    Class delegateClass = [delegate class];
-    return delegateClass;
-}
-
-+ (void)addMethodWithSignature:(NSString *)signature methodType:(char *)methodType toClass:(Class)clazz {
-    SEL selector = NSSelectorFromString(signature);
-    class_replaceMethod(clazz, selector, (IMP) DFX_touchKeyboardAtPoint, methodType);
-    NSLog(@"%@ attached method %@ to application delegate class %@", [self class], signature, clazz);
-}
-
-// This runs when the class is loaded, before the application starts.
-// We'll register to be notified when the application becomes active.
 + (void)load {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationDidBecomeActive:)
@@ -48,63 +36,52 @@ void DFX_touchKeyboardAtPoint(id self, SEL _cmd, int x, int y) {
                                                object:nil];
 }
 
-// When the application becomes active, find the app delegate's class and attach the new method to it.
++ (void)attachMethodWithSignature:(NSString *)signature implementation:(IMP)implementation returnType:(char *)returnType {
+    Class delegateClass = [[[UIApplication sharedApplication] delegate] class];
+    class_replaceMethod(delegateClass, NSSelectorFromString(signature), implementation, returnType);
+    NSLog(@"%@ attached method %@ to application delegate class %@", [self class], signature, delegateClass);
+}
+
 + (void)applicationDidBecomeActive:(NSNotification *)notification {
-    // The Objective-C method signature for the method.
-    NSString *signature = @"DFX_touchKeyboardAtx:y:";
-    // The encoded representation of this method's type.
-    // See the Objective-C runtime programming guide
-    // (Type Encodings section.)
-    char *voidIntInt= "v@:ii";
-
-    Class delegateClass = [self getApplicationDelegateClass];
-    [self addMethodWithSignature:signature methodType:voidIntInt toClass:delegateClass];
+    [self attachMethodWithSignature:@"DFX_touchKeyboardAtx:y:" implementation:(IMP) DFX_touchKeyboardAtPoint returnType:"v@:ii"];
+    [self attachMethodWithSignature:@"DFX_printKeyboard" implementation:(IMP) DFX_printKeyboard returnType:"v@:"];
 }
 
-- (UIView *)findKeyboardLayout {
-    UIApplication *application = [UIApplication sharedApplication];
-    for (UIWindow *window in [application windows]) {
-        NSArray *keyboardLayoutStarViews = [[Igor igor] findViewsThatMatchQuery:@"UIKeyboardLayoutStar" inTree:window];
-        if ([keyboardLayoutStarViews count] > 0) {
-            return [keyboardLayoutStarViews lastObject];
-        }
-    }
-    return nil;
++ (UIWindow *)keyboardWindow {
+    return [[UIApplication sharedApplication] keyboardWindow];
 }
 
-
-- (void)printKeyboard {
-    UIView *const view = [self findKeyboardLayout];
-    if (view)  [self printKeyboardLayout:view];
++ (UIView *)keyboardLayoutView {
+    return [[[self keyboardWindow] subviewsWithClassNamePrefix:@"UIKeyboardLayoutStar"] lastObject];
 }
 
-- (void)printKeyboardLayout:(UIView *)keyboardLayout {
-    NSLog(@"Keyboard layout star: %@", keyboardLayout);
-    NSLog(@"    Keyplane name: %@", [keyboardLayout valueForKey:@"keyplaneName"]);
-    id keyplane = [keyboardLayout valueForKey:@"keyplane"];
-    NSLog(@"    Description of keyplane: %@", keyplane);
-    NSArray *subtrees = [keyplane valueForKey:@"subtrees"];
-    for (UIKBTree* item in subtrees) {
-        [self printSubtrees:item];
-    }
++ (void)touchx:(int)x y:(int)y {
+    [[self keyboardLayoutView] touchx:[NSNumber numberWithInt:x] y:[NSNumber numberWithInt:y]];
 }
 
-- (void)printSubtrees:(UIKBTree *)tree {
-    NSLog(@"Walking tree %@", tree);
-    for (UIKBTree* subtree in tree.subtrees) {
-        NSLog(@"\nIn tree: %@\n    Found subtree: %@", tree, subtree);
++ (void)printKeyboard {
+    UIView *keyboardLayoutView = [self keyboardLayoutView];
+    NSLog(@"Keyboard layout %@ with subtrees:", keyboardLayoutView);
+    [self printKeyplane:[keyboardLayoutView valueForKey:@"keyplane"]];
+}
+
++ (void)printKeyplane:(id)keyplane {
+    NSLog(@"Keyplane %@", keyplane);
+    [self printSubtrees:[keyplane valueForKey:@"subtrees"] depth:1];
+}
+
++ (void)printSubtrees:(NSArray *)subtrees depth:(NSUInteger)depth {
+    NSString *depthMarker = [@"                                             " substringToIndex:depth * 3];
+    for (id subtree in subtrees) {
         @try {
-            [self printSubtrees:subtree];
+            NSArray *subs = [subtree valueForKey:@"subtrees"];
+            NSLog(@"%@ Subtree %@", depthMarker, subtree);
+            [self printSubtrees:subs depth:depth + 1];
         }
-        @catch (NSException *exception1) {
-            NSLog(@"Exception occurred: %@, %@", exception1, [exception1 userInfo]);
+        @catch (NSException *cause) {
+            NSLog(@"%@ Subtree %@", depthMarker, subtree);
         }
     }
-}
-
-- (void)touchx:(NSNumber *)x y:(NSNumber *)y {
-    UIView *const view = [self findKeyboardLayout];
-    if (view) [view touchx:x y:y];
 }
 
 @end

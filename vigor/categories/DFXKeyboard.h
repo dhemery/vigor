@@ -3,7 +3,8 @@
 
 @interface DFXKeyboard : NSObject
 
-- (void)printKeyboard;
-- (void)touchx:(NSNumber *)x y:(NSNumber *)y;
++ (void)printKeyboard;
+
++ (void)touchx:(int)x y:(int)y;
 
 @end

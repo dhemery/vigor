@@ -2,13 +2,14 @@ package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.By;
 import com.dhemery.victor.examples.runner.VictorTest;
+import org.junit.Before;
 import org.junit.Test;
 
 import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
 import static com.dhemery.victor.examples.extensions.ViewVisibleMatcher.visible;
 import static org.hamcrest.Matchers.is;
 
-public class FlashKeyboard extends VictorTest {
+public class KeyboardTests extends VictorTest {
     public static final int LETTER_Q = 16;
     public static final int LETTER_W = 48;
     public static final int LETTER_E = 80;
@@ -20,10 +21,16 @@ public class FlashKeyboard extends VictorTest {
     public static final int LETTER_O = 272;
     public static final int LETTER_P = 304;
     public static final int RETURN_KEY = 272;
+    private By prefixField;
+
+    @Before
+    public void beginEditing() {
+        prefixField = By.igor("#prefix");
+        when(application.view(prefixField), is(visible()), tap());
+    }
+
     @Test
-    public void flashKeyboard() throws InterruptedException {
-        By textField1 = By.igor("#prefix");
-        when(application.view(textField1), is(visible()), tap());
+    public void touchKeyboard() {
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_P,27);
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_R,27);
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_E,27);
@@ -35,8 +42,11 @@ public class FlashKeyboard extends VictorTest {
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_U,27);
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_T,27);
         application.sendMessage("DFX_touchKeyboardAtx:y:",LETTER_Y,27);
-        application.sendMessage("DFX_touchKeyboardAtx:y:",RETURN_KEY,189);
+        application.sendMessage("DFX_touchKeyboardAtx:y:", RETURN_KEY, 189);
+    }
+
+    @Test
+    public void printKeyboard() {
+        application.sendMessage("DFX_printKeyboard");
     }
 }
-
-
