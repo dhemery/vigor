@@ -19,7 +19,6 @@ import org.junit.BeforeClass;
 import java.util.Map;
 
 import static com.dhemery.victor.examples.extensions.FrankRespondsMatcher.respondsToRequests;
-import static org.hamcrest.core.Is.is;
 
 public class VictorTest extends PollableExpressions {
     public static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
@@ -35,13 +34,13 @@ public class VictorTest extends PollableExpressions {
         timer = createTimer(properties);
         IosDeviceConfiguration deviceConfiguration = new IosDeviceConfiguration(properties);
         device = CreateIosDevice.withConfiguration(deviceConfiguration);
-//        device.start();
+        device.start();
         waitUntil(frank, timer, respondsToRequests());
     }
 
     @AfterClass
     public static void stopDevice() {
-//        if (device != null) device.stop();
+        if (device != null) device.stop();
     }
 
     @Override
