@@ -1,9 +1,7 @@
 package com.dhemery.victor.examples.tests;
 
 import com.dhemery.properties.ReadProperties;
-import com.dhemery.victor.device.CreateIosDevice;
-import com.dhemery.victor.device.IosDeviceConfiguration;
-import com.dhemery.victor.device.IosDeviceConfigurationProperties;
+import com.dhemery.victor.device.IosDeviceConfigurationOptions;
 import com.dhemery.victor.examples.pages.MasterPage;
 import com.dhemery.victor.examples.runner.VictorTest;
 import com.dhemery.victor.xcode.Xcode;
@@ -16,12 +14,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
 import static com.dhemery.victor.examples.extensions.ViewListEmptyMatcher.empty;
 import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 public class ApplicationTests extends VictorTest {
     private MasterPage master;
@@ -38,7 +34,7 @@ public class ApplicationTests extends VictorTest {
 
     public String getSdkVersion() {
         Map<String,String> properties = ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap();
-        String sdkRoot = properties.get(IosDeviceConfigurationProperties.SDK_ROOT);
+        String sdkRoot = properties.get(IosDeviceConfigurationOptions.SDK_ROOT);
         if (sdkRoot == null) sdkRoot = new Xcode().newestSdkRoot();
         System.out.println("SDK root: " + sdkRoot);
         String filename = new File(sdkRoot).getName();
