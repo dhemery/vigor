@@ -28,10 +28,10 @@ public class VigorTest extends PollableExpressions {
     @BeforeClass
     public static void startApplicationInDevice() {
         Configuration configuration = readConfiguration();
-        application = CreateIosApplication.withConfiguration(configuration);
         device = CreateIosDevice.withConfiguration(configuration);
-        device.start();
+        application = CreateIosApplication.withConfiguration(configuration);
         timer = createTimer(configuration);
+        device.start();
         waitUntil(application, timer, is(running()));
     }
 
