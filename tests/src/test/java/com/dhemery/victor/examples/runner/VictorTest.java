@@ -31,9 +31,8 @@ public class VictorTest extends PollableExpressions {
         Configuration configuration = readConfiguration();
         FrankAgent frank = CreateFrankAgent.withConfiguration(configuration);
         application = new FrankIosApplication(frank);
-        timer = createTimer(ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap());
-        Configuration deviceConfiguration = configuration;
-        device = CreateIosDevice.withConfiguration(deviceConfiguration);
+        timer = createTimer(configuration);
+        device = CreateIosDevice.withConfiguration(configuration);
         device.start();
         waitUntil(frank, timer, respondsToRequests());
     }
@@ -56,9 +55,9 @@ public class VictorTest extends PollableExpressions {
         return new ApplicationOrientationQuery();
     }
 
-    private static PollTimer createTimer(Map<String, String> properties) {
-        Integer timeout = Integer.parseInt(properties.get("polling.timeout"));
-        Integer pollingInterval = Integer.parseInt(properties.get("polling.interval"));
+    private static PollTimer createTimer(Configuration configuration) {
+        Integer timeout = Integer.parseInt(configuration.option("polling.timeout"));
+        Integer pollingInterval = Integer.parseInt(configuration.option("polling.interval"));
         return new SystemClockPollTimer(timeout, pollingInterval);
     }
 }
