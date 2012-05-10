@@ -1,6 +1,6 @@
 package com.dhemery.victor.examples.tests;
 
-import com.dhemery.victor.examples.runner.VictorTest;
+import com.dhemery.victor.examples.runner.VigorTest;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import static com.dhemery.victor.IosApplication.Orientation.LANDSCAPE;
 import static com.dhemery.victor.IosApplication.Orientation.PORTRAIT;
 import static org.hamcrest.Matchers.equalTo;
 
-public class RotationTests extends VictorTest {
+public class RotationTests extends VigorTest {
     @Test
     public void orientationTests() throws InterruptedException, IOException {
         assertThat(application, has(orientation(), equalTo(PORTRAIT)));

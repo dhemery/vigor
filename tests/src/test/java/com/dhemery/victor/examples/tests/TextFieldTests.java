@@ -2,7 +2,7 @@ package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosView;
-import com.dhemery.victor.examples.runner.VictorTest;
+import com.dhemery.victor.examples.runner.VigorTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
 import static com.dhemery.victor.examples.extensions.ViewVisibleMatcher.visible;
 import static org.hamcrest.Matchers.is;
 
-public class TextFieldTests extends VictorTest {
+public class TextFieldTests extends VigorTest {
     private IosView prefixField;
 
     @Before

@@ -3,7 +3,7 @@ package com.dhemery.victor.examples.tests;
 import com.dhemery.properties.ReadProperties;
 import com.dhemery.victor.device.IosDeviceConfigurationOptions;
 import com.dhemery.victor.examples.pages.MasterPage;
-import com.dhemery.victor.examples.runner.VictorTest;
+import com.dhemery.victor.examples.runner.VigorTest;
 import com.dhemery.victor.xcode.Xcode;
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-public class ApplicationTests extends VictorTest {
+public class ApplicationTests extends VigorTest {
     private MasterPage master;
 
     @Before

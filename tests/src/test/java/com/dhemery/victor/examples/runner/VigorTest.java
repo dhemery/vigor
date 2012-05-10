@@ -10,17 +10,16 @@ import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.device.CreateIosDevice;
 import com.dhemery.victor.examples.extensions.ApplicationOrientationQuery;
-import com.dhemery.victor.frank.CreateFrankAgent;
-import com.dhemery.victor.frank.FrankAgent;
-import com.dhemery.victor.frank.FrankIosApplication;
+import com.dhemery.victor.frank.CreateIosApplication;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import java.util.Map;
 
-import static com.dhemery.victor.examples.extensions.FrankRespondsMatcher.respondsToRequests;
+import static com.dhemery.victor.examples.extensions.ApplicationRunningMatcher.running;
+import static org.hamcrest.Matchers.is;
 
-public class VictorTest extends PollableExpressions {
+public class VigorTest extends PollableExpressions {
     public static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
     public static IosApplication application;
     public static IosDevice device;
@@ -29,13 +28,11 @@ public class VictorTest extends PollableExpressions {
     @BeforeClass
     public static void startApplicationInDevice() {
         Configuration configuration = readConfiguration();
-        FrankAgent frank = CreateFrankAgent.withConfiguration(configuration);
-        application = new FrankIosApplication(frank);
-        timer = createTimer(ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap());
-        Configuration deviceConfiguration = configuration;
-        device = CreateIosDevice.withConfiguration(deviceConfiguration);
+        application = CreateIosApplication.withConfiguration(configuration);
+        device = CreateIosDevice.withConfiguration(configuration);
         device.start();
-        waitUntil(frank, timer, respondsToRequests());
+        timer = createTimer(configuration);
+        waitUntil(application, timer, is(running()));
     }
 
     private static Configuration readConfiguration() {
@@ -56,9 +53,9 @@ public class VictorTest extends PollableExpressions {
         return new ApplicationOrientationQuery();
     }
 
-    private static PollTimer createTimer(Map<String, String> properties) {
-        Integer timeout = Integer.parseInt(properties.get("polling.timeout"));
-        Integer pollingInterval = Integer.parseInt(properties.get("polling.interval"));
+    private static PollTimer createTimer(Configuration configuration) {
+        Integer timeout = Integer.parseInt(configuration.option("polling.timeout"));
+        Integer pollingInterval = Integer.parseInt(configuration.option("polling.interval"));
         return new SystemClockPollTimer(timeout, pollingInterval);
     }
 }

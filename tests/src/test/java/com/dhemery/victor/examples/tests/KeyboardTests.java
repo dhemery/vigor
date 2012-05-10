@@ -1,7 +1,7 @@
 package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.By;
-import com.dhemery.victor.examples.runner.VictorTest;
+import com.dhemery.victor.examples.runner.VigorTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
 import static com.dhemery.victor.examples.extensions.ViewVisibleMatcher.visible;
 import static org.hamcrest.Matchers.is;
 
-public class KeyboardTests extends VictorTest {
+public class KeyboardTests extends VigorTest {
     public static final int LETTER_Q = 16;
     public static final int LETTER_W = 48;
     public static final int LETTER_E = 80;
