@@ -1,17 +1,12 @@
 package com.dhemery.victor.examples.tests;
 
-import com.dhemery.properties.ReadProperties;
-import com.dhemery.victor.device.IosDeviceConfigurationOptions;
 import com.dhemery.victor.examples.pages.MasterPage;
 import com.dhemery.victor.examples.runner.VigorTest;
-import com.dhemery.victor.xcode.Xcode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
-import java.util.Map;
-import java.util.Scanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.dhemery.polling.Has.has;
 import static com.dhemery.victor.examples.extensions.ViewListEmptyMatcher.empty;
@@ -20,6 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class ApplicationTests extends VigorTest {
+    Logger log = LoggerFactory.getLogger(getClass());
     private MasterPage master;
 
     @Before
@@ -30,22 +26,6 @@ public class ApplicationTests extends VigorTest {
     @After
     public void removeAllItems() {
         master.deleteAllCells();
-    }
-
-    public String getSdkVersion() {
-        Map<String,String> properties = ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap();
-        String sdkRoot = properties.get(IosDeviceConfigurationOptions.SDK_ROOT);
-        if (sdkRoot == null) sdkRoot = new Xcode().newestSdkRoot();
-        System.out.println("SDK root: " + sdkRoot);
-        String filename = new File(sdkRoot).getName();
-        System.out.println("SDK file: " + filename);
-        Scanner sdkNameScanner = new Scanner(filename);
-        return sdkNameScanner.findInLine("\\d\\.\\d");
-    }
-
-    @Test
-    public void stuffs() {
-        System.out.println("SDK version: " + getSdkVersion());
     }
 
     @Test

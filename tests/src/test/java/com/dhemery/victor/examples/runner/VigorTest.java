@@ -5,16 +5,14 @@ import com.dhemery.polling.PollableExpressions;
 import com.dhemery.polling.Query;
 import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.properties.ReadProperties;
-import com.dhemery.victor.Configuration;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
-import com.dhemery.victor.device.CreateIosDevice;
+import com.dhemery.victor.configuration.Configuration;
+import com.dhemery.victor.configuration.CreateIosApplication;
+import com.dhemery.victor.configuration.CreateIosDevice;
 import com.dhemery.victor.examples.extensions.ApplicationOrientationQuery;
-import com.dhemery.victor.frank.CreateIosApplication;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-
-import java.util.Map;
 
 import static com.dhemery.victor.examples.extensions.ApplicationRunningMatcher.running;
 import static org.hamcrest.Matchers.is;
