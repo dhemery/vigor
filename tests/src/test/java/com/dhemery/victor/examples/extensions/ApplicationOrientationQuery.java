@@ -2,20 +2,20 @@ package com.dhemery.victor.examples.extensions;
 
 import com.dhemery.polling.Query;
 import com.dhemery.victor.IosApplication;
-import com.dhemery.victor.IosApplication.Orientation;
+import com.dhemery.victor.IosApplicationOrientation;
 
-public class ApplicationOrientationQuery extends Query<IosApplication, Orientation> {
+public class ApplicationOrientationQuery extends Query<IosApplication, IosApplicationOrientation> {
     @Override
     public String name() {
         return "orientation";
     }
 
     @Override
-    public Orientation query(IosApplication application) {
+    public IosApplicationOrientation query(IosApplication application) {
         return application.orientation();
     }
 
-    public static Query<IosApplication, Orientation> orienation() {
+    public static Query<IosApplication, IosApplicationOrientation> orienation() {
         return new ApplicationOrientationQuery();
     }
 }

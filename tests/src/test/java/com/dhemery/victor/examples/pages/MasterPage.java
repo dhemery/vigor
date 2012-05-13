@@ -9,7 +9,6 @@ import com.dhemery.victor.IosView;
 import java.util.List;
 
 import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.examples.extensions.TableCellConfirmDeletionAction.confirmDeletionOf;
 import static com.dhemery.victor.examples.extensions.ViewAnimatingMatcher.animating;
 import static com.dhemery.victor.examples.extensions.ViewListEmptyMatcher.empty;
 import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
@@ -28,8 +27,8 @@ public class MasterPage extends Page {
 
     private static final By CELL = By.igor("UITableViewCell*");
     private static final String DELETE_BUTTON_FOR_CELL = "(%s) UITableViewCellEditControl";
-    private static final By CELL_LABEL = By.igor(CELL.selector + " UILabel");
-    private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.selector + "[accessibilityLabel=='%s'])";
+    private static final By CELL_LABEL = By.igor(CELL.pattern() + " UILabel");
+    private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.pattern() + "[accessibilityLabel=='%s'])";
 
     public MasterPage(IosApplication application, PollTimer timer) {
         super(application, timer);
@@ -72,12 +71,12 @@ public class MasterPage extends Page {
     }
 
     private IosView confirmDeletionButton(IosView cell) {
-        String selector = String.format(CONFIRM_DELETION_BUTTON_FOR_CELL, cell.query().selector);
+        String selector = String.format(CONFIRM_DELETION_BUTTON_FOR_CELL, cell.query().pattern());
         return view(By.igor(selector));
     }
 
     private IosView deleteButton(IosView cell) {
-        String selector = String.format(DELETE_BUTTON_FOR_CELL, cell.query().selector);
+        String selector = String.format(DELETE_BUTTON_FOR_CELL, cell.query().pattern());
         return view(By.igor(selector));
     }
 

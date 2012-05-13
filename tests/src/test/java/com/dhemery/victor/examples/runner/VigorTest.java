@@ -6,6 +6,7 @@ import com.dhemery.polling.Query;
 import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.properties.ReadProperties;
 import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosApplicationOrientation;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.configuration.Configuration;
 import com.dhemery.victor.configuration.CreateIosApplication;
@@ -47,7 +48,7 @@ public class VigorTest extends PollableExpressions {
         return timer;
     }
 
-    protected Query<IosApplication, IosApplication.Orientation> orientation() {
+    protected Query<IosApplication, IosApplicationOrientation> orientation() {
         return new ApplicationOrientationQuery();
     }
 
