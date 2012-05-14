@@ -1,14 +1,13 @@
 package com.dhemery.victor.examples.runner;
 
+import com.dhemery.configuration.Configuration;
 import com.dhemery.polling.PollTimer;
 import com.dhemery.polling.PollableExpressions;
 import com.dhemery.polling.Query;
 import com.dhemery.polling.SystemClockPollTimer;
-import com.dhemery.properties.ReadProperties;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosApplicationOrientation;
 import com.dhemery.victor.IosDevice;
-import com.dhemery.victor.configuration.Configuration;
 import com.dhemery.victor.configuration.CreateIosApplication;
 import com.dhemery.victor.configuration.CreateIosDevice;
 import com.dhemery.victor.examples.extensions.ApplicationOrientationQuery;
@@ -26,16 +25,12 @@ public class VigorTest extends PollableExpressions {
 
     @BeforeClass
     public static void startApplicationInDevice() {
-        Configuration configuration = readConfiguration();
+        Configuration configuration = new Configuration(VIGOR_PROPERTIES_FILES);
         device = CreateIosDevice.withConfiguration(configuration);
         application = CreateIosApplication.withConfiguration(configuration);
         timer = createTimer(configuration);
         device.start();
         waitUntil(application, timer, is(running()));
-    }
-
-    private static Configuration readConfiguration() {
-        return new Configuration(ReadProperties.fromFiles(VIGOR_PROPERTIES_FILES).asMap());
     }
 
     @AfterClass
