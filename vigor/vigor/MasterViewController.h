@@ -7,17 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PrefixFieldDelegate.h"
 
 @class DetailViewController;
 
-@interface MasterViewController : UITableViewController
-
-@property (nonatomic) NSUInteger nextCellNumber;
-
-@property (strong, nonatomic) IBOutlet UITextField *prefixField;
+@interface MasterViewController : UITableViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
+@property (weak, nonatomic) IBOutlet UILabel *nextItemNumberLabel;
+@property (weak, nonatomic) IBOutlet UIStepper *nextItemNumberStepper;
+@property (weak, nonatomic) IBOutlet UISwitch *prefixEnabledSwitch;
+@property (weak, nonatomic) IBOutlet UITextField *prefixField;
 
-@property (strong, nonatomic) PrefixFieldDelegate *prefixDelegate;
+@property NSUInteger nextItemNumber;
+@property (strong, nonatomic) NSString *nextItemPrefix;
+
+@property(nonatomic, assign) BOOL prefixEnabled;
+
+- (IBAction)prefixEnabledDidChange;
+- (IBAction)nextItemNumberDidChange;
+
 @end

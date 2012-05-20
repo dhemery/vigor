@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2488" systemVersion="11E52" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2488" systemVersion="12A206j" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
@@ -31,15 +31,101 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.69999999999999973"/>
-                        <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="UX6-Ax-qxs">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="31"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="C3D-UW-Lbn" userLabel="Settings View">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="prefix" minimumFontSize="17" clearButtonMode="whileEditing" id="2ZE-gZ-az7" userLabel="Prefix Field">
+                                    <rect key="frame" x="20" y="49" width="280" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="12" id="EdR-3j-I6k"/>
+                                    </connections>
+                                </textField>
+                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="q98-R3-Tfj" userLabel="Prefix Enabled Switch">
+                                    <rect key="frame" x="20" y="14" width="79" height="27"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <rect key="contentStretch" x="0.39999999999999997" y="0.0" width="0.44999999999999962" height="1"/>
+                                    <attributedString key="userComments">
+                                        <fragment content="What is this?">
+                                            <attributes>
+                                                <font key="NSFont" metaFont="toolTip"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural">
+                                                    <tabStops>
+                                                        <textTab alignment="left" location="28">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="56">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="84">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="112">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="140">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="168">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="196">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="224">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="252">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="280">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="308">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                        <textTab alignment="left" location="336">
+                                                            <nil name="options"/>
+                                                        </textTab>
+                                                    </tabStops>
+                                                </paragraphStyle>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <connections>
+                                        <action selector="prefixEnabledDidChange" destination="12" eventType="valueChanged" id="Xoy-Ic-jHd"/>
+                                    </connections>
+                                </switch>
+                                <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="HEJ-Td-I44" userLabel="Next Item Number Stepper">
+                                    <rect key="frame" x="206" y="14" width="94" height="27"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <connections>
+                                        <action selector="nextItemNumberDidChange" destination="12" eventType="valueChanged" id="Kpw-Ht-OPz"/>
+                                    </connections>
+                                </stepper>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="JPS-d3-XCY" userLabel="Next Item Number Label">
+                                    <rect key="frame" x="160" y="15" width="29" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Next:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="uMP-tJ-iTx">
+                                    <rect key="frame" x="117" y="17" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="bottom" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="phq-AM-6qj" rowHeight="36" style="IBUITableViewCellStyleDefault" id="lJ0-d7-vTF">
-                                <rect key="frame" x="0.0" y="53" width="320" height="36"/>
+                                <rect key="frame" x="0.0" y="108" width="320" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="35"/>
@@ -69,7 +155,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Master" id="36"/>
                     <connections>
-                        <outlet property="prefixField" destination="UX6-Ax-qxs" id="yJl-C9-ZjL"/>
+                        <outlet property="nextItemNumberLabel" destination="JPS-d3-XCY" id="q8m-ha-h1M"/>
+                        <outlet property="nextItemNumberStepper" destination="HEJ-Td-I44" id="JD8-36-uRU"/>
+                        <outlet property="prefixEnabledSwitch" destination="q98-R3-Tfj" id="cO9-6l-SMB"/>
+                        <outlet property="prefixField" destination="2ZE-gZ-az7" id="MNJ-xE-DTy"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -104,6 +193,25 @@
             <point key="canvasLocation" x="902" y="64"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="nextItemNumberDidChange"/>
+                <relationship kind="action" name="prefixEnabledDidChange"/>
+                <relationship kind="outlet" name="nextItemNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nextItemNumberStepper" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="prefixEnabledSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="prefixField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

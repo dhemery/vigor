@@ -10,59 +10,60 @@
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
-#import "PrefixFieldDelegate.h"
 
 @interface MasterViewController () {
-    NSMutableArray *_objects;
+    NSMutableArray *_items;
 }
 @end
 
-@implementation MasterViewController
+@implementation MasterViewController {
+@private
+    BOOL _prefixEnabled;
+}
 
 @synthesize prefixField = _prefixField;
+@synthesize prefixEnabledSwitch = _prefixEnabledSwitch;
+@synthesize nextItemNumberStepper = _nextItemNumberStepper;
+@synthesize nextItemNumberLabel = _nextItemNumberLabel;
+@synthesize nextItemNumber = _nextItemNumber;
+@synthesize nextItemPrefix = _nextItemPrefix;
 @synthesize detailViewController = _detailViewController;
-@synthesize nextCellNumber = _nextCellNumber;
-@synthesize prefixDelegate = _prefixDelegate;
+@synthesize prefixEnabled = _prefixEnabled;
 
-- (void)awakeFromNib
-{
+
+- (void)awakeFromNib {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
     [super awakeFromNib];
+    self.nextItemNumber = 0;
+    self.nextItemPrefix = @"";
+    self.prefixEnabled = YES;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.nextCellNumber = 0;
-	// Do any additional setup after loading the view, typically from a nib.
+    self.prefixEnabledSwitch.on = self.prefixEnabled;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.nextItemNumberStepper.value = self.nextItemNumber;
+    self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
 
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-
-    self.prefixField.placeholder = @"prefix";
-    self.prefixField.accessibilityIdentifier = @"prefix";
-    self.prefixField.clearButtonMode = UITextFieldViewModeWhileEditing;
-
-    self.prefixDelegate = [PrefixFieldDelegate new];
-    self.prefixField.delegate = self.prefixDelegate;
 }
 
-- (void)viewDidUnload
-{
-    [self setPrefixField:nil];
+- (void)viewDidUnload {
+    [self setPrefixEnabledSwitch:nil];
+    [self setNextItemNumberStepper:nil];
+    [self setNextItemNumberLabel:nil];
     [self setPrefixField:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
     } else {
@@ -70,76 +71,52 @@
     }
 }
 
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
+- (void)insertNewObject:(id)sender {
+    if (!_items) {
+        _items = [[NSMutableArray alloc] init];
     }
-    [_objects insertObject:[self newRow] atIndex:0];
+    NSString *newItem = [self newItem];
+    [_items insertObject:newItem atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSLog(@"%@ inserted %@", NSStringFromSelector(_cmd), newItem);
 }
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
-
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return _objects.count;
-
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _items.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
-    NSDate *object = [_objects objectAtIndex:indexPath.row];
+    NSDate *object = [_items objectAtIndex:indexPath.row];
     cell.textLabel.text = [object description];
 
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
+        [_items removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSDate *object = [_objects objectAtIndex:indexPath.row];
+        NSDate *object = [_items objectAtIndex:indexPath.row];
         self.detailViewController.detailItem = object;
     }
 }
@@ -148,15 +125,65 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = [_objects objectAtIndex:indexPath.row];
+        NSDate *object = [_items objectAtIndex:indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
 }
 
-- (id)newRow {
-    NSString *nextCellName = [NSString stringWithFormat:@"%@%d", self.prefixDelegate.prefix, self.nextCellNumber++];
-    NSLog(@"Next cell name: %@", nextCellName);
-    return nextCellName;
+- (NSString *)newItem {
+    NSString *newItemPrefix = self.prefixEnabled ? self.nextItemPrefix : @"";
+    NSString *newItemName = [NSString stringWithFormat:@"%@%d", newItemPrefix, self.nextItemNumber];
+    self.nextItemNumber++;
+    self.nextItemNumberStepper.value = self.nextItemNumber;
+    self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
+    return newItemName;
 }
 
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSLog(@"%@%d,%d,\"%@\"", NSStringFromSelector(_cmd), range.location, range.length, string);
+    self.nextItemPrefix = [self.nextItemPrefix stringByReplacingCharactersInRange:range withString:string];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    self.nextItemPrefix = @"";
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (IBAction)prefixEnabledDidChange {
+    self.prefixEnabled = self.prefixEnabledSwitch.on;
+    NSLog(@"%@ to %@", NSStringFromSelector(_cmd), self.prefixEnabled ? @"YES" : @"NO");
+}
+
+- (IBAction)nextItemNumberDidChange {
+    self.nextItemNumber = (NSUInteger)[self.nextItemNumberStepper value];
+    self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
+    NSLog(@"%@ to %d", NSStringFromSelector(_cmd), self.nextItemNumber);
+}
 @end
