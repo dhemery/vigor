@@ -49,6 +49,16 @@
     self.nextItemNumberStepper.value = self.nextItemNumber;
     self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
 
+    NSLog(@"Accessibility identifier %@", self.prefixField.accessibilityIdentifier);
+    [self.prefixField setAccessibilityIdentifier:@"prefix"];
+    NSLog(@"Accessibility identifier %@", self.prefixField.accessibilityIdentifier);
+    self.prefixEnabledSwitch.accessibilityIdentifier = @"prefixEnabled";
+    self.nextItemNumberStepper.accessibilityIdentifier = @"nextItemNumberStepper";
+    self.nextItemNumberLabel.accessibilityIdentifier = @"nextItemNumberLabel";
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controlChanged:) name:@"UIControlEventEditingChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldChanged:) name:@"UITextFieldTextDidChangeNotification" object:nil];
+
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
 
@@ -186,4 +196,17 @@
     self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
     NSLog(@"%@ to %d", NSStringFromSelector(_cmd), self.nextItemNumber);
 }
+
+- (IBAction)textFieldValueChanged:(UITextField *)sender {
+    NSLog(@"%@ event", NSStringFromSelector(_cmd));
+}
+
+- (void)controlChanged:(NSNotification *)notification {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)textFieldChanged:(NSNotification *)notification {
+    NSLog(@"%@ notification with userInfo %@", NSStringFromSelector(_cmd), notification.userInfo);
+}
+
 @end

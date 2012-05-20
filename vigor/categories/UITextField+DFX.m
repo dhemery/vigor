@@ -9,8 +9,9 @@
 }
 
 - (BOOL)DFX_delegateAllowsReplacementOfRange:(NSRange)range withString:(NSString *)text {
-    return (self.delegate == nil) ||
-            [self.delegate textField:self shouldChangeCharactersInRange:range replacementString:text];
+    if (self.delegate == nil) return YES;
+    if (![self.delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) return YES;
+    return [self.delegate textField:self shouldChangeCharactersInRange:range replacementString:text];
 }
 
 - (BOOL)DFX_insertText:(NSString *)text atLocation:(NSUInteger)location {
@@ -25,6 +26,8 @@
     NSRange range = NSMakeRange(location, length);
     if ([self DFX_delegateAllowsReplacementOfRange:range withString:text]) {
         self.text = [self.text stringByReplacingCharactersInRange:range withString:text];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UITextFieldTextDidChangeNotification" object:self];
+        [self sendActionsForControlEvents:UIControlEventEditingChanged];
         return YES;
     }
     return NO;

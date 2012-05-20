@@ -25,5 +25,6 @@
 
 - (IBAction)prefixEnabledDidChange;
 - (IBAction)nextItemNumberDidChange;
+- (IBAction)textFieldValueChanged:(UITextField *)sender;
 
 @end

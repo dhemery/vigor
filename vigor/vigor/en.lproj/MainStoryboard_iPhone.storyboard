@@ -41,6 +41,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
+                                        <action selector="textFieldValueChanged:" destination="12" eventType="editingChanged" id="q8C-J0-EJc"/>
                                         <outlet property="delegate" destination="12" id="EdR-3j-I6k"/>
                                     </connections>
                                 </textField>
@@ -205,6 +206,7 @@
             <relationships>
                 <relationship kind="action" name="nextItemNumberDidChange"/>
                 <relationship kind="action" name="prefixEnabledDidChange"/>
+                <relationship kind="action" name="textFieldValueChanged:" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nextItemNumberLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nextItemNumberStepper" candidateClass="UIStepper"/>
                 <relationship kind="outlet" name="prefixEnabledSwitch" candidateClass="UISwitch"/>
