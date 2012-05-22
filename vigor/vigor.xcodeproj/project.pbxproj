@@ -20,12 +20,12 @@
 		2D321D811543577500B05E3B /* frank_static_resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D321D801543577500B05E3B /* frank_static_resources.bundle */; };
 		2D321D831543579B00B05E3B /* libShelley.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28113 /* libShelley.a */; };
 		2D321D85154357A500B05E3B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D321D84154357A500B05E3B /* CFNetwork.framework */; };
-		2D321D871543583300B05E3B /* libigor-0.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D321D861543583300B05E3B /* libigor-0.4.0.a */; };
 		2D36ACA11545421700E4C0D1 /* DFXTappableConfirmationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D0 /* DFXTappableConfirmationButton.m */; };
 		2D36ACA11545421700E4C0D9 /* UITableView+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0D8 /* UITableView+DFX.m */; };
 		2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0DB /* libFrank.a */; };
 		2D36ACA11545421700E4C0E2 /* DFXKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */; };
 		2D36ACA11545421700E4C0E5 /* UITextField+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */; };
+		2D36ACA11545421700E4C0EB /* libigor-0.5.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0EA /* libigor-0.5.0.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +77,6 @@
 		2A2C550DAF5EC6628AB28113 /* libShelley.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libShelley.a; sourceTree = "<group>"; };
 		2D321D801543577500B05E3B /* frank_static_resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = frank_static_resources.bundle; path = lib/frank_static_resources.bundle; sourceTree = "<group>"; };
 		2D321D84154357A500B05E3B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		2D321D861543583300B05E3B /* libigor-0.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libigor-0.4.0.a"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0CB /* Vigor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Vigor.entitlements; path = Vigor/Vigor.entitlements; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0D0 /* DFXTappableConfirmationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFXTappableConfirmationButton.m; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0D8 /* UITableView+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+DFX.m"; sourceTree = "<group>"; };
@@ -87,6 +86,7 @@
 		2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFXKeyboard.m; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+DFX.h"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+DFX.m"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0EA /* libigor-0.5.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libigor-0.5.0.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +99,8 @@
 				2A2C550DAF5EC6628AB280B7 /* UIKit.framework in Frameworks */,
 				2A2C550DAF5EC6628AB280B9 /* Foundation.framework in Frameworks */,
 				2A2C550DAF5EC6628AB280BB /* CoreGraphics.framework in Frameworks */,
-				2D321D871543583300B05E3B /* libigor-0.4.0.a in Frameworks */,
 				2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */,
+				2D36ACA11545421700E4C0EB /* libigor-0.5.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,8 +169,8 @@
 		2A2C550DAF5EC6628AB280D4 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				2D36ACA11545421700E4C0EA /* libigor-0.5.0.a */,
 				2D36ACA11545421700E4C0DB /* libFrank.a */,
-				2D321D861543583300B05E3B /* libigor-0.4.0.a */,
 				2A2C550DAF5EC6628AB28113 /* libShelley.a */,
 				2A2C550DAF5EC6628AB280D5 /* frank_static_resources.bundle */,
 			);
@@ -229,8 +229,8 @@
 				2D36ACA11545421700E4C0E1 /* DFXKeyboard.m */,
 				2D36ACA11545421700E4C0E0 /* DFXKeyboard.h */,
 				2D36ACA11545421700E4C0DA /* UITableView+DFX.h */,
-				2D36ACA11545421700E4C0D8 /* UITableView+DFX.m */,
 				2D36ACA11545421700E4C0D0 /* DFXTappableConfirmationButton.m */,
+				2D36ACA11545421700E4C0D8 /* UITableView+DFX.m */,
 			);
 			path = categories;
 			sourceTree = "<group>";
@@ -399,6 +399,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/lib\"",
 					"\"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -415,6 +418,9 @@
 				INFOPLIST_FILE = "Vigor/Vigor-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/lib\"",
+					"\"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/**",
 					"\"${PROJECT_DIR}/lib/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
