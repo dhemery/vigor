@@ -13,7 +13,7 @@ import static com.dhemery.victor.examples.extensions.ViewAnimatingMatcher.animat
 import static com.dhemery.victor.examples.extensions.ViewListEmptyMatcher.empty;
 import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
 import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
-import static com.dhemery.victor.examples.extensions.ViewVisibleMatcher.visible;
+import static com.dhemery.victor.examples.extensions.IosViewVisibleMatcher.visible;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;

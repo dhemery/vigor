@@ -1,28 +1,13 @@
 package com.dhemery.victor.examples.extensions;
 
-import com.dhemery.victor.IosView;
+import com.dhemery.victor.examples.views.UIView;
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-import java.util.List;
-
-public class ViewVisibleMatcher extends TypeSafeMatcher<IosView> {
-    private String reason;
-
+public class ViewVisibleMatcher extends TypeSafeMatcher<UIView> {
     @Override
-    protected boolean matchesSafely(IosView view) {
-        List<String> results = view.sendMessage("isHidden");
-        if (results.size() != 1) {
-            reason = String.format("was false because %s had size %s", view, results.size());
-            return false;
-        }
-        if (Boolean.parseBoolean(results.get(0))) {
-            reason = String.format("was false because %s was hidden", view);
-            return false;
-        }
-        reason = "";
-        return true;
+    protected boolean matchesSafely(UIView view) {
+        return view.isVisible();
     }
 
     @Override
@@ -30,12 +15,7 @@ public class ViewVisibleMatcher extends TypeSafeMatcher<IosView> {
         description.appendText("visible");
     }
 
-    @Override
-    protected void describeMismatchSafely(IosView item, Description mismatchDescription) {
-        mismatchDescription.appendText(reason);
-    }
-
-    public static Matcher<IosView> visible() {
+    public static ViewVisibleMatcher visible() {
         return new ViewVisibleMatcher();
     }
 }

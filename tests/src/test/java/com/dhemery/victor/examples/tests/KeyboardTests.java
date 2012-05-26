@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
-import static com.dhemery.victor.examples.extensions.ViewVisibleMatcher.visible;
+import static com.dhemery.victor.examples.extensions.IosViewVisibleMatcher.visible;
 import static org.hamcrest.Matchers.is;
 
 public class KeyboardTests extends VigorTest {
