@@ -5,6 +5,7 @@ import com.dhemery.polling.PollableExpressions;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosView;
+import com.dhemery.victor.examples.views.UIView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,11 @@ public class Page extends PollableExpressions {
         return timer;
     }
 
-    public IosView view(By query) {
+    private IosView iosView(By query) {
         return application.view(query);
+    }
+
+    public UIView view(By query) {
+        return new UIView(iosView(query));
     }
 }

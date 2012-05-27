@@ -1,5 +1,6 @@
 package com.dhemery.victor.examples.views;
 
+import com.dhemery.victor.By;
 import com.dhemery.victor.IosView;
 
 import java.util.List;
@@ -28,5 +29,9 @@ public class UIView {
 
     public void tap() {
         sendMessage("tap");
+    }
+
+    public By query() {
+        return view.query();
     }
 }

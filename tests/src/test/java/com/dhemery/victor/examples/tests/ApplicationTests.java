@@ -9,10 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.examples.extensions.ViewListEmptyMatcher.empty;
-import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
+import static com.dhemery.victor.examples.extensions.UIViewCountQuery.count;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 public class ApplicationTests extends VigorTest {
     Logger log = LoggerFactory.getLogger(getClass());
@@ -30,20 +28,20 @@ public class ApplicationTests extends VigorTest {
 
     @Test
     public void aNewlyLaunchedVigorHasNoItems() {
-        assertThat(master.items(), has(size(), equalTo(0)));
+        assertThat(master.items(), has(count(), equalTo(0)));
     }
 
     @Test
     public void aNewItemAppearsInTheMasterPage() {
         master.addCell();
-        assertThat(master.items(), has(size(), equalTo(1)));
+        assertThat(master.items(), has(count(), equalTo(1)));
     }
 
     @Test
     public void aDeletedItemDoesNotAppearInTheMasterPage() {
         master.addCell();
         master.deleteItem(0);
-        assertThat(master.items(), is(empty()));
+        assertThat(master.items(), has(count(), equalTo(0)));
     }
 
     @Test

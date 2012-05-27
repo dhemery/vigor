@@ -34,5 +34,4 @@ public class RotationTests extends VigorTest {
         device.rotateRight();
         assertThat(application, eventually(), has(orientation(), equalTo(PORTRAIT)));
     }
-
 }

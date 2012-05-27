@@ -87,6 +87,7 @@
 		2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+DFX.h"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+DFX.m"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0EA /* libigor-0.5.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libigor-0.5.0.a"; sourceTree = "<group>"; };
+		2D36ACA11545421700E4C0EC /* UserViewAttributeMapping.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = UserViewAttributeMapping.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +181,7 @@
 		2A2C550DAF5EC6628AB280D5 /* frank_static_resources.bundle */ = {
 			isa = PBXGroup;
 			children = (
+				2D36ACA11545421700E4C0EC /* UserViewAttributeMapping.plist */,
 				2A2C550DAF5EC6628AB2810F /* ViewAttributeMapping.plist */,
 				2A2C550DAF5EC6628AB2810D /* underscore.js */,
 				2A2C550DAF5EC6628AB2810B /* symbiote.js */,

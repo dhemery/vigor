@@ -4,16 +4,14 @@ import com.dhemery.polling.Action;
 import com.dhemery.polling.PollTimer;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosApplication;
-import com.dhemery.victor.IosView;
+import com.dhemery.victor.examples.views.UIView;
 
 import java.util.List;
 
 import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.examples.extensions.ViewAnimatingMatcher.animating;
-import static com.dhemery.victor.examples.extensions.ViewListEmptyMatcher.empty;
-import static com.dhemery.victor.examples.extensions.ViewListSizeQuery.size;
-import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
-import static com.dhemery.victor.examples.extensions.IosViewVisibleMatcher.visible;
+import static com.dhemery.victor.examples.extensions.UIViewAnimatingMatcher.animating;
+import static com.dhemery.victor.examples.extensions.UIViewCountQuery.count;
+import static com.dhemery.victor.examples.extensions.UIViewVisibleMatcher.visible;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
@@ -34,7 +32,7 @@ public class MasterPage extends Page {
         super(application, timer);
     }
 
-    private IosView addButton() {
+    private UIView addButton() {
         return view(ADD_BUTTON);
     }
 
@@ -43,56 +41,56 @@ public class MasterPage extends Page {
     }
 
     public void deleteAllCells() {
-        while (the(items(), is(not(empty())))) {
+        while (the(items(), has(count(), greaterThan(0)))) {
             deleteItem(0);
         }
     }
 
-    public Action<IosView> delete() {
-        return new Action<IosView>() {
+    public Action<UIView> delete() {
+        return new Action<UIView>() {
             @Override
-            public void executeOn(IosView item) {
+            public void executeOn(UIView item) {
                 waitUntil(item, is(not(animating())));
-                tap(deleteButton(item));
-                tap(confirmDeletionButton(item));
+                deleteButton(item).tap();
+                confirmDeletionButton(item).tap();
                 waitUntil(item, is(not(visible())));
             }
         };
     }
 
-    public void delete(IosView item) {
+    public void delete(UIView item) {
         delete().executeOn(item);
     }
 
     public void deleteItem(Integer i) {
-        tap(editButton());
+        editButton().tap();
         delete(item(i));
-        tap(doneButton());
+        doneButton().tap();
     }
 
-    private IosView confirmDeletionButton(IosView cell) {
+    private UIView confirmDeletionButton(UIView cell) {
         String selector = String.format(CONFIRM_DELETION_BUTTON_FOR_CELL, cell.query().pattern());
         return view(By.igor(selector));
     }
 
-    private IosView deleteButton(IosView cell) {
+    private UIView deleteButton(UIView cell) {
         String selector = String.format(DELETE_BUTTON_FOR_CELL, cell.query().pattern());
         return view(By.igor(selector));
     }
 
-    public IosView doneButton() {
+    public UIView doneButton() {
         return view(DONE_BUTTON);
     }
 
-    public IosView editButton() {
+    public UIView editButton() {
         return view(EDIT_BUTTON);
     }
-    public IosView item(Integer i) {
+    public UIView item(Integer i) {
         return itemWithLabel(itemLabel(i));
     }
 
     private String itemLabel(Integer i) {
-        waitUntil(items(), has(size(), greaterThan(i)));
+        waitUntil(items(), has(count(), greaterThan(i)));
         return itemLabels().get(i);
     }
 
@@ -100,11 +98,11 @@ public class MasterPage extends Page {
         return view(CELL_LABEL).sendMessage("accessibilityLabel");
     }
 
-    private IosView itemWithLabel(String label) {
+    private UIView itemWithLabel(String label) {
         return view(By.igor(String.format(CELL_WITH_LABEL, label)));
     }
 
-    public IosView items() {
+    public UIView items() {
         return view(CELL);
     }
 
