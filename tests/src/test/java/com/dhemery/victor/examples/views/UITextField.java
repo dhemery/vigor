@@ -1,10 +1,11 @@
 package com.dhemery.victor.examples.views;
 
-import com.dhemery.victor.IosView;
+import com.dhemery.victor.By;
+import com.dhemery.victor.IosApplication;
 
 public class UITextField extends UIView {
-    public UITextField(IosView view) {
-        super(view);
+    public UITextField(IosApplication application, By query) {
+        super(application, query);
     }
 
     public void appendText(String text) {

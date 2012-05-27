@@ -1,4 +1,4 @@
-package com.dhemery.victor.examples.extensions;
+package com.dhemery.victor.examples.application;
 
 import com.dhemery.polling.Query;
 import com.dhemery.victor.IosApplication;

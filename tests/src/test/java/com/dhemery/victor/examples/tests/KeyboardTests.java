@@ -2,11 +2,11 @@ package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.By;
 import com.dhemery.victor.examples.runner.VigorTest;
+import com.dhemery.victor.examples.views.UITextField;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.dhemery.victor.examples.extensions.ViewTapAction.tap;
-import static com.dhemery.victor.examples.extensions.IosViewVisibleMatcher.visible;
+import static com.dhemery.victor.examples.views.UIViewVisibleMatcher.visible;
 import static org.hamcrest.Matchers.is;
 
 public class KeyboardTests extends VigorTest {
@@ -21,12 +21,11 @@ public class KeyboardTests extends VigorTest {
     public static final int LETTER_O = 272;
     public static final int LETTER_P = 304;
     public static final int RETURN_KEY = 272;
-    private By prefixField;
 
     @Before
     public void beginEditing() {
-        prefixField = By.igor("#prefix");
-        when(application.view(prefixField), is(visible()), tap());
+        UITextField prefixField = new UITextField(application, By.igor("#prefix"));
+        when(prefixField, is(visible())).tap();
     }
 
     @Test

@@ -6,7 +6,7 @@ import com.dhemery.victor.examples.runner.VigorTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.dhemery.victor.examples.extensions.UIViewVisibleMatcher.visible;
+import static com.dhemery.victor.examples.views.UIViewVisibleMatcher.visible;
 import static org.hamcrest.Matchers.is;
 
 public class TextFieldTests extends VigorTest {
@@ -14,13 +14,8 @@ public class TextFieldTests extends VigorTest {
 
     @Before
     public void beginEditing() {
-        By by = By.igor("#prefix");
-        prefixField = textField(by);
+        prefixField = textField(By.igor("#prefix"));
         when(prefixField, is(visible())).tap();
-    }
-
-    public UITextField textField(By by) {
-        return new UITextField(application.view(by));
     }
 
     @Test
@@ -31,5 +26,9 @@ public class TextFieldTests extends VigorTest {
         prefixField.insertText(",", 24);
         prefixField.appendText(".");
         prefixField.done();
+    }
+
+    public UITextField textField(By query) {
+        return new UITextField(application, query);
     }
 }

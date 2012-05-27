@@ -1,4 +1,4 @@
-package com.dhemery.victor.examples.extensions;
+package com.dhemery.victor.examples.application;
 
 import com.dhemery.victor.IosApplication;
 import org.hamcrest.Description;

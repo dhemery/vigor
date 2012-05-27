@@ -1,17 +1,17 @@
 package com.dhemery.victor.examples.pages;
 
-import com.dhemery.polling.Action;
 import com.dhemery.polling.PollTimer;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.examples.views.UITableViewCell;
 import com.dhemery.victor.examples.views.UIView;
 
 import java.util.List;
 
 import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.examples.extensions.UIViewAnimatingMatcher.animating;
-import static com.dhemery.victor.examples.extensions.UIViewCountQuery.count;
-import static com.dhemery.victor.examples.extensions.UIViewVisibleMatcher.visible;
+import static com.dhemery.victor.examples.views.UIViewAnimatingMatcher.animating;
+import static com.dhemery.victor.examples.views.UIViewCountQuery.count;
+import static com.dhemery.victor.examples.views.UIViewVisibleMatcher.visible;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
@@ -21,10 +21,8 @@ public class MasterPage extends Page {
     private static final By DONE_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Done']");
     private static final By EDIT_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Edit']");
 
-    private static final String CONFIRM_DELETION_BUTTON_FOR_CELL = "(%s) UITableViewCellDeleteConfirmationControl";
 
     private static final By CELL = By.igor("UITableViewCell*");
-    private static final String DELETE_BUTTON_FOR_CELL = "(%s) UITableViewCellEditControl";
     private static final By CELL_LABEL = By.igor(CELL.pattern() + " UILabel");
     private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.pattern() + "[accessibilityLabel=='%s'])";
 
@@ -32,51 +30,29 @@ public class MasterPage extends Page {
         super(application, timer);
     }
 
-    private UIView addButton() {
-        return view(ADD_BUTTON);
+    public void addItem() {
+        view(ADD_BUTTON).tap();
     }
 
-    public void addCell() {
-        addButton().sendMessage("tap");
+    public UITableViewCell items() {
+        return cell(CELL);
     }
 
-    public void deleteAllCells() {
+    public void deleteAllItems() {
         while (the(items(), has(count(), greaterThan(0)))) {
             deleteItem(0);
         }
     }
 
-    public Action<UIView> delete() {
-        return new Action<UIView>() {
-            @Override
-            public void executeOn(UIView item) {
-                waitUntil(item, is(not(animating())));
-                deleteButton(item).tap();
-                confirmDeletionButton(item).tap();
-                waitUntil(item, is(not(visible())));
-            }
-        };
-    }
-
-    public void delete(UIView item) {
-        delete().executeOn(item);
-    }
-
     public void deleteItem(Integer i) {
         editButton().tap();
-        delete(item(i));
+        UITableViewCell item = item(i);
+        waitUntil(item, is(not(animating())));
+        item.delete();
+        waitUntil(item, is(not(visible())));
         doneButton().tap();
     }
 
-    private UIView confirmDeletionButton(UIView cell) {
-        String selector = String.format(CONFIRM_DELETION_BUTTON_FOR_CELL, cell.query().pattern());
-        return view(By.igor(selector));
-    }
-
-    private UIView deleteButton(UIView cell) {
-        String selector = String.format(DELETE_BUTTON_FOR_CELL, cell.query().pattern());
-        return view(By.igor(selector));
-    }
 
     public UIView doneButton() {
         return view(DONE_BUTTON);
@@ -85,7 +61,8 @@ public class MasterPage extends Page {
     public UIView editButton() {
         return view(EDIT_BUTTON);
     }
-    public UIView item(Integer i) {
+
+    public UITableViewCell item(Integer i) {
         return itemWithLabel(itemLabel(i));
     }
 
@@ -98,15 +75,15 @@ public class MasterPage extends Page {
         return view(CELL_LABEL).sendMessage("accessibilityLabel");
     }
 
-    private UIView itemWithLabel(String label) {
-        return view(By.igor(String.format(CELL_WITH_LABEL, label)));
+    private UITableViewCell itemWithLabel(String label) {
+        return cell(By.igor(String.format(CELL_WITH_LABEL, label)));
     }
 
-    public UIView items() {
-        return view(CELL);
+    private UITableViewCell cell(By query) {
+        return new UITableViewCell(application(), query);
     }
 
-    public void visitCell(Integer i) {
-        item(i).sendMessage("tap");
+    public void visitItem(Integer i) {
+        item(i).tap();
     }
 }

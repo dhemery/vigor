@@ -10,11 +10,11 @@ import com.dhemery.victor.IosApplicationOrientation;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.configuration.CreateIosApplication;
 import com.dhemery.victor.configuration.CreateIosDevice;
-import com.dhemery.victor.examples.extensions.ApplicationOrientationQuery;
+import com.dhemery.victor.examples.application.ApplicationOrientationQuery;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import static com.dhemery.victor.examples.extensions.ApplicationRunningMatcher.running;
+import static com.dhemery.victor.examples.application.ApplicationRunningMatcher.running;
 import static org.hamcrest.Matchers.is;
 
 public class VigorTest extends PollableExpressions {

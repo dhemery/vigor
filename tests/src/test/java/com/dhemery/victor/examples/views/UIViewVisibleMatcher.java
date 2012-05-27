@@ -1,6 +1,5 @@
-package com.dhemery.victor.examples.extensions;
+package com.dhemery.victor.examples.views;
 
-import com.dhemery.victor.examples.views.UIView;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
