@@ -17,12 +17,11 @@
 		2A2C550DAF5EC6628AB280CD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB280CC /* MainStoryboard_iPad.storyboard */; };
 		2A2C550DAF5EC6628AB280D0 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB280CF /* MasterViewController.m */; };
 		2A2C550DAF5EC6628AB280D3 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB280D2 /* DetailViewController.m */; };
+		2D1BC1C415A63D5900074462 /* libIgor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D1BC1C315A63D5900074462 /* libIgor.a */; };
 		2D321D811543577500B05E3B /* frank_static_resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D321D801543577500B05E3B /* frank_static_resources.bundle */; };
-		2D321D831543579B00B05E3B /* libShelley.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2C550DAF5EC6628AB28113 /* libShelley.a */; };
 		2D321D85154357A500B05E3B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D321D84154357A500B05E3B /* CFNetwork.framework */; };
 		2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0DB /* libFrank.a */; };
 		2D36ACA11545421700E4C0E5 /* UITextField+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */; };
-		2D36ACA11545421700E4C0EB /* libigor-0.5.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0EA /* libigor-0.5.0.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,14 +70,13 @@
 		2A2C550DAF5EC6628AB2810B /* symbiote.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = symbiote.js; sourceTree = "<group>"; };
 		2A2C550DAF5EC6628AB2810D /* underscore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = underscore.js; sourceTree = "<group>"; };
 		2A2C550DAF5EC6628AB2810F /* ViewAttributeMapping.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = ViewAttributeMapping.plist; sourceTree = "<group>"; };
-		2A2C550DAF5EC6628AB28113 /* libShelley.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libShelley.a; sourceTree = "<group>"; };
+		2D1BC1C315A63D5900074462 /* libIgor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIgor.a; sourceTree = "<group>"; };
 		2D321D801543577500B05E3B /* frank_static_resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = frank_static_resources.bundle; path = lib/frank_static_resources.bundle; sourceTree = "<group>"; };
 		2D321D84154357A500B05E3B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2D36ACA11545421700E4C0CB /* Vigor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Vigor.entitlements; path = Vigor/Vigor.entitlements; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0DB /* libFrank.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFrank.a; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+DFX.h"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+DFX.m"; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0EA /* libigor-0.5.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libigor-0.5.0.a"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0EC /* UserViewAttributeMapping.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = UserViewAttributeMapping.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,12 +86,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D321D85154357A500B05E3B /* CFNetwork.framework in Frameworks */,
-				2D321D831543579B00B05E3B /* libShelley.a in Frameworks */,
 				2A2C550DAF5EC6628AB280B7 /* UIKit.framework in Frameworks */,
 				2A2C550DAF5EC6628AB280B9 /* Foundation.framework in Frameworks */,
 				2A2C550DAF5EC6628AB280BB /* CoreGraphics.framework in Frameworks */,
 				2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */,
-				2D36ACA11545421700E4C0EB /* libigor-0.5.0.a in Frameworks */,
+				2D1BC1C415A63D5900074462 /* libIgor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,9 +159,8 @@
 		2A2C550DAF5EC6628AB280D4 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				2D36ACA11545421700E4C0EA /* libigor-0.5.0.a */,
+				2D1BC1C315A63D5900074462 /* libIgor.a */,
 				2D36ACA11545421700E4C0DB /* libFrank.a */,
-				2A2C550DAF5EC6628AB28113 /* libShelley.a */,
 				2A2C550DAF5EC6628AB280D5 /* frank_static_resources.bundle */,
 			);
 			path = lib;
