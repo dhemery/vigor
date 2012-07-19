@@ -1,10 +1,10 @@
 package com.dhemery.victor.examples.views;
 
 import com.dhemery.victor.By;
-import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosViewFactory;
 
 public class UITextField extends UIView {
-    public UITextField(IosApplication application, By query) {
+    public UITextField(IosViewFactory application, By query) {
         super(application, query);
     }
 

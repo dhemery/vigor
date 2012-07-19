@@ -2,13 +2,14 @@ package com.dhemery.victor.examples.pages;
 
 import com.dhemery.polling.PollTimer;
 import com.dhemery.victor.By;
-import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosViewFactory;
 import com.dhemery.victor.examples.views.UITableViewCell;
 import com.dhemery.victor.examples.views.UIView;
 
 import java.util.List;
 
 import static com.dhemery.polling.Has.has;
+import static com.dhemery.victor.Igor.igor;
 import static com.dhemery.victor.examples.views.UIViewAnimatingMatcher.animating;
 import static com.dhemery.victor.examples.views.UIViewCountQuery.count;
 import static com.dhemery.victor.examples.views.UIViewVisibleMatcher.visible;
@@ -17,16 +18,16 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 
 public class MasterPage extends Page {
-    private static final By ADD_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Add']");
-    private static final By DONE_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Done']");
-    private static final By EDIT_BUTTON = By.igor("UINavigationButton[accessibilityLabel=='Edit']");
+    private static final By ADD_BUTTON = igor("UINavigationButton[accessibilityLabel=='Add']");
+    private static final By DONE_BUTTON = igor("UINavigationButton[accessibilityLabel=='Done']");
+    private static final By EDIT_BUTTON = igor("UINavigationButton[accessibilityLabel=='Edit']");
 
 
-    private static final By CELL = By.igor("UITableViewCell*");
-    private static final By CELL_LABEL = By.igor(CELL.pattern() + " UILabel");
+    private static final By CELL = igor("UITableViewCell*");
+    private static final By CELL_LABEL = igor(CELL.pattern() + " UILabel");
     private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.pattern() + "[accessibilityLabel=='%s'])";
 
-    public MasterPage(IosApplication application, PollTimer timer) {
+    public MasterPage(IosViewFactory application, PollTimer timer) {
         super(application, timer);
     }
 
@@ -76,7 +77,7 @@ public class MasterPage extends Page {
     }
 
     private UITableViewCell itemWithLabel(String label) {
-        return cell(By.igor(String.format(CELL_WITH_LABEL, label)));
+        return cell(igor(String.format(CELL_WITH_LABEL, label)));
     }
 
     private UITableViewCell cell(By query) {

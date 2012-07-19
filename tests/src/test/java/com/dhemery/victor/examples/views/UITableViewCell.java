@@ -1,10 +1,12 @@
 package com.dhemery.victor.examples.views;
 
 import com.dhemery.victor.By;
-import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosViewFactory;
+
+import static com.dhemery.victor.Igor.igor;
 
 public class UITableViewCell extends UIView {
-    public UITableViewCell(IosApplication application, By query) {
+    public UITableViewCell(IosViewFactory application, By query) {
         super(application, query);
     }
 
@@ -13,7 +15,7 @@ public class UITableViewCell extends UIView {
 
     private UIView confirmationButton() {
         String selector = String.format(CONFIRM_DELETION_BUTTON_FOR_CELL, query().pattern());
-        return new UIView(application(), By.igor(selector));
+        return new UIView(application(), igor(selector));
     }
 
     public void delete() {
@@ -23,6 +25,6 @@ public class UITableViewCell extends UIView {
 
     private UIView deleteButton() {
         String selector = String.format(DELETE_BUTTON_FOR_CELL, query().pattern());
-        return new UIView(application(),  By.igor(selector));
+        return new UIView(application(),  igor(selector));
     }
 }

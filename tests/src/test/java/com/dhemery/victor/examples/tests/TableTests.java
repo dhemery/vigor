@@ -18,7 +18,7 @@ public class TableTests extends VigorTest {
 
     @Before
     public void setUp() {
-        master = new MasterPage(application, timer);
+        master = new MasterPage(viewFactory, timer);
     }
 
     @After

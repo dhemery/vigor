@@ -1,15 +1,9 @@
 package com.dhemery.victor.examples.runner;
 
 import com.dhemery.configuration.Configuration;
-import com.dhemery.polling.PollTimer;
-import com.dhemery.polling.PollableExpressions;
-import com.dhemery.polling.Query;
-import com.dhemery.polling.SystemClockPollTimer;
-import com.dhemery.victor.IosApplication;
-import com.dhemery.victor.IosApplicationOrientation;
-import com.dhemery.victor.IosDevice;
-import com.dhemery.victor.configuration.CreateIosApplication;
-import com.dhemery.victor.configuration.CreateIosDevice;
+import com.dhemery.configuration.LoadProperties;
+import com.dhemery.polling.*;
+import com.dhemery.victor.*;
 import com.dhemery.victor.examples.application.ApplicationOrientationQuery;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -19,15 +13,21 @@ import static org.hamcrest.Matchers.is;
 
 public class VigorTest extends PollableExpressions {
     public static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
+    private static final Configuration configuration = new Configuration();
     public static IosApplication application;
     public static IosDevice device;
+    public static IosViewFactory viewFactory;
     public static PollTimer timer;
 
     @BeforeClass
     public static void startApplicationInDevice() {
-        Configuration configuration = new Configuration(VIGOR_PROPERTIES_FILES);
-        device = CreateIosDevice.withConfiguration(configuration);
-        application = CreateIosApplication.withConfiguration(configuration);
+        LoadProperties.fromFiles(VIGOR_PROPERTIES_FILES).into(configuration);
+        Victor victor = new Victor(configuration);
+        victor.commandPublisher().subscribe(new VigorCommandLogger());
+        victor.frankPublisher().subscribe(new VigorFrankLogger());
+        viewFactory = victor.viewFactory();
+        device = victor.device();
+        application = victor.application();
         timer = createTimer(configuration);
         device.start();
         waitUntil(application, timer, is(running()));

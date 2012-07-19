@@ -1,20 +1,20 @@
 package com.dhemery.victor.examples.views;
 
 import com.dhemery.victor.By;
-import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosViewFactory;
 
 import java.util.List;
 
 public class UIView {
-    private final IosApplication application;
+    private final IosViewFactory application;
     private final By query;
 
-    public UIView(IosApplication application, By query) {
+    public UIView(IosViewFactory application, By query) {
         this.application = application;
         this.query = query;
     }
 
-    protected IosApplication application() {
+    protected IosViewFactory application() {
         return application;
     }
 
