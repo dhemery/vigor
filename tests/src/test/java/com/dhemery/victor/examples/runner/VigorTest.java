@@ -23,8 +23,8 @@ public class VigorTest extends PollableExpressions {
     public static void startApplicationInDevice() {
         LoadProperties.fromFiles(VIGOR_PROPERTIES_FILES).into(configuration);
         Victor victor = new Victor(configuration);
-        victor.commandPublisher().subscribe(new VigorCommandLogger());
-        victor.frankPublisher().subscribe(new VigorFrankLogger());
+        victor.commandEvents().subscribe(new VigorCommandLogger());
+        victor.frankEvents().subscribe(new VigorFrankLogger());
         viewFactory = victor.viewFactory();
         device = victor.device();
         application = victor.application();
