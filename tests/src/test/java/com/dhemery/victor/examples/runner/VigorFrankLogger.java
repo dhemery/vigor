@@ -1,72 +1,71 @@
 package com.dhemery.victor.examples.runner;
 
-import com.dhemery.victor.frank.FrankSubscriber;
-import com.dhemery.victor.frankly.AccessibilityCheckResponse;
-import com.dhemery.victor.frankly.MessageResponse;
-import com.dhemery.victor.frankly.OrientationResponse;
+import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VigorFrankLogger implements FrankSubscriber {
+import static com.dhemery.victor.frankly.FrankEvent.*;
+
+public class VigorFrankLogger {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Override
-    public void accessibilityCheckRequest() {
+    @Subscribe
+    public void accessibilityCheckRequest(WillRequestAccessibilityCheck ignored) {
         log.info("Frank accessibility check -->");
     }
 
-    @Override
-    public void accessibilityCheckResponse(AccessibilityCheckResponse response) {
-        log.info("Frank accessibility check <-- {}", response.accessibilityEnabled());
+    @Subscribe
+    public void accessibilityCheckResponse(AccessibilityCheckReturned accessibility) {
+        log.info("Frank accessibility check <-- {}", accessibility.enabled);
     }
 
-    @Override
-    public void appExecRequest(String name, Object[] arguments) {
-        log.info("Frank app exec --> {} {}", name, arguments);
+    @Subscribe
+    public void appExecRequest(WillRequestAppExec request) {
+        log.info("Frank app exec --> {} {}", request.name, request.arguments);
     }
 
-    @Override
-    public void appExecResponse(String name, Object[] arguments, MessageResponse response) {
-        log.info("Frank app exec <-- {}", response.results());
+    @Subscribe
+    public void appExecResponse(AppExecReturned appExec) {
+        log.info("Frank app exec <-- {}", appExec.returnValue);
     }
 
-    @Override
-    public void dumpRequest() {
+    @Subscribe
+    public void dumpRequest(WillRequestDump ignored) {
         log.info("Frank dump -->");
     }
 
-    @Override
-    public void dumpResponse(String response) {
+    @Subscribe
+    public void dumpResponse(DumpReturned ignored) {
         log.info("Frank dump <--");
     }
 
-    @Override
-    public void mapRequest(String engine, String query, String name, Object[] arguments) {
-        log.info("Frank map --> {} {} {} {}", new Object[]{engine, query, name, arguments});
+    @Subscribe
+    public void mapRequest(WillRequestMap map) {
+        log.info("Frank map --> {} {} {} {}", new Object[]{map.engine, map.query, map.name, map.arguments});
     }
 
-    @Override
-    public void mapResponse(String engine, String query, String name, Object[] arguments, MessageResponse response) {
-        log.info("Frank map <-- {}", response.results());
+    @Subscribe
+    public void mapResponse(MapReturned map) {
+        log.info("Frank map <-- {}", map.returnValues);
     }
 
-    @Override
-    public void orientationRequest() {
+    @Subscribe
+    public void orientationRequest(WillRequestOrientation ignored) {
         log.info("Frank orientation -->");
     }
 
-    @Override
-    public void orientationResponse(OrientationResponse response) {
-        log.info("Frank orientation <-- {}", response.orientation());
+    @Subscribe
+    public void orientationResponse(OrientationReturned application) {
+        log.info("Frank orientation <-- {}", application.orientation);
     }
 
-    @Override
-    public void typeIntoKeyboardRequest(String text) {
-        log.info("--> type into keyboard {}", text);
+    @Subscribe
+    public void typeIntoKeyboardRequest(WillRequestTypeIntoKeyboard typeIntoKeyboard) {
+        log.info("--> type into keyboard {}", typeIntoKeyboard.text);
     }
 
-    @Override
-    public void typeIntoKeyboardResponse() {
+    @Subscribe
+    public void typeIntoKeyboardResponse(TypeIntoKeyboardReturned ignored) {
         log.info("<-- type into keyboard");
     }
 }

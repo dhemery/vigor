@@ -13,6 +13,8 @@ import static org.hamcrest.Matchers.is;
 
 public class VigorTest extends PollableExpressions {
     public static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
+    private static final VigorCommandLogger commandLogger = new VigorCommandLogger();
+    private static final VigorFrankLogger frankLogger = new VigorFrankLogger();
     private static final Configuration configuration = new Configuration();
     public static IosApplication application;
     public static IosDevice device;
@@ -23,8 +25,8 @@ public class VigorTest extends PollableExpressions {
     public static void startApplicationInDevice() {
         LoadProperties.fromFiles(VIGOR_PROPERTIES_FILES).into(configuration);
         Victor victor = new Victor(configuration);
-        victor.commandEvents().subscribe(new VigorCommandLogger());
-        victor.frankEvents().subscribe(new VigorFrankLogger());
+        victor.events().register(commandLogger);
+        victor.events().register(frankLogger);
         viewFactory = victor.viewFactory();
         device = victor.device();
         application = victor.application();
