@@ -1,10 +1,9 @@
 package com.dhemery.victor.examples.runner;
 
+import com.dhemery.victor.frank.events.*;
 import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static com.dhemery.victor.frankly.FrankEvent.*;
 
 public class VigorFrankLogger {
     private final Logger log = LoggerFactory.getLogger(getClass());
@@ -16,17 +15,17 @@ public class VigorFrankLogger {
 
     @Subscribe
     public void accessibilityCheckResponse(AccessibilityCheckReturned accessibility) {
-        log.info("Frank accessibility check <-- {}", accessibility.enabled);
+        log.info("Frank accessibility check <-- {}", accessibility.enabled());
     }
 
     @Subscribe
     public void appExecRequest(WillRequestAppExec request) {
-        log.info("Frank app exec --> {} {}", request.name, request.arguments);
+        log.info("Frank app exec --> {} {}", request.name(), request.arguments());
     }
 
     @Subscribe
     public void appExecResponse(AppExecReturned appExec) {
-        log.info("Frank app exec <-- {}", appExec.returnValue);
+        log.info("Frank app exec <-- {}", appExec.returnValue());
     }
 
     @Subscribe
@@ -41,12 +40,12 @@ public class VigorFrankLogger {
 
     @Subscribe
     public void mapRequest(WillRequestMap map) {
-        log.info("Frank map --> {} {} {} {}", new Object[]{map.engine, map.query, map.name, map.arguments});
+        log.info("Frank map --> {} {} {} {}", new Object[]{map.engine(), map.query(), map.name(), map.arguments()});
     }
 
     @Subscribe
     public void mapResponse(MapReturned map) {
-        log.info("Frank map <-- {}", map.returnValues);
+        log.info("Frank map <-- {}", map.returnValues());
     }
 
     @Subscribe
@@ -56,12 +55,12 @@ public class VigorFrankLogger {
 
     @Subscribe
     public void orientationResponse(OrientationReturned application) {
-        log.info("Frank orientation <-- {}", application.orientation);
+        log.info("Frank orientation <-- {}", application.orientation());
     }
 
     @Subscribe
     public void typeIntoKeyboardRequest(WillRequestTypeIntoKeyboard typeIntoKeyboard) {
-        log.info("--> type into keyboard {}", typeIntoKeyboard.text);
+        log.info("--> type into keyboard {}", typeIntoKeyboard.text());
     }
 
     @Subscribe
