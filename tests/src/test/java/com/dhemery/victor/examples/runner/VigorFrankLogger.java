@@ -1,7 +1,7 @@
 package com.dhemery.victor.examples.runner;
 
+import com.dhemery.publishing.Subscribe;
 import com.dhemery.victor.frank.events.*;
-import com.google.common.eventbus.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

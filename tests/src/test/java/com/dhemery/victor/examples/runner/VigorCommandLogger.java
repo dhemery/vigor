@@ -3,7 +3,7 @@ package com.dhemery.victor.examples.runner;
 import com.dhemery.os.OSCommand;
 import com.dhemery.os.events.Returned;
 import com.dhemery.os.events.WillRun;
-import com.google.common.eventbus.Subscribe;
+import com.dhemery.publishing.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
