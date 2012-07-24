@@ -27,6 +27,7 @@
 @synthesize nextItemNumberLabel = _nextItemNumberLabel;
 @synthesize nextItemNumber = _nextItemNumber;
 @synthesize nextItemPrefix = _nextItemPrefix;
+@synthesize nextItemPreviewLabel = _nextItemPreviewLabel;
 @synthesize detailViewController = _detailViewController;
 @synthesize prefixEnabled = _prefixEnabled;
 
@@ -55,6 +56,7 @@
     self.prefixEnabledSwitch.accessibilityIdentifier = @"prefixEnabled";
     self.nextItemNumberStepper.accessibilityIdentifier = @"nextItemNumberStepper";
     self.nextItemNumberLabel.accessibilityIdentifier = @"nextItemNumberLabel";
+    self.nextItemPreviewLabel.accessibilityIdentifier = @"nextItemPreview";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controlChanged:) name:@"UIControlEventEditingChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldChanged:) name:@"UITextFieldTextDidChangeNotification" object:nil];
@@ -70,6 +72,7 @@
     [self setNextItemNumberStepper:nil];
     [self setNextItemNumberLabel:nil];
     [self setPrefixField:nil];
+    [self setNextItemPreviewLabel:nil];
     [super viewDidUnload];
 }
 
@@ -140,9 +143,14 @@
     }
 }
 
-- (NSString *)newItem {
+- (NSString *)nextItemName {
     NSString *newItemPrefix = self.prefixEnabled ? self.nextItemPrefix : @"";
     NSString *newItemName = [NSString stringWithFormat:@"%@%d", newItemPrefix, self.nextItemNumber];
+    return newItemName;
+}
+
+- (NSString *)newItem {
+    NSString *newItemName = [self nextItemName];
     self.nextItemNumber++;
     self.nextItemNumberStepper.value = self.nextItemNumber;
     self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
@@ -153,8 +161,13 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSLog(@"%@%d,%d,\"%@\"", NSStringFromSelector(_cmd), range.location, range.length, string);
     self.nextItemPrefix = [self.nextItemPrefix stringByReplacingCharactersInRange:range withString:string];
+    [self updatePreviewLabel];
     return YES;
 }
+- (void)updatePreviewLabel {
+     self.nextItemPreviewLabel.text = [self nextItemName];
+}
+
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     NSLog(@"%@", NSStringFromSelector(_cmd));

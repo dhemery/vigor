@@ -81,7 +81,7 @@
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2Nm-VY-uos" userLabel="Preview Label">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2Nm-VY-uos" userLabel="Preview Label">
                                     <rect key="frame" x="20" y="88" width="280" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -125,6 +125,7 @@
                     <connections>
                         <outlet property="nextItemNumberLabel" destination="JPS-d3-XCY" id="q8m-ha-h1M"/>
                         <outlet property="nextItemNumberStepper" destination="HEJ-Td-I44" id="JD8-36-uRU"/>
+                        <outlet property="nextItemPreviewLabel" destination="2Nm-VY-uos" id="t5g-wO-Khh"/>
                         <outlet property="prefixEnabledSwitch" destination="q98-R3-Tfj" id="cO9-6l-SMB"/>
                         <outlet property="prefixField" destination="2ZE-gZ-az7" id="MNJ-xE-DTy"/>
                     </connections>
@@ -176,6 +177,7 @@
                 <relationship kind="action" name="textFieldValueChanged:" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nextItemNumberLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nextItemNumberStepper" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="nextItemPreviewLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="prefixEnabledSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="prefixField" candidateClass="UITextField"/>
             </relationships>

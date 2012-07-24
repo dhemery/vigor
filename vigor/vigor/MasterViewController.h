@@ -12,6 +12,7 @@
 
 @interface MasterViewController : UITableViewController <UITextFieldDelegate>
 
+@property (strong, nonatomic) IBOutlet UILabel *nextItemPreviewLabel;
 @property (strong, nonatomic) DetailViewController *detailViewController;
 @property (weak, nonatomic) IBOutlet UILabel *nextItemNumberLabel;
 @property (weak, nonatomic) IBOutlet UIStepper *nextItemNumberStepper;
