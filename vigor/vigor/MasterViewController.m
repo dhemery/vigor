@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
@@ -24,7 +23,6 @@
 @synthesize prefixField = _prefixField;
 @synthesize prefixEnabledSwitch = _prefixEnabledSwitch;
 @synthesize nextItemNumberStepper = _nextItemNumberStepper;
-@synthesize nextItemNumberLabel = _nextItemNumberLabel;
 @synthesize nextItemNumber = _nextItemNumber;
 @synthesize nextItemPrefix = _nextItemPrefix;
 @synthesize nextItemPreviewLabel = _nextItemPreviewLabel;
@@ -48,14 +46,12 @@
     self.prefixEnabledSwitch.on = self.prefixEnabled;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.nextItemNumberStepper.value = self.nextItemNumber;
-    self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
 
     NSLog(@"Accessibility identifier %@", self.prefixField.accessibilityIdentifier);
     [self.prefixField setAccessibilityIdentifier:@"prefix"];
     NSLog(@"Accessibility identifier %@", self.prefixField.accessibilityIdentifier);
     self.prefixEnabledSwitch.accessibilityIdentifier = @"prefixEnabled";
     self.nextItemNumberStepper.accessibilityIdentifier = @"nextItemNumberStepper";
-    self.nextItemNumberLabel.accessibilityIdentifier = @"nextItemNumberLabel";
     self.nextItemPreviewLabel.accessibilityIdentifier = @"nextItemPreview";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controlChanged:) name:@"UIControlEventEditingChanged" object:nil];
@@ -65,12 +61,12 @@
     self.navigationItem.rightBarButtonItem = addButton;
 
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    [self updatePreviewLabel];
 }
 
 - (void)viewDidUnload {
     [self setPrefixEnabledSwitch:nil];
     [self setNextItemNumberStepper:nil];
-    [self setNextItemNumberLabel:nil];
     [self setPrefixField:nil];
     [self setNextItemPreviewLabel:nil];
     [super viewDidUnload];
@@ -93,6 +89,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     NSLog(@"%@ inserted %@", NSStringFromSelector(_cmd), newItem);
+    [self updatePreviewLabel];
 }
 
 #pragma mark - Table View
@@ -153,7 +150,6 @@
     NSString *newItemName = [self nextItemName];
     self.nextItemNumber++;
     self.nextItemNumberStepper.value = self.nextItemNumber;
-    self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
     return newItemName;
 }
 
@@ -164,17 +160,21 @@
     [self updatePreviewLabel];
     return YES;
 }
-- (void)updatePreviewLabel {
-     self.nextItemPreviewLabel.text = [self nextItemName];
-}
 
+- (void)updatePreviewLabel {
+    self.nextItemPreviewLabel.text = [self nextItemName];
+    self.nextItemPreviewLabel.backgroundColor = self.prefixField.editing ? [UIColor greenColor] : [UIColor yellowColor];
+    self.nextItemPreviewLabel.textColor = self.prefixEnabled ? [UIColor redColor] : [UIColor blackColor];
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     NSLog(@"%@", NSStringFromSelector(_cmd));
+    [self updatePreviewLabel];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSLog(@"%@", NSStringFromSelector(_cmd));
+    [self updatePreviewLabel];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -202,12 +202,13 @@
 - (IBAction)prefixEnabledDidChange {
     self.prefixEnabled = self.prefixEnabledSwitch.on;
     NSLog(@"%@ to %@", NSStringFromSelector(_cmd), self.prefixEnabled ? @"YES" : @"NO");
+    [self updatePreviewLabel];
 }
 
 - (IBAction)nextItemNumberDidChange {
     self.nextItemNumber = (NSUInteger)[self.nextItemNumberStepper value];
-    self.nextItemNumberLabel.text = [NSString stringWithFormat:@"%d", self.nextItemNumber];
     NSLog(@"%@ to %d", NSStringFromSelector(_cmd), self.nextItemNumber);
+    [self updatePreviewLabel];
 }
 
 - (IBAction)textFieldValueChanged:(UITextField *)sender {
