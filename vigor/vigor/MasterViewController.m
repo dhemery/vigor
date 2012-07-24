@@ -163,8 +163,8 @@
 
 - (void)updatePreviewLabel {
     self.nextItemPreviewLabel.text = [self nextItemName];
-    self.nextItemPreviewLabel.backgroundColor = self.prefixField.editing ? [UIColor greenColor] : [UIColor yellowColor];
-    self.nextItemPreviewLabel.textColor = self.prefixEnabled ? [UIColor redColor] : [UIColor blackColor];
+    self.nextItemPreviewLabel.backgroundColor = self.prefixField.editing ? [UIColor yellowColor] : [UIColor greenColor];
+    self.nextItemPreviewLabel.textColor = self.prefixEnabled ? [UIColor blueColor] : [UIColor redColor];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
