@@ -32,7 +32,7 @@ public class MasterPage extends Page {
     }
 
     public void addItem() {
-        view(ADD_BUTTON).tap();
+        when(view(ADD_BUTTON), is(visible())).tap();
     }
 
     public UITableViewCell items() {

@@ -1,7 +1,6 @@
 /*jslint browser: true, white: false, devel: true */
 /*global window: true, Raphael: true, $: true, _: true */
 
-
 var symbiote = {};
 
 symbiote.baseUrlFor = function(path){ return window.location.protocol + "//" + window.location.host + "/" + path; };
@@ -10,6 +9,7 @@ symbiote.UiLocator = function(){
   var allViews = [],
       paper = new Raphael( 'ui-locator-view'),
       viewIndicator = { remove: _.identity },
+      viewIndicators = [],
       screenshotUrl = symbiote.baseUrlFor( "screenshot" ),
       backdrop = null,
       erstaz = null;
@@ -110,27 +110,33 @@ symbiote.UiLocator = function(){
 
   }
 
-  function showViewLocation( view ) {
-    var screenOffset = erstaz.screenOffset();
-
-    viewIndicator.remove();
-
-    viewIndicator = paper.rect( 
-      view.accessibilityFrame.origin.x, 
-      view.accessibilityFrame.origin.y, 
-      view.accessibilityFrame.size.width, 
-      view.accessibilityFrame.size.height
-    )
-      .attr({
-        fill: '#aaff00',
-        opacity: 0.8,
-        stroke: 'black',
-      })
-      .translate( screenOffset.x, screenOffset.y );
+  function removeHighlights() {
+    _.each( viewIndicators, function(v){ v.remove(); } );
   }
 
-  function hideViewLocation() {
-    viewIndicator.remove();
+  function highlightAccessibilityFrames( frames ) {
+    var screenOffset = erstaz.screenOffset();
+   
+    removeHighlights();
+
+    viewIndicators = _.map( frames, function(frame){
+      return paper.rect( 
+        frame.origin.x, 
+        frame.origin.y, 
+        frame.size.width, 
+        frame.size.height
+      )
+        .attr({
+          fill: '#aaff00',
+          opacity: 0.8,
+          stroke: 'black',
+        })
+        .translate( screenOffset.x, screenOffset.y );
+    });
+  }
+
+  function highlightAccessibilityFrame( frame ) {
+    highlightAccessibilityFrames( [frame] );
   }
 
   function addBackdropImage(){
@@ -163,17 +169,24 @@ symbiote.UiLocator = function(){
     }
   }
 
+  function updateOrientation(orientation){
+    // $(paper.canvas).parent().removeClass('landscape').removeClass('portrait').addClass(orientation);
+    $('#ui-locator-view, .the-columns').removeClass('landscape').removeClass('portrait').addClass(orientation);
+  }
+
   function updateViews(views){
     allViews = views;
   }
 
 
   return {
-    showViewLocation: showViewLocation,
-    hideViewLocation: hideViewLocation,
+    highlightAccessibilityFrame: highlightAccessibilityFrame,
+    highlightAccessibilityFrames: highlightAccessibilityFrames,
+    removeHighlights: removeHighlights,
     updateBackdrop: updateBackdrop,
     updateViews: updateViews,
-    updateDeviceFamily: updateDeviceFamily
+    updateDeviceFamily: updateDeviceFamily,
+    updateOrientation: updateOrientation
   };
 };
 
@@ -209,7 +222,7 @@ $(document).ready(function() {
   var $domDetails = $('#dom_detail'),
       $domList = $('div#dom_dump > ul'),
       $domAccessibleDump = $('div#accessible-views'),
-      $loading = $('#loading'),
+      $loading = $(''),
       INTERESTING_PROPERTIES = ['class', 'accessibilityLabel', 'tag', 'alpha', 'isHidden'],
       uiLocator = symbiote.UiLocator(),
       liveView;
@@ -248,31 +261,31 @@ $(document).ready(function() {
   }
 
   function showLoadingUI() {
-    $loading.show();
+    $('body').addClass('working');
   }
 
   function hideLoadingUI() {
-    $loading.hide();
+    $('body').removeClass('working');
   }
 
 
   function displayDetailsFor( view ) {
     console.debug( 'displaying details for:', view );
 
-    var $table = $('<table/>');
+    var $ul = $('<ul/>');
 
-    function tableRow( propertyName, propertyValue, cssClass ){
+    function createListItem( propertyName, propertyValue, cssClass ){
       if( propertyValue === null ){
         propertyValue = 'null';
       }else if( typeof propertyValue === 'object' ){ 
         propertyValue = JSON.stringify(propertyValue);
       } 
 
-      return $('<tr/>').addClass(cssClass)
+      return $('<li/>').addClass(cssClass)
         .append( 
-          $('<td/>').text(propertyName),
-          $('<td/>').text(propertyValue) )
-        .appendTo( $table );
+          $('<div/>').addClass('key').text(propertyName),
+          $('<div/>').addClass('value').text(propertyValue) )
+        .appendTo( $ul );
     }
 
     
@@ -280,7 +293,7 @@ $(document).ready(function() {
       if( !view.hasOwnProperty(propertyName) ){ return; }
 
       var propertyValue = view[propertyName];
-      $table.append( tableRow( propertyName, propertyValue, 'interesting' ) );
+      $ul.append( createListItem( propertyName, propertyValue, 'interesting' ) );
     });
 
 
@@ -289,11 +302,11 @@ $(document).ready(function() {
       if( _.contains( INTERESTING_PROPERTIES, propertyName ) ){ return; } // don't want to include the interesting properties twice
 
       var propertyValue = view[propertyName];
-      $table.append( tableRow( propertyName, propertyValue ) );
+      $ul.append( createListItem( propertyName, propertyValue ) );
     });
 
-    $domDetails.children().remove();
-    $table.appendTo( $domDetails );
+    $domDetails.empty();
+    $ul.appendTo( $domDetails );
   }
 
   function treeElementSelected(){
@@ -308,11 +321,11 @@ $(document).ready(function() {
 
   function treeElementEntered(){
     var view = $(this).data('rawView');
-    uiLocator.showViewLocation( view );
+    uiLocator.highlightAccessibilityFrame( view.accessibilityFrame );
   }
 
   function treeElementLeft(){
-    uiLocator.hideViewLocation();
+    uiLocator.removeHighlights();
   }
 
   function listItemTitleFor( rawView ) {
@@ -379,18 +392,19 @@ $(document).ready(function() {
   }
 
 
-
-  function sendFlashCommand( selector, engine ) {
-    var command = {
-	query: selector,
-	selector_engine: engine ? engine : 'uiquery' ,
-      operation: {
-        method_name: 'flash',
-        arguments: []
-      }
-    };
+  function sendMapRequest( selector, engine, method_name, method_args ) {
+    var deferable = new $.Deferred(),
+        command = {
+          query: selector,
+          selector_engine: engine ? engine : 'uiquery' ,
+          operation: {
+            method_name: method_name, 
+            arguments: method_args || []
+          }
+        };
 
     showLoadingUI();
+
     $.ajax({
       type: "POST",
       dataType: "json",
@@ -399,20 +413,46 @@ $(document).ready(function() {
       success: function(data) {
         if( isErrorResponse( data ) ) {
           displayErrorResponse( data );
+          deferable.reject(data);
         }
+        deferable.resolve(data);
       },
       error: function(xhr,status,error) {
         alert( "Error while talking to Frank: " + status );
+        deferable.reject(error);
       },
       complete: function(xhr,status) {
         hideLoadingUI();
       }
     });
 
-    return false;
+    return deferable.promise();
   }
 
-    function updateAccessibleViews( views ) {
+  function highlightViewLocations( selector, engine ){
+    sendMapRequest( selector, engine, 'accessibilityFrame' ).done( function(data){
+      locations = data.results;
+      if( locations.length < 1 ){
+        alert( 'no views found for that selector' );
+        return;
+      }
+
+      uiLocator.highlightAccessibilityFrames( locations );
+      window.setTimeout( function(){
+        uiLocator.removeHighlights();
+      }, 1000 );
+    });
+  }
+
+  function sendFlashCommand( selector, engine ) {
+    sendMapRequest(selector,engine,'FEX_flash');
+  }
+
+  function sendTouchCommand( selector, engine ) {
+    sendMapRequest(selector,engine,'touch');
+  }
+
+  function updateAccessibleViews( views ) {
     var accessibleViews = filterAccessibleViews( views ),
         divTemplate = _.template( '<div><a href="#" title="<%=selector%>"><span class="viewClass"><%=viewClass%></span> with label "<span class="viewLabel"><%=viewLabel%></span>"</a></div>' );
 
@@ -424,7 +464,9 @@ $(document).ready(function() {
 
       $(divHtml)
         .click( function(){
+          $('#query').val( selector );
           sendFlashCommand( selector );
+          highlightViewLocations( selector );
           return false;
         })
         .appendTo( $domAccessibleDump );
@@ -432,6 +474,9 @@ $(document).ready(function() {
   }
 
   function guessAtDeviceFamilyBasedOnViewDump(data){
+    var firstChildViewFrame = data.subviews[0].accessibilityFrame;
+
+    console.log( JSON.stringify( firstChildViewFrame ) ) ;
     switch( data.accessibilityFrame.size.height ){
       case 1024:
         return 'ipad';
@@ -443,9 +488,29 @@ $(document).ready(function() {
     }
   }
 
+  function refreshOrientation(){
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: symbiote.baseUrlFor("/orientation"),
+      success: function(data) {
+        var orientation = data.orientation;
+        
+        console.debug( 'device orientation is '+orientation );
+        uiLocator.updateOrientation(orientation);
+      },
+      error: function(xhr,status,error) {
+        alert( "Error while talking to Frank: " + status );
+      }
+    });
+  }
+
+
 
   function refreshViewHeirarchy(){
     showLoadingUI();
+
+    refreshOrientation();
 
     $.ajax({
       type: "POST",
@@ -475,14 +540,21 @@ $(document).ready(function() {
   }
 
 
-
 	$('#dump_button').click( function(){
     refreshViewHeirarchy();
     uiLocator.updateBackdrop();
   });
 
-  $('#flash_button').click( function(){
+  $('button#flash').click( function(){
       sendFlashCommand( $("input#query").val(), $("input#selector_engine").val() );
+  });
+
+  $('button#touch').click( function(){
+      sendTouchCommand( $("input#query").val(), $("input#selector_engine").val() );
+  });
+
+  $('button#highlight').click( function(){
+      highlightViewLocations( $("input#query").val(), $("input#selector_engine").val() );
   });
   
   liveView = symbiote.LiveView( uiLocator.updateBackdrop, refreshViewHeirarchy );
@@ -491,17 +563,18 @@ $(document).ready(function() {
     $(this).toggleClass('down');
     if( $(this).hasClass('down') ){
       liveView.start();
-      $(this).text('stop Live View');
     }else{
       liveView.stop();
-      $(this).text('start Live View');
     }
   });
 
+  $('#ui-locator-rotator').click( function(){
+    $('#ui-locator-view, .the-columns').toggleClass('landscape');
+  });
 
   //initial UI setup
 
-	$('#loading').hide();
+	// $('#loading').hide();
   
   // do initial DOM dump straight after page has finished loading
   $('#dump_button').click();

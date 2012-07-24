@@ -29,6 +29,7 @@ public class VigorTest extends PollableExpressions {
         Victor victor = new Victor(configuration);
         victor.events().subscribe(new VigorCommandLogger());
         victor.events().subscribe(new VigorFrankLogger());
+        victor.events().subscribe(new VigorHttpLogger());
         viewFactory = victor.viewFactory();
         device = victor.device();
         application = victor.application();

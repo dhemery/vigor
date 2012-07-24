@@ -6,60 +6,74 @@
 
     %script(src="jquery.min.js")
     %script(src="jquery-ui.min.js")
+    %script(src="coffee-script.js")
     %script(src="raphael-min.js")
     %script(src="jquery.treeview.js")
     %script(src="json2.js")
     %script(src="underscore.js")
     %script(src="symbiote.js")
-    %link(href="jquery-ui.css" rel="stylesheet")
+    %script(src="symbiote_ui.coffee" type="text/coffeescript")
+    %link(href="reset.css" rel="stylesheet")
+    %link(href="pictos/pictos.css" rel="stylesheet")
     %link(href="jquery.treeview.css" rel="stylesheet")
     %link(href="symbiote.css" rel="stylesheet")
 
   %body
-    #header
-      #main-tab-1
-        %h1 symbiote
-        %i From here you can inspect the current state of the app's UI, and test which UI elements a selector will select
+    %header#header
+      %h1 symbiote
+      %i From here you can inspect the current state of the app's UI, and test which UI elements a selector will select
+      #refresh
+        %button#dump_button
+          %span
 
-    %div
-      %table.symbiote_shell
-        %tr.ui-widget
-          %td
-            #selector-test
-              %label(for="query") Selector
-              %input#query(placeholder="label marked:'Search'")
-              %button#flash_button Flash
-              %input#selector_engine(placeholder="uiquery")
-          %td
-            #refresh
-              %img#loading(src="images/ajax-loader.gif")
-              %button#dump_button Refresh
-        %tr
-          %td
-            #list-tabs
-              %ul
-                %li
-                  %a(href="#dom_dump") View Heirarchy
-                %li
-                  %a(href="#accessible-views-tab") Accessible Elements
-              #dom_dump
-                %ul
-              #accessible-views-tab
-                %div.hints
-                  %p Here is a list of all elements with accessibility labels.
-                  %p Clicking on a row will flash that view element in the simulator. Hover over a row to see the selector used to flash that view element.
-                #accessible-views
-          %td
-            #inspect-tabs
-              %ul
-                %li
-                  %a(href="#dom_detail") View Properties
-                %li
-                  %a(href="#ui-locator") View Locator
-              #ui-locator 
-                #ui-locator-view
-                #live-view
-                  %button start Live View
-                  
-              #dom_detail
-                %p Click an element in the view heirarchy on the right to see details of that element here.
+    %section.symbiote_shell
+      %article#selector-test
+        %input#query(placeholder="Selector label marked:'Search'")
+        .action-buttons
+          %button#highlight Highlight
+          %ul.extra-actions
+            %li
+              %button#touch Touch In App
+            %li
+              %button#flash Flash In App
+          %div.drop-indicator v
+        .selector_engine
+          %input#selector_engine(value="shelley_compat")
+          %button#selector_engine_dropdown &#x25BC; 
+          %ul#selector_engine_options
+            %li shelley_compat
+            %li uiquery
+
+
+
+    %section.the-columns
+      #list-tabs
+        %ul
+          %li
+            %a(href="#dom_dump") View Heirarchy
+          %li
+            %a(href="#accessible-views-tab") Accessible Elements
+        #dom_dump
+          %ul
+        #accessible-views-tab
+          %div.hints
+            %p Here is a list of all elements with accessibility labels.
+            %p Clicking on a row will flash that view element in the simulator. Hover over a row to see the selector used to flash that view element.
+          #accessible-views
+
+      #inspect-tabs
+        %ul
+          %li
+            %a(href="#dom_detail") View Properties
+          %li
+            %a(href="#ui-locator") View Locator
+        #ui-locator 
+          #live-view
+            %button 
+              Live
+              %span Y
+          %button#ui-locator-rotator 1
+          #ui-locator-view
+
+        #dom_detail
+          %p Click an element in the view heirarchy on the right to see details of that element here.

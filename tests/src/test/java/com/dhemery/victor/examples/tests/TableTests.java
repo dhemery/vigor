@@ -5,15 +5,12 @@ import com.dhemery.victor.examples.runner.VigorTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static com.dhemery.polling.Has.has;
 import static com.dhemery.victor.examples.views.UIViewCountQuery.count;
 import static org.hamcrest.Matchers.equalTo;
 
 public class TableTests extends VigorTest {
-    Logger log = LoggerFactory.getLogger(getClass());
     private MasterPage master;
 
     @Before
@@ -34,7 +31,7 @@ public class TableTests extends VigorTest {
     @Test
     public void aNewItemAppearsInTheMasterPage() {
         master.addItem();
-        assertThat(master.items(), has(count(), equalTo(1)));
+        assertThat(master.items(), eventually(), has(count(), equalTo(1)));
     }
 
     @Test

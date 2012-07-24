@@ -4,6 +4,7 @@ import com.dhemery.polling.PollTimer;
 import com.dhemery.polling.PollableExpressions;
 import com.dhemery.victor.By;
 import com.dhemery.victor.IosViewFactory;
+import com.dhemery.victor.examples.runner.VigorPollLogger;
 import com.dhemery.victor.examples.views.UIView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ public class Page extends PollableExpressions {
     public Page(IosViewFactory application, PollTimer timer) {
         this.application = application;
         this.timer = timer;
+        pollPublisher().subscribe(new VigorPollLogger());
     }
 
     public IosViewFactory application() {
