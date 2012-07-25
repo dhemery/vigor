@@ -2,7 +2,6 @@ package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.examples.pages.MasterPage;
 import com.dhemery.victor.examples.runner.VigorTest;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,11 +15,6 @@ public class TableTests extends VigorTest {
     @Before
     public void setUp() {
         master = new MasterPage(viewFactory, timer);
-    }
-
-    @After
-    public void deleteAllItems() {
-        master.deleteAllItems();
     }
 
     @Test

@@ -10,7 +10,7 @@
             <level>ALL</level>
         </filter>
         <encoder>
-            <pattern>%date{HH:mm:ss.SSS} %5level - %message - %logger.%method\(\):%line%n</pattern>
+            <pattern>%date{HH:mm:ss.SSS} %5level - %message%n</pattern>
         </encoder>
     </appender>
 

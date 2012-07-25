@@ -1,8 +1,8 @@
 package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.By;
-import com.dhemery.victor.examples.views.UITextField;
 import com.dhemery.victor.examples.runner.VigorTest;
+import com.dhemery.victor.examples.views.UITextField;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,17 +16,25 @@ public class TextFieldTests extends VigorTest {
     @Before
     public void beginEditing() {
         prefixField = textField(igor("#prefix"));
-        when(prefixField, is(visible())).tap();
     }
 
     @Test
     public void setText() {
+        demo(12);
+        when(prefixField, is(visible())).tap();
+        demo(10);
         prefixField.setText("Hello Dolly");
+        demo(10);
         prefixField.appendText(". Well hello Dolly");
+        demo(4);
         prefixField.insertText(",", 5);
+        demo(2);
         prefixField.insertText(",", 24);
+        demo(2);
         prefixField.appendText(".");
+        demo(2);
         prefixField.done();
+        demo(10);
     }
 
     public UITextField textField(By query) {

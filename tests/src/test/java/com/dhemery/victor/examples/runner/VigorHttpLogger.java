@@ -10,31 +10,31 @@ public class VigorHttpLogger {
 
     @Subscribe
     public void logGetRequest(WillSendGet get) {
-        log.info("Http GET --> {}", get.path());
+        log.info("Http GET --> {}", get.resource());
     }
 
     @Subscribe
     public void logGetResponse(GetResponded get) {
-        log.info("Http GET <-- {} {}", get.path(), get.response());
+        log.info("Http GET <-- {} {}", get.resource(), get.response());
     }
 
     @Subscribe
     public void logGetThrew(GetThrew get) {
-        log.info("Http GET !!! {} {}", get.path(), get.exception());
+        log.info("Http GET !!! {} {}", get.resource(), get.exception());
     }
 
     @Subscribe
     public void logPutRequest(WillSendPut put) {
-        log.info("Http PUT --> {} {}", put.path(), put.message());
+        log.info("Http PUT --> {} {}", put.resource(), put.message());
     }
 
     @Subscribe
     public void logPutResponse(PutResponded put) {
-        log.info("Http PUT <-- {} {}", put.path(), put.response());
+        log.info("Http PUT <-- {} {}", put.resource(), put.response());
     }
 
     @Subscribe
     public void logPutThrew(PutThrew put) {
-        log.info("Http PUT !!! {} {}", put.path(), put.exception());
+        log.info("Http PUT !!! {} {}", put.resource(), put.exception());
     }
 }

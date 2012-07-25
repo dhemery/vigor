@@ -23,10 +23,7 @@ public class UIView {
         if (results.size() != 1) {
             return false;
         }
-        if (Boolean.parseBoolean(results.get(0))) {
-            return false;
-        }
-        return true;
+        return !Boolean.parseBoolean(results.get(0));
     }
 
     protected By query() {
@@ -38,6 +35,15 @@ public class UIView {
     }
 
     public void tap() {
-        sendMessage("tap");
+        sendMessage("touch");
+    }
+
+    @Override
+    public String toString() {
+        return query.toString();
+    }
+
+    public List<String> backgroundColor() {
+        return sendMessage("backgroundColor");
     }
 }

@@ -22,7 +22,6 @@ public class MasterPage extends Page {
     private static final By DONE_BUTTON = igor("UINavigationButton[accessibilityLabel=='Done']");
     private static final By EDIT_BUTTON = igor("UINavigationButton[accessibilityLabel=='Edit']");
 
-
     private static final By CELL = igor("UITableViewCell*");
     private static final By CELL_LABEL = igor(CELL.pattern() + " UILabel");
     private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.pattern() + "[accessibilityLabel=='%s'])";
@@ -39,19 +38,22 @@ public class MasterPage extends Page {
         return cell(CELL);
     }
 
-    public void deleteAllItems() {
-        while (the(items(), has(count(), greaterThan(0)))) {
-            deleteItem(0);
-        }
-    }
-
     public void deleteItem(Integer i) {
         editButton().tap();
         UITableViewCell item = item(i);
         waitUntil(item, is(not(animating())));
-        item.delete();
+        regret(500);
+        when(item.deleteButton(), is(visible())).tap();
+        when(item.confirmationButton(), is(visible())).tap();
         waitUntil(item, is(not(visible())));
         doneButton().tap();
+    }
+
+    private void regret(int duration) {
+        try {
+            Thread.sleep(duration);
+        } catch (InterruptedException e) {
+        }
     }
 
 

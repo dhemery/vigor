@@ -13,17 +13,12 @@ public class UITableViewCell extends UIView {
     private static final String CONFIRM_DELETION_BUTTON_FOR_CELL = "(%s) UITableViewCellDeleteConfirmationControl";
     private static final String DELETE_BUTTON_FOR_CELL = "(%s) UITableViewCellEditControl";
 
-    private UIView confirmationButton() {
+    public UIView confirmationButton() {
         String selector = String.format(CONFIRM_DELETION_BUTTON_FOR_CELL, query().pattern());
         return new UIView(application(), igor(selector));
     }
 
-    public void delete() {
-        deleteButton().tap();
-        confirmationButton().tap();
-    }
-
-    private UIView deleteButton() {
+    public UIView deleteButton() {
         String selector = String.format(DELETE_BUTTON_FOR_CELL, query().pattern());
         return new UIView(application(),  igor(selector));
     }
