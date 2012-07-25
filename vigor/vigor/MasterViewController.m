@@ -179,7 +179,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    return YES;
+    return self.prefixEnabled;
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
