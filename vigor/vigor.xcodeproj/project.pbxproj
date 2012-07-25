@@ -384,10 +384,8 @@
 				INFOPLIST_FILE = "Vigor/Vigor-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/lib\"",
-					"\"${PROJECT_DIR}/lib/**",
-					"\"${PROJECT_DIR}/lib/**",
-					"\"${PROJECT_DIR}/lib/**",
-					"\"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/** \"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/** \"${PROJECT_DIR}/lib/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -404,10 +402,8 @@
 				INFOPLIST_FILE = "Vigor/Vigor-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/lib\"",
-					"\"${PROJECT_DIR}/lib/**",
-					"\"${PROJECT_DIR}/lib/**",
-					"\"${PROJECT_DIR}/lib/**",
-					"\"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/** \"${PROJECT_DIR}/lib/**",
+					"\"${PROJECT_DIR}/lib/** \"${PROJECT_DIR}/lib/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
