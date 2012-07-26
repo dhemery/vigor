@@ -1,7 +1,7 @@
 package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.examples.pages.MasterPage;
-import com.dhemery.victor.examples.runner.VigorTest;
+import com.dhemery.victor.examples.runner.OnVigorApp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ import static com.dhemery.polling.Has.has;
 import static com.dhemery.victor.examples.views.UIViewCountQuery.count;
 import static org.hamcrest.Matchers.equalTo;
 
-public class TableTests extends VigorTest {
+public class Tables extends OnVigorApp {
     private MasterPage master;
 
     @Before

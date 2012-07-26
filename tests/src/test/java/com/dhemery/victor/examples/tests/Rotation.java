@@ -1,37 +1,34 @@
 package com.dhemery.victor.examples.tests;
 
-import com.dhemery.victor.examples.runner.VigorTest;
+import com.dhemery.victor.examples.runner.OnVigorApp;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.IosApplicationOrientation.*;
+import static com.dhemery.victor.IosApplicationOrientation.LANDSCAPE;
+import static com.dhemery.victor.IosApplicationOrientation.PORTRAIT;
 import static org.hamcrest.Matchers.equalTo;
 
-public class RotationTests extends VigorTest {
+public class Rotation extends OnVigorApp {
     @Test
-    public void orientationTests() throws InterruptedException, IOException {
+    public void orientationTests() {
         assertThat(application, has(orientation(), equalTo(PORTRAIT)));
 
-        waitUntil(application, has(orientation(), equalTo(PORTRAIT)));
-
-        device.rotateLeft();
+        rotateLeft();
         assertThat(application, eventually(), has(orientation(), equalTo(LANDSCAPE)));
 
-        device.rotateRight();
+        rotateRight();
         assertThat(application, eventually(), has(orientation(), equalTo(PORTRAIT)));
 
-        device.rotateRight();
+        rotateRight();
         assertThat(application, eventually(), has(orientation(), equalTo(LANDSCAPE)));
 
-        device.rotateRight();
+        rotateRight();
         assertThat(application, eventually(), has(orientation(), equalTo(PORTRAIT)));
 
-        device.rotateRight();
+        rotateRight();
         assertThat(application, eventually(), has(orientation(), equalTo(LANDSCAPE)));
 
-        device.rotateRight();
+        rotateRight();
         assertThat(application, eventually(), has(orientation(), equalTo(PORTRAIT)));
     }
 }

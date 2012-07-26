@@ -8,6 +8,10 @@ import com.dhemery.polling.Query;
 import com.dhemery.polling.SystemClockPollTimer;
 import com.dhemery.victor.*;
 import com.dhemery.victor.examples.application.ApplicationOrientationQuery;
+import com.dhemery.victor.examples.views.UILabel;
+import com.dhemery.victor.examples.views.UISwitch;
+import com.dhemery.victor.examples.views.UITextField;
+import com.dhemery.victor.examples.views.UIView;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -15,14 +19,14 @@ import org.junit.BeforeClass;
 import static com.dhemery.victor.examples.application.ApplicationRunningMatcher.running;
 import static org.hamcrest.Matchers.is;
 
-public class VigorTest extends PollableExpressions {
+public class OnVigorApp extends PollableExpressions {
     public static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
     private static final Configuration configuration = new Configuration();
     private static Victor victor;
-    public IosApplication application;
-    public IosDevice device;
-    public IosViewFactory viewFactory;
-    public PollTimer timer;
+    protected IosApplication application;
+    protected IosDevice device;
+    protected IosViewFactory viewFactory;
+    protected PollTimer timer;
     int demoScale;
 
     @BeforeClass
@@ -72,5 +76,36 @@ public class VigorTest extends PollableExpressions {
             Thread.sleep(i * demoScale);
         } catch (InterruptedException e) {
         }
+    }
+
+    protected UISwitch toggle(By query) {
+        return new UISwitch(viewFactory, query);
+    }
+
+    protected UITextField textField(By query) {
+        return new UITextField(viewFactory, query);
+    }
+
+    protected UILabel label(By query) {
+        return new UILabel(viewFactory, query);
+    }
+
+    protected UIView button(By query) {
+        return new UIView(viewFactory, query);
+    }
+
+    protected void waitForAnimation() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+        }
+    }
+
+    protected void rotateRight() {
+        device.rotateRight();
+    }
+
+    protected void rotateLeft() {
+        device.rotateLeft();
     }
 }
