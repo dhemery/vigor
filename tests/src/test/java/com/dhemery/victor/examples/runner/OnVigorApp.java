@@ -20,26 +20,26 @@ import static com.dhemery.victor.examples.application.ApplicationRunningMatcher.
 import static org.hamcrest.Matchers.is;
 
 public class OnVigorApp extends PollableExpressions {
-    public static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
-    private static final Configuration configuration = new Configuration();
-    private static Victor victor;
+    private static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
+    protected static final Configuration configuration = new Configuration();
     protected IosApplication application;
     protected IosDevice device;
     protected IosViewFactory viewFactory;
     protected PollTimer timer;
-    int demoScale;
+    private int demoScale;
+    private Victor victor;
 
     @BeforeClass
     public static void startApplicationInDevice() {
         LoadProperties.fromFiles(VIGOR_PROPERTIES_FILES).into(configuration);
-        victor = new Victor(configuration);
-        victor.events().subscribe(new VigorCommandLogger());
-        victor.events().subscribe(new VigorFrankLogger());
-//        victor.events().subscribe(new VigorHttpLogger());
     }
 
     @Before
     public void waitForApplication() {
+        victor = new Victor(configuration);
+        victor.events().subscribe(new VigorCommandLogger());
+        victor.events().subscribe(new VigorFrankLogger());
+//        victor.events().subscribe(new VigorHttpLogger());
         demoScale = Integer.parseInt(configuration.requiredOption("demo.scale"));
         viewFactory = victor.viewFactory();
         device = victor.device();

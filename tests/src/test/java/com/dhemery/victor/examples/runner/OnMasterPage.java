@@ -27,7 +27,7 @@ public class OnMasterPage extends OnVigorApp {
         waitForAnimation();
     }
 
-    private Query<UISwitch,Boolean> on() {
+    protected Query<UISwitch,Boolean> on() {
         return new Query<UISwitch, Boolean>() {
             @Override
             public String name() {
