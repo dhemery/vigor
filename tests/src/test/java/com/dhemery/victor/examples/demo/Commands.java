@@ -15,13 +15,13 @@ public class Commands extends OnMasterPage {
     }
 
     @Test public void beginEditingRobustly() { prefix.tap(); }
-    @Test public void setTextRobustly() { prefix.sendMessage("DFX_setText:", "Robustly "); }
+    @Test public void setTextRobustly() { prefix.sendMessage("DFX_setText:", "Robustly"); }
     @Test public void endEditingRobustly() { prefix.sendMessage("DFX_return"); }
     @Test public void switchOnRobustly() { if(the(prefixEnabled, has(on(), not(equalTo(true))))) prefixEnabled.tap(); }
     @Test public void switchOffRobustly() { if(the(prefixEnabled, has(on(), not(equalTo(false))))) prefixEnabled.tap(); }
 
     @Test public void beginEditingNaively() { prefix.sendMessage("becomeFirstResponder"); }
-    @Test public void setTextNaively() { prefix.sendMessage("setText:", "naively "); }
+    @Test public void setTextNaively() { prefix.sendMessage("setText:", "naively"); }
     @Test public void endEditingNaively() { prefix.sendMessage("resignFirstResponder"); }
     @Test public void switchOnNaively() { prefixEnabled.sendMessage("setOn:animated:", true, true); }
     @Test public void switchOffNaively() { prefixEnabled.sendMessage("setOn:animated:", false, true); }

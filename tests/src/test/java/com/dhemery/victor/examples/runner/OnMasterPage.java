@@ -42,11 +42,11 @@ public class OnMasterPage extends OnVigorApp {
     }
 
     protected void enablePrefix() {
-        setPrefixEnabled(false);
+        setPrefixEnabled(true);
     }
 
     protected void disablePrefix() {
-        setPrefixEnabled(true);
+        setPrefixEnabled(false);
     }
 
     private void setPrefixEnabled(boolean desiredState) {
