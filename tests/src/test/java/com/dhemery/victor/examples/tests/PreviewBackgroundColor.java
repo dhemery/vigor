@@ -15,10 +15,10 @@ public class PreviewBackgroundColor extends OnMasterPage {
 
     @Test
     public void backgroundColorFollowsPrefixFieldEditMode() {
-        demo(12);
+        demo(6);
 
         beginEditing();
-        demo(8);
+        demo(5);
         assertThat(preview, eventually(), has(backgroundColor(), equalTo(YELLOW)));
 
         endEditing();

@@ -24,7 +24,7 @@
                          withText:(NSString *)text {
     NSLog(@"%@%d,%d,\"%@\",", NSStringFromSelector(_cmd), location, length, text);
     NSRange range = NSMakeRange(location, length);
-    if ([self DFX_delegateAllowsReplacementOfRange:range withString:text]) {
+    if (self.isFirstResponder && [self DFX_delegateAllowsReplacementOfRange:range withString:text]) {
         self.text = [self.text stringByReplacingCharactersInRange:range withString:text];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"UITextFieldTextDidChangeNotification" object:self];
         [self sendActionsForControlEvents:UIControlEventEditingChanged];

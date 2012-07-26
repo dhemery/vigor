@@ -15,7 +15,7 @@ public class PreviewTextColor extends OnMasterPage {
 
     @Test
     public void textColorFollowsPrefixEnabledSwitch() {
-        demo(9);
+        demo(6);
 
         disablePrefix();
         demo(5);

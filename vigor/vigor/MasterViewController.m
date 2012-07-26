@@ -157,7 +157,13 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSLog(@"%@%d,%d,\"%@\"", NSStringFromSelector(_cmd), range.location, range.length, string);
-    self.nextItemPrefix = [self.nextItemPrefix stringByReplacingCharactersInRange:range withString:string];
+    NSString *proposedText = [self.nextItemPrefix stringByReplacingCharactersInRange:range withString:string];
+    if ([proposedText length] > 0
+        && ![[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[proposedText characterAtIndex:0]]) {
+        NSLog(@"   NO: Prefix must start with uppercase letter.");
+        return NO;
+    }
+    self.nextItemPrefix = proposedText;
     [self updatePreviewLabel];
     return YES;
 }
@@ -180,6 +186,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     NSLog(@"%@", NSStringFromSelector(_cmd));
+    if(!self.prefixEnabled) NSLog(@"   NO: Editing allowed only when prefix enabled.");
     return self.prefixEnabled;
 }
 
@@ -196,6 +203,10 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSLog(@"%@", NSStringFromSelector(_cmd));
+    if([self.nextItemPrefix length] % 2 == 1) {
+        NSLog(@"   NO: Prefix must be even length.");
+        return NO;
+    }
     [textField resignFirstResponder];
     return YES;
 }

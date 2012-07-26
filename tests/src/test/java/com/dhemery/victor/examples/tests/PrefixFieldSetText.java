@@ -11,13 +11,13 @@ public class PrefixFieldSetText extends OnMasterPage {
     @Test
     public void setText() {
         assertThat(prefix, has(text(), equalTo("")));
-        demo(12);
+        demo(6);
 
         beginEditing();
-        demo(10);
+        demo(6);
 
         prefix.setText("Hello Dolly");
-        demo(10);
+        demo(5);
         assertThat(prefix, has(text(), equalTo("Hello Dolly")));
 
         prefix.appendText(". Well hello Dolly");
@@ -37,6 +37,6 @@ public class PrefixFieldSetText extends OnMasterPage {
         assertThat(prefix, has(text(), equalTo("Hello, Dolly. Well hello, Dolly.")));
 
         endEditing();
-        demo(10);
+        demo(5);
     }
 }

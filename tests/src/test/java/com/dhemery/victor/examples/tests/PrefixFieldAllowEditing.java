@@ -11,20 +11,20 @@ public class PrefixFieldAllowEditing extends OnMasterPage {
     @Test
     public void editingIsAllowedWhenPrefixIsEnabled() {
         enablePrefix();
-        demo(8);
+        demo(7);
 
         beginEditing();
-        demo(5);
+        demo(4);
         assertThat(prefix, is(editing()));
     }
 
     @Test
     public void editingIsDisallowedWhenPrefixIsEnabled() {
         disablePrefix();
-        demo(8);
+        demo(4);
 
         beginEditing();
-        demo(5);
+        demo(3);
         assertThat(prefix, is(not(editing())));
     }
 }
