@@ -7,7 +7,7 @@ import static com.dhemery.polling.Has.has;
 import static com.dhemery.victor.examples.views.UITextFieldTextQuery.text;
 import static org.hamcrest.Matchers.equalTo;
 
-public class PrefixFieldSetText extends OnMasterPage {
+public class PrefixFieldText extends OnMasterPage {
     @Test
     public void setText() {
         assertThat(prefix, has(text(), equalTo("")));

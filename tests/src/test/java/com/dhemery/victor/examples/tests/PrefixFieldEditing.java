@@ -7,9 +7,9 @@ import static com.dhemery.victor.examples.views.UITextFieldEditingMatcher.editin
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
-public class PrefixFieldAllowEditing extends OnMasterPage {
+public class PrefixFieldEditing extends OnMasterPage {
     @Test
-    public void editingIsAllowedWhenPrefixIsEnabled() {
+    public void isAllowedWhenPrefixIsEnabled() {
         enablePrefix();
         demo(7);
 
@@ -19,7 +19,7 @@ public class PrefixFieldAllowEditing extends OnMasterPage {
     }
 
     @Test
-    public void editingIsDisallowedWhenPrefixIsEnabled() {
+    public void isDisallowedWhenPrefixIsDisabled() {
         disablePrefix();
         demo(4);
 

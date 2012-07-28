@@ -1,7 +1,6 @@
 package com.dhemery.victor.examples.views;
 
 import com.dhemery.polling.Query;
-import com.dhemery.victor.examples.tests.PrefixFieldSetText;
 
 public class UITextFieldTextQuery extends Query<UITextField, String> {
     @Override
