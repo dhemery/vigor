@@ -1,5 +1,9 @@
+my.properties
+
 # IntelliJ IDEA
 /.idea
 /out
 /target
-my.properties
+*.iml
+*.ipr
+*.iws
