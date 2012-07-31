@@ -1,35 +1,33 @@
 package com.dhemery.victor.examples.pages;
 
-import com.dhemery.polling.PollTimer;
-import com.dhemery.polling.PollableExpressions;
-import com.dhemery.victor.By;
-import com.dhemery.victor.IosViewFactory;
-import com.dhemery.victor.examples.runner.VigorPollLogger;
+import com.dhemery.expressions.Expressive;
+import com.dhemery.polling.Poll;
+import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosViewIdentifier;
 import com.dhemery.victor.examples.views.UIView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Page extends PollableExpressions {
+public class Page extends Expressive {
     protected final Logger log = LoggerFactory.getLogger(getClass());
-    private final IosViewFactory application;
-    private final PollTimer timer;
+    private final IosApplication application;
+    private final Poll poll;
 
-    public Page(IosViewFactory application, PollTimer timer) {
+    public Page(IosApplication application, Poll poll) {
         this.application = application;
-        this.timer = timer;
-        pollPublisher().subscribe(new VigorPollLogger());
+        this.poll = poll;
     }
 
-    public IosViewFactory application() {
+    public IosApplication application() {
         return application;
     }
 
-    @Override
-    public PollTimer eventually() {
-        return timer;
+    public UIView view(IosViewIdentifier id) {
+        return new UIView(application, id);
     }
 
-    public UIView view(By query) {
-        return new UIView(application, query);
+    @Override
+    public Poll eventually() {
+        return poll;
     }
 }

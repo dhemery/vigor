@@ -1,20 +1,20 @@
 package com.dhemery.victor.examples.views;
 
-import com.dhemery.victor.By;
-import com.dhemery.victor.IosViewFactory;
+import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosViewIdentifier;
 
 import java.util.List;
 
 public class UIView {
-    private final IosViewFactory application;
-    private final By query;
+    private final IosApplication application;
+    private final IosViewIdentifier id;
 
-    public UIView(IosViewFactory application, By query) {
+    public UIView(IosApplication application, IosViewIdentifier id) {
         this.application = application;
-        this.query = query;
+        this.id = id;
     }
 
-    protected IosViewFactory application() {
+    protected IosApplication application() {
         return application;
     }
 
@@ -26,12 +26,12 @@ public class UIView {
         return !Boolean.parseBoolean(results.get(0));
     }
 
-    protected By query() {
-        return query;
+    protected IosViewIdentifier id() {
+        return id;
     }
 
     public List<String> sendMessage(String name, Object... arguments) {
-        return application.view(query).sendMessage(name, arguments);
+        return application.view(id).sendMessage(name, arguments);
     }
 
     public void tap() {
@@ -40,7 +40,7 @@ public class UIView {
 
     @Override
     public String toString() {
-        return query.toString();
+        return id.toString();
     }
 
     public List<String> backgroundColor() {

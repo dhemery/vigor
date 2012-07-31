@@ -19,11 +19,6 @@ public class VigorHttpLogger {
     }
 
     @Subscribe
-    public void logGetThrew(GetThrew get) {
-        log.info("Http GET !!! {} {}", get.resource(), get.exception());
-    }
-
-    @Subscribe
     public void logPutRequest(WillSendPut put) {
         log.info("Http PUT --> {} {}", put.resource(), put.message());
     }
@@ -31,10 +26,5 @@ public class VigorHttpLogger {
     @Subscribe
     public void logPutResponse(PutResponded put) {
         log.info("Http PUT <-- {} {}", put.resource(), put.response());
-    }
-
-    @Subscribe
-    public void logPutThrew(PutThrew put) {
-        log.info("Http PUT !!! {} {}", put.resource(), put.exception());
     }
 }

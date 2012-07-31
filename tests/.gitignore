@@ -1,4 +1,5 @@
 # IntelliJ IDEA
-workspace.xml
-out/
+/.idea
+/out
+/target
 my.properties

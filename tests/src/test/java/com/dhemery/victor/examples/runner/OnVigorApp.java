@@ -1,111 +1,133 @@
 package com.dhemery.victor.examples.runner;
 
-import com.dhemery.configuration.Configuration;
-import com.dhemery.configuration.LoadProperties;
-import com.dhemery.polling.PollTimer;
-import com.dhemery.polling.PollableExpressions;
-import com.dhemery.polling.Query;
-import com.dhemery.polling.SystemClockPollTimer;
-import com.dhemery.victor.*;
-import com.dhemery.victor.examples.application.ApplicationOrientationQuery;
-import com.dhemery.victor.examples.views.UILabel;
-import com.dhemery.victor.examples.views.UISwitch;
-import com.dhemery.victor.examples.views.UITextField;
-import com.dhemery.victor.examples.views.UIView;
+import com.dhemery.configuring.Configuration;
+import com.dhemery.configuring.LoadProperties;
+import com.dhemery.core.Builder;
+import com.dhemery.core.Lazily;
+import com.dhemery.core.Lazy;
+import com.dhemery.expressions.Expressive;
+import com.dhemery.polling.*;
+import com.dhemery.publishing.Channel;
+import com.dhemery.publishing.Distributor;
+import com.dhemery.publishing.MethodSubscriptionChannel;
+import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosDevice;
+import com.dhemery.victor.Victor;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 
-import static com.dhemery.victor.examples.application.ApplicationRunningMatcher.running;
+import static com.dhemery.victor.examples.application.ApplicationExpressions.running;
 import static org.hamcrest.Matchers.is;
 
-public class OnVigorApp extends PollableExpressions {
+public class OnVigorApp extends Expressive {
     private static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
-    protected static final Configuration configuration = new Configuration();
-    protected IosApplication application;
-    protected IosDevice device;
-    protected IosViewFactory viewFactory;
-    protected PollTimer timer;
-    private int demoScale;
-    private Victor victor;
+    private static final Lazy<Configuration> configuration = Lazily.build(theConfiguration());
+    private final Lazy<IosApplication> application = Lazily.build(theApplication());
+    private final Lazy<IosDevice> device = Lazily.build(theDevice());
+    private final Lazy<Channel> events = Lazily.build(theChannel());
+    private final Lazy<Poll> poll = Lazily.build(thePoll());
+    private final Lazy<Victor> victor = Lazily.build(theVictor());
 
-    @BeforeClass
-    public static void startApplicationInDevice() {
-        LoadProperties.fromFiles(VIGOR_PROPERTIES_FILES).into(configuration);
-    }
+    private int demoScale;
 
     @Before
-    public void waitForApplication() {
-        victor = new Victor(configuration);
-        victor.events().subscribe(new VigorCommandLogger());
-        victor.events().subscribe(new VigorFrankLogger());
-//        victor.events().subscribe(new VigorHttpLogger());
-        demoScale = Integer.parseInt(configuration.requiredOption("demo.scale"));
-        viewFactory = victor.viewFactory();
-        device = victor.device();
-        application = victor.application();
-        timer = createTimer(configuration);
-        pollPublisher().subscribe(new VigorPollLogger());
-        device.start();
-        waitUntil(application, timer, is(running()));
+    public void startDevice() {
+        device().start();
+        waitUntil(application(), is(running()));
+    }
+
+    @Override
+    public Poll eventually() {
+        return poll.get();
     }
 
     @After
     public void stopDevice() {
-        if (device != null) device.stop();
+        if(!device.hasAValue()) return;
+        device().stop();
     }
 
-    @Override
-    public PollTimer eventually() {
-        return timer;
+    protected IosApplication application() {
+        return application.get();
     }
 
-    protected Query<IosApplication, IosApplicationOrientation> orientation() {
-        return new ApplicationOrientationQuery();
+    protected static Configuration configuration() {
+        return configuration.get();
     }
 
-    private static PollTimer createTimer(Configuration configuration) {
-        Integer timeout = Integer.parseInt(configuration.option("polling.timeout"));
-        Integer pollingInterval = Integer.parseInt(configuration.option("polling.interval"));
-        return new SystemClockPollTimer(timeout, pollingInterval);
+    protected IosDevice device() {
+        return device.get();
     }
 
-    protected void demo(int i) {
-        if(demoScale == 0) return;
-        try {
-            Thread.sleep(i * demoScale);
-        } catch (InterruptedException e) {
-        }
+    protected Distributor events() {
+        return events.get();
     }
 
-    protected UISwitch toggle(By query) {
-        return new UISwitch(viewFactory, query);
+    protected Victor victor() {
+        return victor.get();
     }
 
-    protected UITextField textField(By query) {
-        return new UITextField(viewFactory, query);
+    private Builder<? extends IosApplication> theApplication() {
+        return new Builder<IosApplication>() {
+            @Override
+            public IosApplication build() {
+                return victor().application();
+            }
+        };
     }
 
-    protected UILabel label(By query) {
-        return new UILabel(viewFactory, query);
+    private static Builder<? extends Channel> theChannel() {
+        return new Builder<Channel>() {
+            @Override
+            public Channel build() {
+                Channel channel = new MethodSubscriptionChannel();
+                channel.subscribe(new VigorCommandLogger());
+                channel.subscribe(new VigorFrankLogger());
+                channel.subscribe(new VigorPollLogger());
+                return channel;
+            }
+        };
     }
 
-    protected UIView button(By query) {
-        return new UIView(viewFactory, query);
+    private static Builder<? extends Configuration> theConfiguration() {
+        return new Builder<Configuration>(){
+            @Override
+            public Configuration build() {
+                Configuration configuration = new Configuration();
+                LoadProperties.fromFiles(VIGOR_PROPERTIES_FILES).into(configuration);
+                return configuration;
+            }
+        };
     }
 
-    protected void waitForAnimation() {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-        }
+    private Builder<? extends IosDevice> theDevice() {
+        return new Builder<IosDevice>() {
+            @Override
+            public IosDevice build() {
+                return victor().device();
+            }
+        };
     }
 
-    protected void rotateRight() {
-        device.rotateRight();
+    private Builder<? extends Poll> thePoll() {
+        return new Builder<Poll>() {
+            @Override
+            public Poll build() {
+                long timeout = Long.parseLong(configuration().requiredOption("polling.timeout"));
+                long interval = Long.parseLong(configuration().requiredOption("polling.interval"));
+                PollTimer timer = new SystemClockPollTimer(timeout, interval);
+                Poll poll = new TimedPoll(timer);
+                return new PublishingPoll(events.get(), poll);
+            }
+        };
     }
 
-    protected void rotateLeft() {
-        device.rotateLeft();
+    private Builder<? extends Victor> theVictor() {
+        return new Builder<Victor>() {
+            @Override
+            public Victor build() {
+                return new Victor(configuration(), events.get());
+            }
+        };
     }
 }

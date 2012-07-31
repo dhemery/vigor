@@ -5,16 +5,16 @@ import com.dhemery.victor.examples.runner.OnVigorApp;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.dhemery.polling.Has.has;
-import static com.dhemery.victor.examples.views.UIViewCountQuery.count;
+import static com.dhemery.expressions.Has.has;
+import static com.dhemery.victor.examples.views.UIViewExpressions.count;
 import static org.hamcrest.Matchers.equalTo;
 
-public class Tables extends OnVigorApp {
+public class TableTest extends OnVigorApp {
     private MasterPage master;
 
     @Before
     public void setUp() {
-        master = new MasterPage(viewFactory, timer);
+        master = new MasterPage(application(), eventually());
     }
 
     @Test

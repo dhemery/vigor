@@ -1,33 +1,33 @@
 package com.dhemery.victor.examples.pages;
 
-import com.dhemery.polling.PollTimer;
-import com.dhemery.victor.By;
-import com.dhemery.victor.IosViewFactory;
+import com.dhemery.polling.Poll;
+import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosViewIdentifier;
 import com.dhemery.victor.examples.views.UITableViewCell;
 import com.dhemery.victor.examples.views.UIView;
 
 import java.util.List;
 
-import static com.dhemery.polling.Has.has;
+import static com.dhemery.expressions.Has.has;
 import static com.dhemery.victor.Igor.igor;
-import static com.dhemery.victor.examples.views.UIViewAnimatingMatcher.animating;
-import static com.dhemery.victor.examples.views.UIViewCountQuery.count;
-import static com.dhemery.victor.examples.views.UIViewVisibleMatcher.visible;
+import static com.dhemery.victor.examples.views.UIViewExpressions.animating;
+import static com.dhemery.victor.examples.views.UIViewExpressions.count;
+import static com.dhemery.victor.examples.views.UIViewExpressions.visible;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 
 public class MasterPage extends Page {
-    private static final By ADD_BUTTON = igor("UINavigationButton[accessibilityLabel=='Add']");
-    private static final By DONE_BUTTON = igor("UINavigationButton[accessibilityLabel=='Done']");
-    private static final By EDIT_BUTTON = igor("UINavigationButton[accessibilityLabel=='Edit']");
+    private static final IosViewIdentifier ADD_BUTTON = igor("UINavigationButton[accessibilityLabel=='Add']");
+    private static final IosViewIdentifier DONE_BUTTON = igor("UINavigationButton[accessibilityLabel=='Done']");
+    private static final IosViewIdentifier EDIT_BUTTON = igor("UINavigationButton[accessibilityLabel=='Edit']");
 
-    private static final By CELL = igor("UITableViewCell*");
-    private static final By CELL_LABEL = igor(CELL.pattern() + " UILabel");
+    private static final IosViewIdentifier CELL = igor("UITableViewCell*");
+    private static final IosViewIdentifier CELL_LABEL = igor(CELL.pattern() + " UILabel");
     private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.pattern() + "[accessibilityLabel=='%s'])";
 
-    public MasterPage(IosViewFactory application, PollTimer timer) {
-        super(application, timer);
+    public MasterPage(IosApplication application, Poll poll) {
+        super(application, poll);
     }
 
     public void addItem() {
@@ -82,8 +82,8 @@ public class MasterPage extends Page {
         return cell(igor(String.format(CELL_WITH_LABEL, label)));
     }
 
-    private UITableViewCell cell(By query) {
-        return new UITableViewCell(application(), query);
+    private UITableViewCell cell(IosViewIdentifier id) {
+        return new UITableViewCell(application(), id);
     }
 
     public void visitItem(Integer i) {
