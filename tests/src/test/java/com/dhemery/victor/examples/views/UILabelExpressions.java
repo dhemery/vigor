@@ -7,7 +7,7 @@ public class UILabelExpressions {
     public static Query<UILabel, String> textColor() {
         return new NamedQuery<UILabel, String>("text color") {
             @Override
-            public String currentValueFrom(UILabel label) {
+            public String query(UILabel label) {
                 return label.textColor().get(0);
             }
         };

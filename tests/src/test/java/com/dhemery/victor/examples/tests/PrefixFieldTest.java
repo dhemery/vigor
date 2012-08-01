@@ -22,7 +22,7 @@ public class PrefixFieldTest extends OnMasterPage {
     public void disallowsEditingWhenPrefixFieldIsOff() {
         prefixSwitch.turnOff();
         prefixField.tap();
-        assertThat(prefixField, is(not(editing())));
+        assertThat(prefixField, eventually(), is(not(editing())));
     }
 
     @Test

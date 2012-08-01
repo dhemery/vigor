@@ -21,24 +21,17 @@ import static org.hamcrest.Matchers.is;
 
 public class OnVigorApp extends Expressive {
     private static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
-    private static final Lazy<Configuration> configuration = Lazily.build(theConfiguration());
+    private final Lazy<Configuration> configuration = Lazily.build(theConfiguration());
     private final Lazy<IosApplication> application = Lazily.build(theApplication());
     private final Lazy<IosDevice> device = Lazily.build(theDevice());
     private final Lazy<Channel> events = Lazily.build(theChannel());
-    private final Lazy<Poll> poll = Lazily.build(thePoll());
+    private final Lazy<Poller> poller = Lazily.build(thePoller());
     private final Lazy<Victor> victor = Lazily.build(theVictor());
-
-    private int demoScale;
 
     @Before
     public void startDevice() {
         device().start();
         waitUntil(application(), is(running()));
-    }
-
-    @Override
-    public Poll eventually() {
-        return poll.get();
     }
 
     @After
@@ -51,7 +44,7 @@ public class OnVigorApp extends Expressive {
         return application.get();
     }
 
-    protected static Configuration configuration() {
+    protected Configuration configuration() {
         return configuration.get();
     }
 
@@ -61,6 +54,11 @@ public class OnVigorApp extends Expressive {
 
     protected Distributor events() {
         return events.get();
+    }
+
+    @Override
+    protected Poller defaultPoller() {
+        return poller.get();
     }
 
     protected Victor victor() {
@@ -109,15 +107,15 @@ public class OnVigorApp extends Expressive {
         };
     }
 
-    private Builder<? extends Poll> thePoll() {
-        return new Builder<Poll>() {
+    protected Builder<? extends Poller> thePoller() {
+        return new Builder<Poller>() {
             @Override
-            public Poll build() {
+            public Poller build() {
                 long timeout = Long.parseLong(configuration().requiredOption("polling.timeout"));
                 long interval = Long.parseLong(configuration().requiredOption("polling.interval"));
                 PollTimer timer = new SystemClockPollTimer(timeout, interval);
-                Poll poll = new TimedPoll(timer);
-                return new PublishingPoll(events.get(), poll);
+                Poller poller = new TimedPoller(timer);
+                return new PublishingPoller(events.get(), poller);
             }
         };
     }

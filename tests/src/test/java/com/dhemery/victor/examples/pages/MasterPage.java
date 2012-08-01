@@ -1,6 +1,6 @@
 package com.dhemery.victor.examples.pages;
 
-import com.dhemery.polling.Poll;
+import com.dhemery.polling.Poller;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosViewIdentifier;
 import com.dhemery.victor.examples.views.UITableViewCell;
@@ -10,9 +10,7 @@ import java.util.List;
 
 import static com.dhemery.expressions.Has.has;
 import static com.dhemery.victor.Igor.igor;
-import static com.dhemery.victor.examples.views.UIViewExpressions.animating;
-import static com.dhemery.victor.examples.views.UIViewExpressions.count;
-import static com.dhemery.victor.examples.views.UIViewExpressions.visible;
+import static com.dhemery.victor.examples.views.UIViewExpressions.*;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
@@ -26,8 +24,8 @@ public class MasterPage extends Page {
     private static final IosViewIdentifier CELL_LABEL = igor(CELL.pattern() + " UILabel");
     private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.pattern() + "[accessibilityLabel=='%s'])";
 
-    public MasterPage(IosApplication application, Poll poll) {
-        super(application, poll);
+    public MasterPage(IosApplication application, Poller poller) {
+        super(application, poller);
     }
 
     public void addItem() {
