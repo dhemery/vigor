@@ -4,10 +4,8 @@ import com.dhemery.core.NamedQuery;
 import com.dhemery.core.Query;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosApplicationOrientation;
-import org.hamcrest.CustomTypeSafeMatcher;
-import org.hamcrest.Matcher;
 
-public class ApplicationExpressions {
+public class ApplicationQueries {
     public static Query<IosApplication, IosApplicationOrientation> orientation() {
         return new NamedQuery<IosApplication, IosApplicationOrientation>("orientation") {
             @Override
@@ -17,10 +15,10 @@ public class ApplicationExpressions {
         };
     }
 
-    public static Matcher<IosApplication> running() {
-        return new CustomTypeSafeMatcher<IosApplication>("running") {
+    public static Query<IosApplication,Boolean> isRunning() {
+        return new NamedQuery<IosApplication, Boolean>("is running") {
             @Override
-            protected boolean matchesSafely(IosApplication application) {
+            public Boolean query(IosApplication application) {
                 return application.isRunning();
             }
         };

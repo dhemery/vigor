@@ -8,10 +8,8 @@ import com.dhemery.victor.examples.views.UIView;
 
 import java.util.List;
 
-import static com.dhemery.expressions.Has.has;
 import static com.dhemery.victor.Igor.igor;
-import static com.dhemery.victor.examples.views.UIViewExpressions.*;
-import static org.hamcrest.CoreMatchers.not;
+import static com.dhemery.victor.examples.views.UIViewQueries.*;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 
@@ -29,7 +27,7 @@ public class MasterPage extends Page {
     }
 
     public void addItem() {
-        when(view(ADD_BUTTON), is(visible())).tap();
+        when(view(ADD_BUTTON), isVisible(), is(true)).tap();
     }
 
     public UITableViewCell items() {
@@ -39,11 +37,11 @@ public class MasterPage extends Page {
     public void deleteItem(Integer i) {
         editButton().tap();
         UITableViewCell item = item(i);
-        waitUntil(item, is(not(animating())));
+        waitUntil(item, isAnimating(), is(false));
         regret(500);
-        when(item.deleteButton(), is(visible())).tap();
-        when(item.confirmationButton(), is(visible())).tap();
-        waitUntil(item, is(not(visible())));
+        when(item.deleteButton(), isVisible()).tap();
+        when(item.confirmationButton(), isVisible()).tap();
+        waitUntil(item, isVisible(), is(false));
         doneButton().tap();
     }
 
@@ -68,7 +66,7 @@ public class MasterPage extends Page {
     }
 
     private String itemLabel(Integer i) {
-        waitUntil(items(), has(count(), greaterThan(i)));
+        waitUntil(items(), count(), greaterThan(i));
         return itemLabels().get(i);
     }
 

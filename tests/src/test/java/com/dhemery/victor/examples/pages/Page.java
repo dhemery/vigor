@@ -1,6 +1,6 @@
 package com.dhemery.victor.examples.pages;
 
-import com.dhemery.expressions.Expressive;
+import com.dhemery.polling.Expressive;
 import com.dhemery.polling.Poller;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosViewIdentifier;

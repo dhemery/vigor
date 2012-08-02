@@ -3,10 +3,9 @@ package com.dhemery.victor.examples.tests;
 import com.dhemery.victor.examples.runner.OnMasterPage;
 import org.junit.Test;
 
-import static com.dhemery.expressions.Has.has;
-import static com.dhemery.victor.examples.views.UILabelExpressions.textColor;
-import static com.dhemery.victor.examples.views.UIViewExpressions.backgroundColor;
-import static org.hamcrest.Matchers.equalTo;
+import static com.dhemery.victor.examples.views.UILabelQueries.textColor;
+import static com.dhemery.victor.examples.views.UIViewQueries.backgroundColor;
+import static org.hamcrest.Matchers.is;
 
 public class PreviewLabelTest extends OnMasterPage {
     private static final String GREEN = "{\"green\":0,\"red\":0,\"alpha\":1,\"blue\":1}";
@@ -17,48 +16,48 @@ public class PreviewLabelTest extends OnMasterPage {
     @Test
     public void backgroundColorFollowsPrefixFieldEditMode() {
         prefixField.beginEditing();
-        assertThat(preview, eventually(), has(backgroundColor(), equalTo(YELLOW)));
+        assertThat(preview, backgroundColor(), eventually(), is(YELLOW));
 
         prefixField.endEditing();
-        assertThat(preview, eventually(), has(backgroundColor(), equalTo(GREEN)));
+        assertThat(preview, backgroundColor(), eventually(), is(GREEN));
 
         prefixField.beginEditing();
-        assertThat(preview, eventually(), has(backgroundColor(), equalTo(YELLOW)));
+        assertThat(preview, backgroundColor(), eventually(), is(YELLOW));
 
         prefixField.endEditing();
-        assertThat(preview, eventually(), has(backgroundColor(), equalTo(GREEN)));
+        assertThat(preview, backgroundColor(), eventually(), is(GREEN));
 
         prefixField.beginEditing();
-        assertThat(preview, eventually(), has(backgroundColor(), equalTo(YELLOW)));
+        assertThat(preview, backgroundColor(), eventually(), is(YELLOW));
 
         prefixField.endEditing();
-        assertThat(preview, eventually(), has(backgroundColor(), equalTo(GREEN)));
+        assertThat(preview, backgroundColor(), eventually(), is(GREEN));
 
         prefixField.beginEditing();
-        assertThat(preview, eventually(), has(backgroundColor(), equalTo(YELLOW)));
+        assertThat(preview, backgroundColor(), eventually(), is(YELLOW));
 
         prefixField.endEditing();
-        assertThat(preview, eventually(), has(backgroundColor(), equalTo(GREEN)));
+        assertThat(preview, backgroundColor(), eventually(), is(GREEN));
     }
 
     @Test
     public void textColorFollowsPrefixEnabledSwitch() {
         prefixSwitch.turnOff();
-        assertThat(preview, eventually(), has(textColor(), equalTo(RED)));
+        assertThat(preview, textColor(), eventually(), is(RED));
 
         prefixSwitch.turnOn();
-        assertThat(preview, eventually(), has(textColor(), equalTo(BLUE)));
+        assertThat(preview, textColor(), eventually(), is(BLUE));
 
         prefixSwitch.turnOff();
-        assertThat(preview, eventually(), has(textColor(), equalTo(RED)));
+        assertThat(preview, textColor(), eventually(), is(RED));
 
         prefixSwitch.turnOn();
-        assertThat(preview, eventually(), has(textColor(), equalTo(BLUE)));
+        assertThat(preview, textColor(), eventually(), is(BLUE));
 
         prefixSwitch.turnOff();
-        assertThat(preview, eventually(), has(textColor(), equalTo(RED)));
+        assertThat(preview, textColor(), eventually(), is(RED));
 
         prefixSwitch.turnOn();
-        assertThat(preview, eventually(), has(textColor(), equalTo(BLUE)));
+        assertThat(preview, textColor(), eventually(), is(BLUE));
     }
 }

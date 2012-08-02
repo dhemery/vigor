@@ -2,14 +2,12 @@ package com.dhemery.victor.examples.views;
 
 import com.dhemery.core.NamedQuery;
 import com.dhemery.core.Query;
-import org.hamcrest.CustomTypeSafeMatcher;
-import org.hamcrest.Matcher;
 
-public class UITextFieldExpressions {
-    public static Matcher<UITextField> editing() {
-        return new CustomTypeSafeMatcher<UITextField>("editing"){
+public class UITextFieldQueries {
+    public static Query<UITextField,Boolean> isEditing() {
+        return new NamedQuery<UITextField,Boolean>("is editing"){
             @Override
-            protected boolean matchesSafely(UITextField textField) {
+            public Boolean query(UITextField textField) {
                 return Boolean.parseBoolean(textField.sendMessage("isEditing").get(0));
             }
         };

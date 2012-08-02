@@ -5,7 +5,6 @@ import com.dhemery.configuring.LoadProperties;
 import com.dhemery.core.Builder;
 import com.dhemery.core.Lazily;
 import com.dhemery.core.Lazy;
-import com.dhemery.expressions.Expressive;
 import com.dhemery.polling.*;
 import com.dhemery.publishing.Channel;
 import com.dhemery.publishing.Distributor;
@@ -16,22 +15,21 @@ import com.dhemery.victor.Victor;
 import org.junit.After;
 import org.junit.Before;
 
-import static com.dhemery.victor.examples.application.ApplicationExpressions.running;
-import static org.hamcrest.Matchers.is;
+import static com.dhemery.victor.examples.application.ApplicationQueries.isRunning;
 
 public class OnVigorApp extends Expressive {
     private static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
     private final Lazy<Configuration> configuration = Lazily.build(theConfiguration());
     private final Lazy<IosApplication> application = Lazily.build(theApplication());
     private final Lazy<IosDevice> device = Lazily.build(theDevice());
-    private final Lazy<Channel> events = Lazily.build(theChannel());
+    private final Lazy<Channel> channel = Lazily.build(theChannel());
     private final Lazy<Poller> poller = Lazily.build(thePoller());
     private final Lazy<Victor> victor = Lazily.build(theVictor());
 
     @Before
     public void startDevice() {
         device().start();
-        waitUntil(application(), is(running()));
+        waitUntil(application(), isRunning());
     }
 
     @After
@@ -53,7 +51,7 @@ public class OnVigorApp extends Expressive {
     }
 
     protected Distributor events() {
-        return events.get();
+        return channel.get();
     }
 
     @Override
@@ -115,7 +113,7 @@ public class OnVigorApp extends Expressive {
                 long interval = Long.parseLong(configuration().requiredOption("polling.interval"));
                 PollTimer timer = new SystemClockPollTimer(timeout, interval);
                 Poller poller = new TimedPoller(timer);
-                return new PublishingPoller(events.get(), poller);
+                return new PublishingPoller(channel.get(), poller);
             }
         };
     }
@@ -124,7 +122,7 @@ public class OnVigorApp extends Expressive {
         return new Builder<Victor>() {
             @Override
             public Victor build() {
-                return new Victor(configuration(), events.get());
+                return new Victor(configuration(), channel.get());
             }
         };
     }
