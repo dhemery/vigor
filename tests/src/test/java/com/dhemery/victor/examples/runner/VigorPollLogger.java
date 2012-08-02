@@ -11,11 +11,11 @@ import static java.lang.String.format;
 public class VigorPollLogger {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Subscribe public <S> void satisfied(ConditionSatisfied event) {
-        log.info(format("Satisfied %s", event.condition()));
+    @Subscribe public <S> void satisfied(ConditionSatisfied poll) {
+        log.info(format("Satisfied %s", poll.condition()));
     }
 
-    @Subscribe public <S> void unsatisfied(ConditionUnsatisfied event) {
-        log.info(format("Waiting until %s", event.condition()));
+    @Subscribe public <S> void unsatisfied(ConditionUnsatisfied poll) {
+        log.info(format("Waiting (%s) until %s", poll.failureCount(), poll.condition()));
     }
 }

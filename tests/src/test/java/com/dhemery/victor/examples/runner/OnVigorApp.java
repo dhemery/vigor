@@ -112,8 +112,8 @@ public class OnVigorApp extends Expressive {
                 long timeout = Long.parseLong(configuration().requiredOption("polling.timeout"));
                 long interval = Long.parseLong(configuration().requiredOption("polling.interval"));
                 PollTimer timer = new SystemClockPollTimer(timeout, interval);
-                Poller poller = new TimedPoller(timer);
-                return new PublishingPoller(channel.get(), poller);
+                PollEvaluator evaluator = new PublishingPollEvaluator(channel.get());
+                return new DelegatingPoller(timer, evaluator);
             }
         };
     }
