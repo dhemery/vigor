@@ -1,24 +1,24 @@
 package com.dhemery.victor.examples.application;
 
-import com.dhemery.core.NamedQuery;
-import com.dhemery.core.Query;
+import com.dhemery.core.Feature;
+import com.dhemery.core.NamedFeature;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosApplicationOrientation;
 
 public class ApplicationQueries {
-    public static Query<IosApplication, IosApplicationOrientation> orientation() {
-        return new NamedQuery<IosApplication, IosApplicationOrientation>("orientation") {
+    public static Feature<IosApplication, IosApplicationOrientation> orientation() {
+        return new NamedFeature<IosApplication, IosApplicationOrientation>("orientation") {
             @Override
-            public IosApplicationOrientation query(IosApplication application) {
+            public IosApplicationOrientation of(IosApplication application) {
                 return application.orientation();
             }
         };
     }
 
-    public static Query<IosApplication,Boolean> isRunning() {
-        return new NamedQuery<IosApplication, Boolean>("is running") {
+    public static Feature<IosApplication,Boolean> isRunning() {
+        return new NamedFeature<IosApplication, Boolean>("is running") {
             @Override
-            public Boolean query(IosApplication application) {
+            public Boolean of(IosApplication application) {
                 return application.isRunning();
             }
         };

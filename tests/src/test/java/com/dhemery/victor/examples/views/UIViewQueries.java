@@ -1,33 +1,15 @@
 package com.dhemery.victor.examples.views;
 
-import com.dhemery.core.NamedQuery;
-import com.dhemery.core.Query;
+import com.dhemery.core.Feature;
+import com.dhemery.core.NamedFeature;
 
 import java.util.List;
 
 public class UIViewQueries {
-    public static Query<UIView,String> backgroundColor() {
-        return new NamedQuery<UIView, String>("background color") {
+    public static Feature<UIView,Boolean> animating() {
+        return new NamedFeature<UIView,Boolean>("animating") {
             @Override
-            public String query(UIView object) {
-                return object.sendMessage("backgroundColor").get(0);
-            }
-        };
-    }
-
-    public static Query<UIView,Integer> count() {
-        return new NamedQuery<UIView, Integer>("count") {
-            @Override
-            public Integer query(UIView views) {
-                return views.sendMessage("tag").size();
-            }
-        };
-    }
-
-    public static Query<UIView,Boolean> isAnimating() {
-        return new NamedQuery<UIView,Boolean>("is animating") {
-            @Override
-            public Boolean query(UIView view) {
+            public Boolean of(UIView view) {
                 List<String> results = view.sendMessage("isAnimating");
                 if (results.size() != 1) {
                     return false;
@@ -37,10 +19,28 @@ public class UIViewQueries {
         };
     }
 
-    public static Query<UIView,Boolean> isVisible() {
-        return new NamedQuery<UIView,Boolean>("is visible") {
+    public static Feature<UIView,String> backgroundColor() {
+        return new NamedFeature<UIView, String>("background color") {
             @Override
-            public Boolean query(UIView view) {
+            public String of(UIView view) {
+                return view.sendMessage("backgroundColor").get(0);
+            }
+        };
+    }
+
+    public static Feature<UIView,Integer> count() {
+        return new NamedFeature<UIView, Integer>("count") {
+            @Override
+            public Integer of(UIView views) {
+                return views.sendMessage("tag").size();
+            }
+        };
+    }
+
+    public static Feature<UIView,Boolean> visible() {
+        return new NamedFeature<UIView,Boolean>("visible") {
+            @Override
+            public Boolean of(UIView view) {
                 return view.isVisible();
             }
         };

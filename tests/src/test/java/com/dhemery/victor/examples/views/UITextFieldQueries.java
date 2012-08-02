@@ -1,22 +1,22 @@
 package com.dhemery.victor.examples.views;
 
-import com.dhemery.core.NamedQuery;
-import com.dhemery.core.Query;
+import com.dhemery.core.Feature;
+import com.dhemery.core.NamedFeature;
 
 public class UITextFieldQueries {
-    public static Query<UITextField,Boolean> isEditing() {
-        return new NamedQuery<UITextField,Boolean>("is editing"){
+    public static Feature<UITextField,Boolean> editing() {
+        return new NamedFeature<UITextField,Boolean>("editing"){
             @Override
-            public Boolean query(UITextField textField) {
+            public Boolean of(UITextField textField) {
                 return Boolean.parseBoolean(textField.sendMessage("isEditing").get(0));
             }
         };
     }
 
-    public static Query<UITextField,String> text() {
-        return new NamedQuery<UITextField, String>("text") {
+    public static Feature<UITextField,String> text() {
+        return new NamedFeature<UITextField, String>("text") {
             @Override
-            public String query(UITextField textField) {
+            public String of(UITextField textField) {
                 return textField.sendMessage("text").get(0);
             }
         };

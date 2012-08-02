@@ -1,13 +1,13 @@
 package com.dhemery.victor.examples.views;
 
-import com.dhemery.core.NamedQuery;
-import com.dhemery.core.Query;
+import com.dhemery.core.Feature;
+import com.dhemery.core.NamedFeature;
 
 public class UILabelQueries {
-    public static Query<UILabel, String> textColor() {
-        return new NamedQuery<UILabel, String>("text color") {
+    public static Feature<UILabel, String> textColor() {
+        return new NamedFeature<UILabel, String>("text color") {
             @Override
-            public String query(UILabel label) {
+            public String of(UILabel label) {
                 return label.textColor().get(0);
             }
         };

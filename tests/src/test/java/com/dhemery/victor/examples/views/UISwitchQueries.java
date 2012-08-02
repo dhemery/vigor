@@ -4,16 +4,16 @@ import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Matcher;
 
 public class UISwitchQueries {
-    public static Matcher<UISwitch> isOff() {
-        return new CustomTypeSafeMatcher<UISwitch>("is off") {
+    public static Matcher<UISwitch> off() {
+        return new CustomTypeSafeMatcher<UISwitch>("off") {
             @Override
             protected boolean matchesSafely(UISwitch theSwitch) {
                 return theSwitch.isOn();
             }
         };
     }
-    public static Matcher<UISwitch> isOn() {
-        return new CustomTypeSafeMatcher<UISwitch>("is on") {
+    public static Matcher<UISwitch> on() {
+        return new CustomTypeSafeMatcher<UISwitch>("on") {
             @Override
             protected boolean matchesSafely(UISwitch theSwitch) {
                 return !theSwitch.isOn();

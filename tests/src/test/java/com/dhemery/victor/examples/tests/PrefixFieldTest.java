@@ -1,26 +1,24 @@
 package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.examples.runner.OnMasterPage;
-import org.hamcrest.core.Is;
 import org.junit.Test;
 
-import static com.dhemery.victor.examples.views.UITextFieldQueries.isEditing;
+import static com.dhemery.victor.examples.views.UITextFieldQueries.editing;
 import static com.dhemery.victor.examples.views.UITextFieldQueries.text;
-import static org.hamcrest.core.Is.is;
 
 public class PrefixFieldTest extends OnMasterPage {
     @Test
     public void allowsEditingWhenPrefixFieldIsOn() {
         prefixSwitch.turnOn();
         prefixField.tap();
-        assertThat(prefixField, isEditing());
+        assertThat(prefixField, is(editing()));
     }
 
     @Test
     public void disallowsEditingWhenPrefixFieldIsOff() {
         prefixSwitch.turnOff();
         prefixField.tap();
-        assertThat(prefixField, isEditing(), eventually(), is(false));
+        assertThat(prefixField, eventually(), is(not(editing())));
     }
 
     @Test
