@@ -6,14 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.dhemery.victor.examples.views.UIViewQueries.count;
-import static org.hamcrest.Matchers.is;
 
 public class TableTest extends OnVigorApp {
     private MasterPage master;
 
     @Before
     public void setUp() {
-        master = new MasterPage(application(), eventually());
+        master = new MasterPage(application(), poller(), eventually());
     }
 
     @Test

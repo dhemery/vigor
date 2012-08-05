@@ -1,6 +1,7 @@
 package com.dhemery.victor.examples.pages;
 
 import com.dhemery.polling.Poller;
+import com.dhemery.polling.Ticker;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosViewIdentifier;
 import com.dhemery.victor.examples.views.UITableViewCell;
@@ -21,8 +22,8 @@ public class MasterPage extends Page {
     private static final IosViewIdentifier CELL_LABEL = igor(CELL.pattern() + " UILabel");
     private static final String CELL_WITH_LABEL = "(" + CELL_LABEL.pattern() + "[accessibilityLabel=='%s'])";
 
-    public MasterPage(IosApplication application, Poller poller) {
-        super(application, poller);
+    public MasterPage(IosApplication application, Poller poller, Ticker ticker) {
+        super(application, poller, ticker);
     }
 
     public void addItem() {

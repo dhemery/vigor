@@ -2,17 +2,17 @@ package com.dhemery.victor.examples.pages;
 
 import com.dhemery.polling.Expressive;
 import com.dhemery.polling.Poller;
+import com.dhemery.polling.Ticker;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosViewIdentifier;
 import com.dhemery.victor.examples.views.UIView;
 
 public class Page extends Expressive {
     private final IosApplication application;
-    private final Poller poller;
 
-    public Page(IosApplication application, Poller poller) {
+    public Page(IosApplication application, Poller poller, Ticker ticker) {
+        super(poller, ticker);
         this.application = application;
-        this.poller = poller;
     }
 
     public IosApplication application() {
@@ -21,10 +21,5 @@ public class Page extends Expressive {
 
     public UIView view(IosViewIdentifier id) {
         return new UIView(application, id);
-    }
-
-    @Override
-    protected Poller defaultPoller() {
-        return poller;
     }
 }

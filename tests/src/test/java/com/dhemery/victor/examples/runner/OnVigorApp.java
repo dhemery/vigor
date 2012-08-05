@@ -19,12 +19,15 @@ import static com.dhemery.victor.examples.application.ApplicationQueries.isRunni
 
 public class OnVigorApp extends Expressive {
     private static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
-    private final Lazy<Configuration> configuration = Lazily.build(theConfiguration());
+    private static final Lazy<Channel> CHANNEL = Lazily.build(theChannel());
+    private static final Lazy<Configuration> CONFIGURATION = Lazily.build(theConfiguration());
     private final Lazy<IosApplication> application = Lazily.build(theApplication());
     private final Lazy<IosDevice> device = Lazily.build(theDevice());
-    private final Lazy<Channel> channel = Lazily.build(theChannel());
-    private final Lazy<Poller> poller = Lazily.build(thePoller());
     private final Lazy<Victor> victor = Lazily.build(theVictor());
+
+    protected OnVigorApp() {
+        super(thePoller(), theTicker());
+    }
 
     @Before
     public void startDevice() {
@@ -42,21 +45,16 @@ public class OnVigorApp extends Expressive {
         return application.get();
     }
 
-    protected Configuration configuration() {
-        return configuration.get();
+    protected static Configuration configuration() {
+        return CONFIGURATION.get();
     }
 
     protected IosDevice device() {
         return device.get();
     }
 
-    protected Distributor events() {
-        return channel.get();
-    }
-
-    @Override
-    protected Poller defaultPoller() {
-        return poller.get();
+    protected static Distributor events() {
+        return CHANNEL.get();
     }
 
     protected Victor victor() {
@@ -105,24 +103,23 @@ public class OnVigorApp extends Expressive {
         };
     }
 
-    protected Builder<? extends Poller> thePoller() {
-        return new Builder<Poller>() {
-            @Override
-            public Poller build() {
-                long timeout = Long.parseLong(configuration().requiredOption("polling.timeout"));
-                long interval = Long.parseLong(configuration().requiredOption("polling.interval"));
-                PollTimer timer = new SystemClockPollTimer(timeout, interval);
-                PollEvaluator evaluator = new PublishingPollEvaluator(channel.get());
-                return new DelegatingPoller(timer, evaluator);
-            }
-        };
+    private static Poller thePoller() {
+        PollEvaluator simpleEvaluator = new SimplePollEvaluator();
+        PollEvaluator publishingEvaluator = new PublishingPollEvaluator(CHANNEL.get(), simpleEvaluator);
+        return new EvaluatingPoller(publishingEvaluator);
+    }
+
+    private static Ticker theTicker() {
+        long timeout = Long.parseLong(configuration().requiredOption("polling.timeout"));
+        long interval = Long.parseLong(configuration().requiredOption("polling.interval"));
+        return new SystemClockTicker(timeout, interval);
     }
 
     private Builder<? extends Victor> theVictor() {
         return new Builder<Victor>() {
             @Override
             public Victor build() {
-                return new Victor(configuration(), channel.get());
+                return new Victor(configuration(), CHANNEL.get());
             }
         };
     }
