@@ -78,6 +78,7 @@ public class OnVigorApp extends Expressive {
                 channel.subscribe(new VigorCommandLogger());
                 channel.subscribe(new VigorFrankLogger());
                 channel.subscribe(new VigorPollLogger());
+                channel.subscribe(new VigorHttpLogger());
                 return channel;
             }
         };

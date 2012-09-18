@@ -59,17 +59,27 @@
         <dependency>
             <groupId>com.dhemery</groupId>
             <artifactId>hartley</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0-RC3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.dhemery</groupId>
             <artifactId>victor</artifactId>
-            <version>3.0-SNAPSHOT</version>
+            <version>3.0-RC2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
-            <version>4.11-SNAPSHOT</version>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

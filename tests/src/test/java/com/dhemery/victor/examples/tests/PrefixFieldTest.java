@@ -3,6 +3,7 @@ package com.dhemery.victor.examples.tests;
 import com.dhemery.victor.examples.runner.OnMasterPage;
 import org.junit.Test;
 
+import static com.dhemery.victor.Igor.igor;
 import static com.dhemery.victor.examples.views.UITextFieldQueries.editing;
 import static com.dhemery.victor.examples.views.UITextFieldQueries.text;
 
@@ -22,9 +23,13 @@ public class PrefixFieldTest extends OnMasterPage {
     }
 
     @Test
+    public void monkey() {
+        application().view(igor("UISwitch")).sendMessage("tag");
+    }
+
+    @Test
     public void displaysValidlyEnteredText() {
         assertThat(prefixField, text(), is(""));
-
         prefixField.tap();
 
         prefixField.setText("Hello Dolly");

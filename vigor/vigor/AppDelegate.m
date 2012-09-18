@@ -57,4 +57,9 @@
 
 }
 
+- (void)monkey {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+
 @end

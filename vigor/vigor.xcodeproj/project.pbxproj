@@ -22,6 +22,8 @@
 		2D321D85154357A500B05E3B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D321D84154357A500B05E3B /* CFNetwork.framework */; };
 		2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0DB /* libFrank.a */; };
 		2D36ACA11545421700E4C0E5 /* UITextField+DFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */; };
+		2D9031E915E9F35A0009A0DD /* libCocoaHTTPServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9031E815E9F35A0009A0DD /* libCocoaHTTPServer.a */; };
+		2D9031EC15E9F3950009A0DD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9031EB15E9F3950009A0DD /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+DFX.h"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+DFX.m"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0EC /* UserViewAttributeMapping.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = UserViewAttributeMapping.plist; sourceTree = "<group>"; };
+		2D9031E815E9F35A0009A0DD /* libCocoaHTTPServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCocoaHTTPServer.a; sourceTree = "<group>"; };
+		2D9031EB15E9F3950009A0DD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,12 +89,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D9031EC15E9F3950009A0DD /* Security.framework in Frameworks */,
 				2D321D85154357A500B05E3B /* CFNetwork.framework in Frameworks */,
 				2A2C550DAF5EC6628AB280B7 /* UIKit.framework in Frameworks */,
 				2A2C550DAF5EC6628AB280B9 /* Foundation.framework in Frameworks */,
 				2A2C550DAF5EC6628AB280BB /* CoreGraphics.framework in Frameworks */,
 				2D36ACA11545421700E4C0DC /* libFrank.a in Frameworks */,
 				2D1BC1C415A63D5900074462 /* libIgor.a in Frameworks */,
+				2D9031E915E9F35A0009A0DD /* libCocoaHTTPServer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +106,7 @@
 		2A2C550DAF5EC6628AB280A9 = {
 			isa = PBXGroup;
 			children = (
+				2D9031EB15E9F3950009A0DD /* Security.framework */,
 				2D36ACA11545421700E4C0CB /* Vigor.entitlements */,
 				2D321D801543577500B05E3B /* frank_static_resources.bundle */,
 				2A2C550DAF5EC6628AB280AA /* Products */,
@@ -159,6 +166,7 @@
 		2A2C550DAF5EC6628AB280D4 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				2D9031E815E9F35A0009A0DD /* libCocoaHTTPServer.a */,
 				2D1BC1C315A63D5900074462 /* libIgor.a */,
 				2D36ACA11545421700E4C0DB /* libFrank.a */,
 				2A2C550DAF5EC6628AB280D5 /* frank_static_resources.bundle */,

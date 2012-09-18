@@ -1,21 +1,22 @@
 package com.dhemery.victor.examples.views;
 
-import org.hamcrest.CustomTypeSafeMatcher;
-import org.hamcrest.Matcher;
+import com.dhemery.core.Feature;
+import com.dhemery.core.NamedFeature;
 
 public class UISwitchQueries {
-    public static Matcher<UISwitch> off() {
-        return new CustomTypeSafeMatcher<UISwitch>("off") {
+    public static Feature<UISwitch,Boolean> off() {
+        return new NamedFeature<UISwitch,Boolean>("off") {
             @Override
-            protected boolean matchesSafely(UISwitch theSwitch) {
+            public Boolean of(UISwitch theSwitch) {
                 return theSwitch.isOn();
             }
         };
     }
-    public static Matcher<UISwitch> on() {
-        return new CustomTypeSafeMatcher<UISwitch>("on") {
+
+    public static Feature<UISwitch,Boolean> on() {
+        return new NamedFeature<UISwitch,Boolean>("on") {
             @Override
-            protected boolean matchesSafely(UISwitch theSwitch) {
+            public Boolean of(UISwitch theSwitch) {
                 return !theSwitch.isOn();
             }
         };
