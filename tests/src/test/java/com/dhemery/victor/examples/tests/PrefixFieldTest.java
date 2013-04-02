@@ -3,11 +3,14 @@ package com.dhemery.victor.examples.tests;
 import com.dhemery.victor.examples.runner.OnMasterPage;
 import org.junit.Test;
 
-import static com.dhemery.victor.Igor.igor;
+import static com.dhemery.victor.examples.application.ApplicationQueries.animating;
+import static com.dhemery.victor.examples.views.UILabelQueries.textColor;
 import static com.dhemery.victor.examples.views.UITextFieldQueries.editing;
 import static com.dhemery.victor.examples.views.UITextFieldQueries.text;
 
 public class PrefixFieldTest extends OnMasterPage {
+    private static final String RED = "{\"green\":0,\"red\":1,\"alpha\":1,\"blue\":0}";
+
     @Test
     public void allowsEditingWhenPrefixFieldIsOn() {
         prefixSwitch.turnOn();
@@ -16,10 +19,11 @@ public class PrefixFieldTest extends OnMasterPage {
     }
 
     @Test
-    public void disallowsEditingWhenPrefixFieldIsOff() {
+    public void disallowsEditingWhenPrefixFieldIsOff() throws InterruptedException {
         prefixSwitch.turnOff();
+        waitUntil(preview, textColor(), is(RED));
         prefixField.tap();
-        assertThat(prefixField, eventually(), is(not(editing())));
+        assertThat(prefixField, is(not(editing())));
     }
 
     @Test
