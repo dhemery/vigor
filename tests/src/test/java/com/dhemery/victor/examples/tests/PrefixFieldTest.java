@@ -23,11 +23,6 @@ public class PrefixFieldTest extends OnMasterPage {
     }
 
     @Test
-    public void monkey() {
-        application().view(igor("UISwitch")).sendMessage("tag");
-    }
-
-    @Test
     public void displaysValidlyEnteredText() {
         assertThat(prefixField, text(), is(""));
         prefixField.tap();

@@ -1,6 +1,7 @@
 package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.examples.pages.MasterPage;
+import com.dhemery.victor.examples.polling.PollingAssistant;
 import com.dhemery.victor.examples.runner.OnVigorApp;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,7 @@ public class TableTest extends OnVigorApp {
 
     @Before
     public void setUp() {
-        master = new MasterPage(application(), poller(), eventually());
+        master = new MasterPage(application(), pollingAssistant());
     }
 
     @Test

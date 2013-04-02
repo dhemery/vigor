@@ -2,16 +2,16 @@ package com.dhemery.victor.examples.runner;
 
 import com.dhemery.configuring.Configuration;
 import com.dhemery.configuring.LoadProperties;
-import com.dhemery.core.Builder;
-import com.dhemery.core.Lazily;
-import com.dhemery.core.Lazy;
-import com.dhemery.polling.*;
+import com.dhemery.configuring.MapBackedConfiguration;
+import com.dhemery.core.Condition;
+import com.dhemery.expressing.Expressive;
+import com.dhemery.polling.Ticker;
 import com.dhemery.publishing.Channel;
-import com.dhemery.publishing.Distributor;
 import com.dhemery.publishing.MethodSubscriptionChannel;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.Victor;
+import com.dhemery.victor.examples.polling.PollingAssistant;
 import org.junit.After;
 import org.junit.Before;
 
@@ -19,109 +19,75 @@ import static com.dhemery.victor.examples.application.ApplicationQueries.isRunni
 
 public class OnVigorApp extends Expressive {
     private static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
-    private static final Lazy<Channel> CHANNEL = Lazily.build(theChannel());
-    private static final Lazy<Configuration> CONFIGURATION = Lazily.build(theConfiguration());
-    private final Lazy<IosApplication> application = Lazily.build(theApplication());
-    private final Lazy<IosDevice> device = Lazily.build(theDevice());
-    private final Lazy<Victor> victor = Lazily.build(theVictor());
+    private static final Configuration CONFIGURATION = configuration();
+    private static final Channel CHANNEL = channel();
+    private static final PollingAssistant assistant = assistant();
 
-    protected OnVigorApp() {
-        super(thePoller(), theTicker());
-    }
+    private IosApplication application;
+    private IosDevice device;
 
     @Before
     public void startDevice() {
+        Victor victor = new Victor(CONFIGURATION, CHANNEL);
+        device = victor.device();
+        application = victor.application();
         device().start();
         waitUntil(application(), isRunning());
     }
 
     @After
     public void stopDevice() {
-        if(!device.hasAValue()) return;
-        device().stop();
+        if(device == null) return;
+        device.stop();
+        device = null;
     }
 
     protected IosApplication application() {
-        return application.get();
-    }
-
-    protected static Configuration configuration() {
-        return CONFIGURATION.get();
+        return application;
     }
 
     protected IosDevice device() {
-        return device.get();
+        return device;
     }
 
-    protected static Distributor events() {
-        return CHANNEL.get();
+    protected PollingAssistant pollingAssistant() {
+        return assistant;
     }
 
-    protected Victor victor() {
-        return victor.get();
+    @Override
+    public Ticker createDefaultTicker() {
+        return assistant.createDefaultTicker();
     }
 
-    private Builder<? extends IosApplication> theApplication() {
-        return new Builder<IosApplication>() {
-            @Override
-            public IosApplication build() {
-                return victor().application();
-            }
-        };
+    @Override
+    public Condition prepareToPoll(Condition condition) {
+        return assistant.prepareToPoll(condition);
     }
 
-    private static Builder<? extends Channel> theChannel() {
-        return new Builder<Channel>() {
-            @Override
-            public Channel build() {
-                Channel channel = new MethodSubscriptionChannel();
-                channel.subscribe(new VigorCommandLogger());
-                channel.subscribe(new VigorFrankLogger());
-                channel.subscribe(new VigorPollLogger());
-                channel.subscribe(new VigorHttpLogger());
-                return channel;
-            }
-        };
+    private static Channel channel() {
+        Channel channel = new MethodSubscriptionChannel();
+        channel.subscribe(new VigorCommandLogger());
+        channel.subscribe(new VigorFrankLogger());
+        channel.subscribe(new VigorPollLogger());
+        channel.subscribe(new VigorHttpLogger());
+        return channel;
     }
 
-    private static Builder<? extends Configuration> theConfiguration() {
-        return new Builder<Configuration>(){
-            @Override
-            public Configuration build() {
-                Configuration configuration = new Configuration();
-                LoadProperties.fromFiles(VIGOR_PROPERTIES_FILES).into(configuration);
-                return configuration;
-            }
-        };
+    private static Configuration configuration() {
+        Configuration configuration = new MapBackedConfiguration();
+        LoadProperties.fromFiles(VIGOR_PROPERTIES_FILES).into(configuration);
+        return configuration;
     }
 
-    private Builder<? extends IosDevice> theDevice() {
-        return new Builder<IosDevice>() {
-            @Override
-            public IosDevice build() {
-                return victor().device();
-            }
-        };
+    private static PollingAssistant assistant() {
+        long pollingTimeout = propertyAsLong("polling.timeout");
+        long pollingInterval = propertyAsLong("polling.interval");
+        return new PollingAssistant(CHANNEL, pollingTimeout, pollingInterval);
     }
 
-    private static Poller thePoller() {
-        PollEvaluator simpleEvaluator = new SimplePollEvaluator();
-        PollEvaluator publishingEvaluator = new PublishingPollEvaluator(CHANNEL.get(), simpleEvaluator);
-        return new EvaluatingPoller(publishingEvaluator);
-    }
 
-    private static Ticker theTicker() {
-        long timeout = Long.parseLong(configuration().requiredOption("polling.timeout"));
-        long interval = Long.parseLong(configuration().requiredOption("polling.interval"));
-        return new SystemClockTicker(timeout, interval);
-    }
-
-    private Builder<? extends Victor> theVictor() {
-        return new Builder<Victor>() {
-            @Override
-            public Victor build() {
-                return new Victor(configuration(), CHANNEL.get());
-            }
-        };
+    private static long propertyAsLong(String propertyName) {
+        String timeoutString = CONFIGURATION.requiredOption(propertyName);
+        return Long.parseLong(timeoutString);
     }
 }
