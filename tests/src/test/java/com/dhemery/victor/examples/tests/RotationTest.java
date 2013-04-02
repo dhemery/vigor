@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.is;
 public class RotationTest extends OnVigorApp {
     @Test
     public void orientationTests() {
-        assertThat(application(), orientation(), is(LANDSCAPE));
+        assertThat(application(), orientation(), is(PORTRAIT));
 
         device().rotateLeft();
         assertThat(application(), orientation(), eventually(), is(LANDSCAPE));
