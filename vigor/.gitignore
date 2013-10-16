@@ -1,5 +1,7 @@
 # Xcode
 build/*
+Frank/frankified_build/
+Frank/features/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
