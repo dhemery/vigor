@@ -1,7 +1,10 @@
 package com.dhemery.victor.examples.views;
 
 import com.dhemery.victor.IosApplication;
+import com.dhemery.victor.IosView;
 import com.dhemery.victor.IosViewIdentifier;
+
+import static com.dhemery.victor.Igor.igor;
 
 public class UISwitch extends UIView {
     public UISwitch(IosApplication application, IosViewIdentifier id) {
@@ -20,4 +23,8 @@ public class UISwitch extends UIView {
         if(!isOn()) tap();
     }
 
+    @Override
+    public void tap() {
+        sendMessage("touchAndHold:", 1);
+    }
 }

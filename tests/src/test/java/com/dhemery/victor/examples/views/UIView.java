@@ -35,7 +35,7 @@ public class UIView {
     }
 
     public void tap() {
-        sendMessage("touch");
+        sendMessage("FEX_forcedTouch");
     }
 
     @Override

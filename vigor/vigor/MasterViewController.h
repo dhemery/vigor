@@ -20,8 +20,7 @@
 
 @property NSUInteger nextItemNumber;
 @property (strong, nonatomic) NSString *nextItemPrefix;
-
-@property(nonatomic, assign) BOOL prefixEnabled;
+@property (nonatomic) BOOL prefixEnabled;
 
 - (IBAction)prefixEnabledDidChange;
 - (IBAction)nextItemNumberDidChange;

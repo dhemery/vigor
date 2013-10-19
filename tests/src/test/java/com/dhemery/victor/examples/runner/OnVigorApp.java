@@ -3,28 +3,29 @@ package com.dhemery.victor.examples.runner;
 import com.dhemery.configuring.Configuration;
 import com.dhemery.configuring.LoadProperties;
 import com.dhemery.configuring.MapBackedConfiguration;
-import com.dhemery.core.Condition;
-import com.dhemery.expressing.Expressive;
-import com.dhemery.polling.Ticker;
 import com.dhemery.publishing.Channel;
 import com.dhemery.publishing.MethodSubscriptionChannel;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.Victor;
+import com.dhemery.victor.examples.polling.AssistedExpressive;
 import com.dhemery.victor.examples.polling.PollingAssistant;
 import org.junit.After;
 import org.junit.Before;
 
 import static com.dhemery.victor.examples.application.ApplicationQueries.isRunning;
 
-public class OnVigorApp extends Expressive {
+public class OnVigorApp extends AssistedExpressive {
     private static final String[] VIGOR_PROPERTIES_FILES = {"default.properties", "my.properties"};
     private static final Configuration CONFIGURATION = configuration();
     private static final Channel CHANNEL = channel();
-    private static final PollingAssistant assistant = assistant();
 
     private IosApplication application;
     private IosDevice device;
+
+    public OnVigorApp() {
+        super(assistant());
+    }
 
     @Before
     public void startDevice() {
@@ -48,20 +49,6 @@ public class OnVigorApp extends Expressive {
 
     protected IosDevice device() {
         return device;
-    }
-
-    protected PollingAssistant pollingAssistant() {
-        return assistant;
-    }
-
-    @Override
-    public Ticker createDefaultTicker() {
-        return assistant.createDefaultTicker();
-    }
-
-    @Override
-    public Condition prepareToPoll(Condition condition) {
-        return assistant.prepareToPoll(condition);
     }
 
     private static Channel channel() {

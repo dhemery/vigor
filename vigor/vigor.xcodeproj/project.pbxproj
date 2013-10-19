@@ -40,7 +40,6 @@
 		2A2C550DAF5EC6628AB280D2 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		2D321D84154357A500B05E3B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2D36ACA11545421700E4C0CB /* Vigor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Vigor.entitlements; path = ../Vigor/Vigor.entitlements; sourceTree = "<group>"; };
-		2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+DFX.h"; sourceTree = "<group>"; };
 		2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+DFX.m"; sourceTree = "<group>"; };
 		2D9031EB15E9F3950009A0DD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2DB859C1180CF8AB007753E3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -124,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				2D36ACA11545421700E4C0E4 /* UITextField+DFX.m */,
-				2D36ACA11545421700E4C0E3 /* UITextField+DFX.h */,
 			);
 			path = categories;
 			sourceTree = "<group>";
@@ -166,8 +164,6 @@
 			mainGroup = 2A2C550DAF5EC6628AB280A9;
 			productRefGroup = 2062D5EC507603E8ED232370 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				2A2C550DAF5EC6628AB280AE /* Vigor */,

@@ -48,12 +48,17 @@
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.nextItemNumberStepper.value = self.nextItemNumber;
 
-    NSLog(@"Accessibility identifier %@", self.prefixField.accessibilityIdentifier);
-    [self.prefixField setAccessibilityIdentifier:@"prefix"];
-    NSLog(@"Accessibility identifier %@", self.prefixField.accessibilityIdentifier);
+    self.prefixField.accessibilityIdentifier = @"prefix";
+    self.prefixField.accessibilityLabel = @"Next Item Prefix";
+
     self.prefixEnabledSwitch.accessibilityIdentifier = @"prefixEnabled";
+    self.prefixEnabledSwitch.accessibilityLabel = @"Enable Next Item Prefix";
+
     self.nextItemNumberStepper.accessibilityIdentifier = @"nextItemNumberStepper";
+    self.nextItemNumberStepper.accessibilityLabel = @"Next Item Number";
+
     self.nextItemPreviewLabel.accessibilityIdentifier = @"nextItemPreview";
+    self.nextItemPreviewLabel.accessibilityLabel = @"Next Item Preview";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controlChanged:) name:@"UIControlEventEditingChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldChanged:) name:@"UITextFieldTextDidChangeNotification" object:nil];

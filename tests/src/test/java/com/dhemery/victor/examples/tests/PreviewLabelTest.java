@@ -42,6 +42,7 @@ public class PreviewLabelTest extends OnMasterPage {
 
     @Test
     public void textColorFollowsPrefixEnabledSwitch() {
+        preview.sendMessage("description");
         prefixSwitch.turnOff();
         assertThat(preview, textColor(), eventually(), is(RED));
 

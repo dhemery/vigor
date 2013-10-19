@@ -1,5 +1,12 @@
-#import "UITextField+DFX.h"
-
+@interface UITextField (DFX)
+- (BOOL)DFX_appendText:(NSString *)text;
+- (BOOL)DFX_insertText:(NSString *)text atLocation:(NSUInteger)location;
+- (BOOL)DFX_replaceTextAtLocation:(NSUInteger)location
+                           length:(NSUInteger)length
+                         withText:(NSString *)text;
+- (BOOL)DFX_setText:(NSString *)text;
+- (BOOL)DFX_return;
+@end
 
 @implementation UITextField (DFX)
 
