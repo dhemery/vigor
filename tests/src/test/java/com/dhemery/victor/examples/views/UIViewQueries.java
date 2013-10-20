@@ -32,7 +32,7 @@ public class UIViewQueries {
         return new NamedFeature<UIView, Integer>("count") {
             @Override
             public Integer of(UIView views) {
-                return views.sendMessage("tag").size();
+                return views.sendMessage("description").size();
             }
         };
     }

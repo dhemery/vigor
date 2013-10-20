@@ -10,7 +10,7 @@ public class UITableViewCell extends UIView {
         super(application, id);
     }
 
-    private static final String CONFIRM_DELETION_BUTTON_FOR_CELL = "(%s) UITableViewCellDeleteConfirmationControl";
+    private static final String CONFIRM_DELETION_BUTTON_FOR_CELL = "(%s) UITableViewCellDeleteConfirmationButton";
     private static final String DELETE_BUTTON_FOR_CELL = "(%s) UITableViewCellEditControl";
 
     public UIView confirmationButton() {

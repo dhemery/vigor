@@ -1,7 +1,6 @@
 package com.dhemery.victor.examples.tests;
 
 import com.dhemery.victor.examples.pages.MasterPage;
-import com.dhemery.victor.examples.polling.PollingAssistant;
 import com.dhemery.victor.examples.runner.OnVigorApp;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +30,7 @@ public class TableTest extends OnVigorApp {
     public void aDeletedItemDoesNotAppearInTheMasterPage() {
         master.addItem();
         master.deleteItem(0);
-        assertThat(master.items(), count(), is(0));
+        assertThat(master.items(), count(), eventually(), is(0));
     }
 
     @Test

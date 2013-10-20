@@ -3,13 +3,14 @@ package com.dhemery.victor.examples.runner;
 import com.dhemery.configuring.Configuration;
 import com.dhemery.configuring.LoadProperties;
 import com.dhemery.configuring.MapBackedConfiguration;
+import com.dhemery.expressing.AssistedExpressive;
+import com.dhemery.expressing.PollingAssistant;
+import com.dhemery.expressing.PublishingPollingAssistant;
 import com.dhemery.publishing.Channel;
 import com.dhemery.publishing.MethodSubscriptionChannel;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.Victor;
-import com.dhemery.victor.examples.polling.AssistedExpressive;
-import com.dhemery.victor.examples.polling.PollingAssistant;
 import org.junit.After;
 import org.junit.Before;
 
@@ -69,7 +70,7 @@ public class OnVigorApp extends AssistedExpressive {
     private static PollingAssistant assistant() {
         long pollingTimeout = propertyAsLong("polling.timeout");
         long pollingInterval = propertyAsLong("polling.interval");
-        return new PollingAssistant(CHANNEL, pollingTimeout, pollingInterval);
+        return new PublishingPollingAssistant(pollingTimeout, pollingInterval, CHANNEL);
     }
 
 

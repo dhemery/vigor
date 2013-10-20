@@ -1,9 +1,9 @@
 package com.dhemery.victor.examples.pages;
 
+import com.dhemery.expressing.AssistedExpressive;
+import com.dhemery.expressing.PollingAssistant;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosViewIdentifier;
-import com.dhemery.victor.examples.polling.AssistedExpressive;
-import com.dhemery.victor.examples.polling.PollingAssistant;
 import com.dhemery.victor.examples.views.UIView;
 
 public class Page extends AssistedExpressive {
