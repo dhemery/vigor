@@ -8,11 +8,8 @@ import com.dhemery.victor.examples.views.UIView;
 
 import java.util.List;
 
-import static com.dhemery.expressing.ImmediateExpressions.is;
-import static com.dhemery.expressing.ImmediateExpressions.not;
 import static com.dhemery.victor.Igor.igor;
 import static com.dhemery.victor.examples.views.UIViewQueries.*;
-import static javafx.beans.binding.Bindings.when;
 import static org.hamcrest.Matchers.greaterThan;
 
 public class MasterPage extends Page {

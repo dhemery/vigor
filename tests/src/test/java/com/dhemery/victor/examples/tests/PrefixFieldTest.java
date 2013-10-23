@@ -3,7 +3,6 @@ package com.dhemery.victor.examples.tests;
 import com.dhemery.victor.examples.runner.OnMasterPage;
 import org.junit.Test;
 
-import static com.dhemery.victor.examples.application.ApplicationQueries.animating;
 import static com.dhemery.victor.examples.views.UILabelQueries.textColor;
 import static com.dhemery.victor.examples.views.UITextFieldQueries.editing;
 import static com.dhemery.victor.examples.views.UITextFieldQueries.text;

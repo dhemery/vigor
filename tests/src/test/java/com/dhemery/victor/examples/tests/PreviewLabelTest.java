@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import static com.dhemery.victor.examples.views.UILabelQueries.textColor;
 import static com.dhemery.victor.examples.views.UIViewQueries.backgroundColor;
-import static org.hamcrest.Matchers.is;
 
 public class PreviewLabelTest extends OnMasterPage {
     private static final String GREEN = "{\"green\":0,\"red\":0,\"alpha\":1,\"blue\":1}";

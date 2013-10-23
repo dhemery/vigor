@@ -33,7 +33,6 @@ public class OnVigorApp extends AssistedExpressive {
     public void startDevice() {
         String bundlePath = CONFIGURATION.requiredOption("victor.application.bundle.path");
         Victor victor = victor(bundlePath)
-                .withDeviceType("iPad (Retina)")
                 .withPublisher(CHANNEL)
                 .build();
         device = victor.device();

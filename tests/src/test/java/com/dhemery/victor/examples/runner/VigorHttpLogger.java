@@ -1,6 +1,9 @@
 package com.dhemery.victor.examples.runner;
 
-import com.dhemery.network.events.*;
+import com.dhemery.network.events.GetResponded;
+import com.dhemery.network.events.PutResponded;
+import com.dhemery.network.events.WillSendGet;
+import com.dhemery.network.events.WillSendPut;
 import com.dhemery.publishing.Subscribe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
