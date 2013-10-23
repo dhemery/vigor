@@ -11,10 +11,10 @@ import com.dhemery.publishing.MethodSubscriptionChannel;
 import com.dhemery.victor.IosApplication;
 import com.dhemery.victor.IosDevice;
 import com.dhemery.victor.Victor;
-import static com.dhemery.victor.build.FrankVictorBuilder.victor;
 import org.junit.After;
 import org.junit.Before;
 
+import static com.dhemery.victor.build.FrankVictorBuilder.victor;
 import static com.dhemery.victor.examples.application.ApplicationQueries.isRunning;
 
 public class OnVigorApp extends AssistedExpressive {
@@ -32,7 +32,10 @@ public class OnVigorApp extends AssistedExpressive {
     @Before
     public void startDevice() {
         String bundlePath = CONFIGURATION.requiredOption("victor.application.bundle.path");
-        Victor victor = victor(bundlePath).build();
+        Victor victor = victor(bundlePath)
+                .withDeviceType("iPad (Retina)")
+                .withPublisher(CHANNEL)
+                .build();
         device = victor.device();
         application = victor.application();
         device().start();
@@ -74,7 +77,6 @@ public class OnVigorApp extends AssistedExpressive {
         long pollingInterval = propertyAsLong("polling.interval");
         return new PublishingPollingAssistant(pollingTimeout, pollingInterval, CHANNEL);
     }
-
 
     private static long propertyAsLong(String propertyName) {
         String timeoutString = CONFIGURATION.requiredOption(propertyName);
