@@ -14,7 +14,7 @@ import com.dhemery.victor.Victor;
 import org.junit.After;
 import org.junit.Before;
 
-import static com.dhemery.victor.build.FrankVictorBuilder.victor;
+import static com.dhemery.victor.build.VictorBuilder.victorForApplicationBundle;
 import static com.dhemery.victor.examples.application.ApplicationQueries.isRunning;
 
 public class OnVigorApp extends AssistedExpressive {
@@ -32,7 +32,7 @@ public class OnVigorApp extends AssistedExpressive {
     @Before
     public void startDevice() {
         String bundlePath = CONFIGURATION.requiredOption("victor.application.bundle.path");
-        Victor victor = victor(bundlePath)
+        Victor victor = victorForApplicationBundle(bundlePath)
                 .withPublisher(CHANNEL)
                 .build();
         device = victor.device();
